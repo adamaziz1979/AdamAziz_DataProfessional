@@ -1,701 +1,375 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-AU">
 <head>
 <meta charset="UTF-8">
-<title>The Ask / The Evidence — Adam Aziz</title>
-<meta name="description" content="Eight demands facing senior data and analytics leadership, matched frame by frame to delivered evidence.">
-<style>
-  @font-face {
-    font-family: "Inter";
-    src: local("Inter");
-    font-weight: 400 800;
-  }
-
-  :root {
-    --bg: #f7f6f3;
-    --bg-alt: #efeee8;
-    --panel: #ffffff;
-    --border: #dcd9d0;
-    --text: #14161c;
-    --text-dim: #55596b;
-    --gold: #a9782f;
-    --gold-dim: #c9a25c;
-    --evidence: #1f8a76;
-    --evidence-bg: #e8f5f1;
-    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0b0e14;
-      --bg-alt: #10141c;
-      --panel: #151a24;
-      --border: #232a38;
-      --text: #e8ebf2;
-      --text-dim: #9aa4b8;
-      --gold: #d4a24e;
-      --gold-dim: #8a6c33;
-      --evidence: #7fd9c4;
-      --evidence-bg: #131f1c;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0b0e14;
-    --bg-alt: #10141c;
-    --panel: #151a24;
-    --border: #232a38;
-    --text: #e8ebf2;
-    --text-dim: #9aa4b8;
-    --gold: #d4a24e;
-    --gold-dim: #8a6c33;
-    --evidence: #7fd9c4;
-    --evidence-bg: #131f1c;
-  }
-  :root[data-theme="light"] {
-    --bg: #f7f6f3;
-    --bg-alt: #efeee8;
-    --panel: #ffffff;
-    --border: #dcd9d0;
-    --text: #14161c;
-    --text-dim: #55596b;
-    --gold: #a9782f;
-    --gold-dim: #c9a25c;
-    --evidence: #1f8a76;
-    --evidence-bg: #e8f5f1;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
-
-  /* MASTHEAD */
-  .masthead {
-    padding: 72px 0 56px;
-    border-bottom: 1px solid var(--border);
-  }
-  .slate {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
-  }
-  .slate .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--evidence);
-    box-shadow: 0 0 0 3px var(--evidence-bg);
-  }
-  .masthead h1 {
-    font-size: clamp(28px, 4.6vw, 44px);
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    max-width: 720px;
-    text-wrap: balance;
-  }
-  .masthead p {
-    margin-top: 18px;
-    max-width: 620px;
-    color: var(--text-dim);
-    font-size: 16px;
-  }
-  .legend {
-    margin-top: 32px;
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-    font-size: 12.5px;
-    color: var(--text-dim);
-  }
-  .legend-item { display: flex; align-items: center; gap: 9px; font-family: var(--mono); }
-  .legend-chip { width: 20px; height: 3px; border-radius: 2px; }
-  .legend-chip.ask { background: var(--gold); }
-  .legend-chip.ev { background: var(--evidence); }
-
-  /* FILMSTRIP */
-  .strip {
-    position: relative;
-    padding: 8px 0 96px;
-  }
-  .spine {
-    position: absolute;
-    left: 20px;
-    top: 0;
-    bottom: 40px;
-    width: 1px;
-    background: repeating-linear-gradient(
-      to bottom,
-      var(--border) 0px, var(--border) 6px,
-      transparent 6px, transparent 16px
-    );
-  }
-  @media (max-width: 640px) { .spine { display: none; } }
-
-  .frame {
-    position: relative;
-    margin: 56px 0 0 0;
-    padding-left: 56px;
-  }
-  @media (max-width: 640px) { .frame { padding-left: 0; } }
-
-  .sprocket {
-    position: absolute;
-    left: 12px;
-    top: 6px;
-    width: 17px;
-    height: 17px;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    background: var(--bg);
-  }
-  @media (max-width: 640px) { .sprocket { display: none; } }
-
-  .frame-card {
-    position: relative;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    background: var(--panel);
-    padding: 30px 32px 28px;
-  }
-
-  /* corner brackets — viewfinder motif */
-  .frame-card::before,
-  .frame-card::after,
-  .bracket-tr,
-  .bracket-br {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-color: var(--gold-dim);
-    border-style: solid;
-    border-width: 0;
-  }
-  .frame-card::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
-  .frame-card::after { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
-  .bracket-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
-  .bracket-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
-
-  .frame-meta {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 11.5px;
-    letter-spacing: 0.08em;
-    color: var(--text-dim);
-    margin-bottom: 18px;
-  }
-  .frame-meta .fnum { color: var(--gold); font-weight: 600; }
-
-  .track-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .track-label.ask { color: var(--gold); }
-  .track-label.ev { color: var(--evidence); }
-
-  .ask-text {
-    font-size: 19.5px;
-    font-weight: 700;
-    line-height: 1.32;
-    letter-spacing: -0.005em;
-    max-width: 620px;
-    text-wrap: balance;
-  }
-
-  .bridge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 20px 0;
-    color: var(--text-dim);
-  }
-  .bridge::before {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-  .bridge span {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
-  }
-  .bridge::after {
-    content: "\2192";
-    font-family: var(--mono);
-    color: var(--gold-dim);
-  }
-
-  .evidence-block {
-    background: var(--evidence-bg);
-    border: 1px solid color-mix(in srgb, var(--evidence) 35%, var(--border));
-    border-radius: 3px;
-    padding: 18px 20px;
-  }
-
-  .ev-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-    margin-bottom: 10px;
-  }
-  .ev-stat {
-    font-family: var(--mono);
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--evidence);
-  }
-  .ev-stat small {
-    display: block;
-    font-family: var(--sans);
-    font-weight: 500;
-    font-size: 11.5px;
-    color: var(--text-dim);
-    letter-spacing: 0;
-    margin-top: 3px;
-  }
-
-  .ev-text {
-    font-size: 14.5px;
-    color: var(--text-dim);
-    max-width: 640px;
-  }
-  .ev-text strong { color: var(--text); font-weight: 600; }
-
-  .flag {
-    margin-top: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--text-dim);
-    border: 1px dashed var(--border);
-    border-radius: 3px;
-    padding: 5px 10px;
-  }
-  .flag::before { content: "\26A0"; color: var(--gold-dim); }
-
-  /* PITCH / DIAGNOSTIC */
-  .pitch {
-    padding: 8px 0 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .pitch-head { max-width: 640px; margin-bottom: 8px; }
-  .pitch-head h2 {
-    font-size: clamp(21px, 2.8vw, 27px);
-    font-weight: 700;
-    letter-spacing: -0.005em;
-    text-wrap: balance;
-    margin-top: 8px;
-  }
-  .pitch-head p { margin-top: 12px; color: var(--text-dim); font-size: 14.5px; }
-
-  .pitch-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 14px;
-    margin: 36px 0 72px;
-  }
-
-  .pitch-card {
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    background: var(--panel);
-    padding: 24px 24px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .pitch-meta {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--gold-dim);
-  }
-  .pitch-meta .qnum { color: var(--gold); font-weight: 600; }
-
-  .pitch-q {
-    font-size: 13.5px;
-    font-style: italic;
-    color: var(--text-dim);
-    line-height: 1.45;
-    padding-left: 14px;
-    border-left: 2px solid var(--border);
-  }
-
-  .pitch-line {
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.28;
-    letter-spacing: -0.005em;
-    text-wrap: balance;
-  }
-
-  .pitch-body { font-size: 14px; color: var(--text-dim); }
-  .pitch-body strong { color: var(--text); font-weight: 600; }
-
-  .pitch-proof {
-    margin-top: auto;
-    padding-top: 12px;
-    border-top: 1px dashed var(--border);
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .pitch-proof a {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.06em;
-    color: var(--evidence);
-    text-decoration: none;
-    border: 1px solid color-mix(in srgb, var(--evidence) 40%, var(--border));
-    border-radius: 100px;
-    padding: 4px 10px;
-    transition: background 0.15s;
-  }
-  .pitch-proof a:hover { background: var(--evidence-bg); }
-
-  .pitch-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--text-dim);
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.14em;
-    margin: 0 0 8px;
-  }
-  .pitch-divider::before, .pitch-divider::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* CLOSING */
-  .close {
-    padding: 8px 0 88px;
-  }
-  .close-card {
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 34px 32px;
-    background: var(--bg-alt);
-  }
-  .close-card .track-label { color: var(--gold); }
-  .close-card h2 {
-    font-size: clamp(20px, 2.6vw, 26px);
-    font-weight: 700;
-    letter-spacing: -0.005em;
-    max-width: 640px;
-    text-wrap: balance;
-    margin: 10px 0 14px;
-  }
-  .close-card p { color: var(--text-dim); font-size: 15px; max-width: 620px; }
-
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 0 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--text-dim);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .frame-card { animation: rise 0.5s ease both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
-    @keyframes rise { from { opacity: 0.35; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Aziz — Data & Analytics Leadership</title>
+<meta name="description" content="Adam Aziz — data and analytics leader. Trusted executive KPI metrics, AI-enabled decisioning, commercial insights, resilient data foundations, team leadership, enterprise analytics modernisation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="wrap">
-  <header class="masthead">
-    <div class="slate"><span class="dot"></span>CAPABILITY BRIEF — SENIOR DATA &amp; ANALYTICS LEADERSHIP, 2026</div>
-    <h1>Eight demands. Eight times delivered.</h1>
-    <p>This is what the function is actually expected to hold: trusted numbers, a stack that survives its own growth, an AI story with a real return, a team that moves without being pushed. Set frame by frame against what's already been delivered.</p>
-    <div class="legend">
-      <div class="legend-item"><span class="legend-chip ask"></span>THE ASK — what the function is expected to hold</div>
-      <div class="legend-item"><span class="legend-chip ev"></span>THE EVIDENCE — what's already been delivered</div>
-    </div>
-  </header>
-
-  <section class="pitch">
-    <div class="pitch-head">
-      <div class="pitch-divider">SELF-CHECK — EIGHT QUESTIONS, ONE PATTERN</div>
-      <h2>If you're nodding at more than one of these, keep reading.</h2>
-      <p>Not rhetorical. Each one is a real diagnostic, and each one has a specific, evidenced answer waiting in the reel below — click through to the proof.</p>
-    </div>
-
-    <div class="pitch-grid">
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q1 / 8</span><span>TRUST</span></div>
-        <p class="pitch-q">"If I asked where you stand, where you're headed, and what it'll cost to close the gap — would your data give me one answer, or three?"</p>
-        <p class="pitch-line">One number. Three questions answered.</p>
-        <p class="pitch-body">Where you are. Where you're headed. What it costs to close the gap. If your KPIs can't answer all three without a caveat, they're not metrics yet, they're <strong>opinions with a chart attached.</strong></p>
-        <div class="pitch-proof"><a href="#frame-01">→ Exhibit 01</a><a href="#frame-07">→ Exhibit 07</a></div>
-      </div>
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q2 / 8</span><span>TEAM</span></div>
-        <p class="pitch-q">"You've hired the talent. Who's pointing all of it at the same target?"</p>
-        <p class="pitch-line">Talent isn't the gap. Direction is.</p>
-        <p class="pitch-body">Skilled analysts, scientists and engineers pointed at different priorities cost more than an empty seat. <strong>A led team compounds. An unled one just gets busier.</strong></p>
-        <div class="pitch-proof"><a href="#frame-06">→ Exhibit 06</a></div>
-      </div>
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q3 / 8</span><span>SELF-SERVICE</span></div>
-        <p class="pitch-q">"If you needed an answer from your data right now, could you get it yourself — or would you have to ask first?"</p>
-        <p class="pitch-line">Confidence shouldn't need a ticket number.</p>
-        <p class="pitch-body">If every answer starts with "let me get back to you", that's not self-service. It's <strong>a queue with a friendlier name.</strong></p>
-        <div class="pitch-proof"><a href="#frame-02">→ Exhibit 02</a></div>
-      </div>
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q4 / 8</span><span>TRUST GAP</span></div>
-        <p class="pitch-q">"When your data team hands you their next recommendation — are you agreeing because you understand it, or because you have no way to check it?"</p>
-        <p class="pitch-line">If you can only nod along, that's not a briefing. That's a black box.</p>
-        <p class="pitch-body">A real data trust gap doesn't close with another dashboard. It closes with <strong>definitions the leader in the room understands as well as the analyst who built them.</strong></p>
-        <div class="pitch-proof"><a href="#frame-01">→ Exhibit 01</a><a href="#frame-03">→ Exhibit 03</a></div>
-      </div>
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q5 / 8</span><span>FOUNDATIONS</span></div>
-        <p class="pitch-q">"Would your data stack survive the business doubling in size tomorrow?"</p>
-        <p class="pitch-line">Future-proof isn't a word on a vendor's slide.</p>
-        <p class="pitch-body">It's a warehouse that still holds up after the business triples in size. <strong>Modernisation that breaks under its own growth wasn't modernisation — it was a rebuild with better branding.</strong></p>
-        <div class="pitch-proof"><a href="#frame-04">→ Exhibit 04</a></div>
-      </div>
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q6 / 8</span><span>OPERATING MODEL</span></div>
-        <p class="pitch-q">"Or is the newest tool in your stack still running on a five-year-old way of working?"</p>
-        <p class="pitch-line">New platform, old habits, same bottleneck.</p>
-        <p class="pitch-body">Swapping tools without changing how decisions get made and owned doesn't remove the bottleneck. <strong>It just moves it to a more expensive address.</strong></p>
-        <div class="pitch-proof"><a href="#frame-04">→ Exhibit 04</a><a href="#frame-08">→ Exhibit 08</a></div>
-      </div>
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q7 / 8</span><span>APPLIED AI</span></div>
-        <p class="pitch-q">"Could you point to one decision your AI investment has actually changed?"</p>
-        <p class="pitch-line">Not return on investment. Return on intelligence.</p>
-        <p class="pitch-body">AI that doesn't change a decision is a demo, not a result. The right question was never "do we have AI" — <strong>it's what did it actually make faster, safer, or cheaper.</strong></p>
-        <div class="pitch-proof"><a href="#frame-05">→ Exhibit 05</a></div>
-      </div>
-
-      <div class="pitch-card">
-        <div class="pitch-meta"><span class="qnum">Q8 / 8</span><span>COMMERCIAL</span></div>
-        <p class="pitch-q">"If your analyst walked into the boardroom tomorrow, could they make the business case themselves, or would they need you to translate it first?"</p>
-        <p class="pitch-line">A dashboard is not a decision. A business case is.</p>
-        <p class="pitch-body">$11M+ in investment decisions got approved because the analysis was translated into a case leadership could act on, <strong>not a chart they had to interpret themselves.</strong></p>
-        <div class="pitch-proof"><a href="#frame-07">→ Exhibit 07</a></div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="strip">
-    <div class="spine"></div>
-
-    <!-- FRAME 01 -->
-    <div class="frame" id="frame-01">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 01 / 08</span><span>TIMECODE 00:01 — TRUST</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">One trusted number. No more dueling dashboards.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">62%&nbsp;&rarr;&nbsp;100%<small>KPI consistency, 27 service KPIs</small></div>
-            <div class="ev-stat">70+&nbsp;&rarr;&nbsp;46<small>duplicate dashboards removed</small></div>
-            <div class="ev-stat">0<small>KPI escalations/month, down from 3&ndash;5</small></div>
-          </div>
-          <p class="ev-text">Rebuilt fragmented reporting into <strong>single-source-of-truth views</strong> that every business area references — not a new dashboard, a new definition of the truth.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAME 02 -->
-    <div class="frame" id="frame-02">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 02 / 08</span><span>TIMECODE 00:02 — SELF-SERVICE</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">Put the answer in the leader's hands, not on the data team's to-do list.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">+326%<small>self-service users, 46 &rarr; 196</small></div>
-            <div class="ev-stat">+137%<small>monthly queries, 8.1K &rarr; 19.2K</small></div>
-            <div class="ev-stat">&minus;33%<small>analyst request workload</small></div>
-          </div>
-          <p class="ev-text">Introduced a governed self-service layer built on the same verified data used for executive KPI dashboards — <strong>adoption grew without trust being spent to get it.</strong></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAME 03 -->
-    <div class="frame" id="frame-03">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 03 / 08</span><span>TIMECODE 00:03 — DEFINITIONS</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">Make "what does this metric actually mean" a solved problem, not a standing meeting.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">1<small>enforced definition per KPI, no report-specific logic</small></div>
-          </div>
-          <p class="ev-text">Centralised metric and dimension logic into governed semantic views — <strong>cataloguing, lineage and data quality standards embedded through the reporting layer itself</strong>, in an environment with no dedicated governance team.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAME 04 -->
-    <div class="frame" id="frame-04">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 04 / 08</span><span>TIMECODE 00:04 — MODERNISATION</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">Modernise the stack without a single dropped stakeholder.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">&minus;42%<small>warehouse volume, 355 &rarr; 205 tables/views</small></div>
-            <div class="ev-stat">517.2M<small>stagnant rows removed</small></div>
-            <div class="ev-stat">1&ndash;2/qtr&nbsp;&rarr;&nbsp;0<small>warehouse disruptions</small></div>
-          </div>
-          <p class="ev-text">Migrated ingestion and access patterns onto <strong>Snowflake/DBT with secure data-sharing</strong>, protecting reliability for 200+ stakeholders through the changeover.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAME 05 -->
-    <div class="frame" id="frame-05">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 05 / 08</span><span>TIMECODE 00:05 — APPLIED AI</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">Ship AI that changes a decision, not a slide deck.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">½ day&nbsp;&rarr;&nbsp;instant<small>case-spike analysis time</small></div>
-            <div class="ev-stat">$M+<small>annual asset savings, ML refresh model</small></div>
-          </div>
-          <p class="ev-text">Built an AI case-summarisation/Q&amp;A assistant and an <strong>unsupervised anomaly-detection model</strong> for device refresh decisioning — chosen deliberately over GenAI where reliability mattered more than novelty.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAME 06 -->
-    <div class="frame" id="frame-06">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 06 / 08</span><span>TIMECODE 00:06 — TEAM</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">Lead people, and partners, you don't fully control, toward outcomes you fully own.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">2.9x<small>value negotiated on major analytics vendor contract</small></div>
-          </div>
-          <p class="ev-text">Led a global, multidisciplinary team of analysts, data scientists and engineers, plus <strong>direct commercial negotiation</strong> holding a vendor to defined value and quality terms.</p>
-          <div class="flag">Thinnest evidence area — day-to-day offshore delivery management is adjacent, not identical, to this</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAME 07 -->
-    <div class="frame" id="frame-07">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 07 / 08</span><span>TIMECODE 00:07 — COMMERCIAL</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">Every number ends in a decision, not a dashboard.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">$11M+<small>investment decisions supported by business value cases</small></div>
-            <div class="ev-stat">$1M<small>avoided global asset management charges</small></div>
-          </div>
-          <p class="ev-text">Carried analysis through to the commercial call itself — <strong>not the report, the decision it produced.</strong></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAME 08 -->
-    <div class="frame" id="frame-08">
-      <div class="sprocket"></div>
-      <div class="frame-card">
-        <div class="bracket-tr"></div><div class="bracket-br"></div>
-        <div class="frame-meta"><span class="fnum">EXHIBIT 08 / 08</span><span>TIMECODE 00:08 — OWNERSHIP</span></div>
-        <div class="track-label ask">The ask</div>
-        <p class="ask-text">Own the outcome when nobody's written the playbook yet.</p>
-        <div class="bridge"><span>DELIVERED</span></div>
-        <div class="evidence-block">
-          <div class="ev-stats">
-            <div class="ev-stat">12+ yrs<small>building a function that didn't exist before</small></div>
-          </div>
-          <p class="ev-text">Built the foundations of an enterprise analytics capability from a fragmented reporting function, in an environment with <strong>no formal governance model to lean on</strong> — the ambiguity was the job, not an obstacle to it.</p>
-        </div>
-      </div>
-    </div>
-
+<header class="nav">
+  <div class="wrap">
+    <div class="nav-name">ADAM AZIZ <span>/</span> DATA &amp; ANALYTICS</div>
+    <ul class="nav-links">
+      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#track-record">Track Record</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </div>
+</header>
 
-  <div class="close">
-    <div class="close-card">
-      <div class="track-label">The read</div>
-      <h2>Eight different demands. One operator built for all of them.</h2>
-      <p>None of this is about maintaining what already works. It's a build-or-turnaround mandate every time — fragmented data, unclear ownership, or a function that doesn't exist yet. That's the starting condition this track record was built to answer.</p>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Sydney, NSW — Open to enterprise data &amp; AI leadership roles</div>
+    <h1>Turning fragmented data into trusted, AI-enabled decisions — at enterprise scale.</h1>
+    <p class="lede">12+ years building and leading data and analytics capability at Cisco. Evidence-led, not adjective-led: every claim below is backed by a number, a delivered outcome, or both.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="assets/Adam-Aziz-Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/adamaziz1979/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="#capabilities">See the work ↓</a>
     </div>
   </div>
+</section>
 
-  <footer>
-    <span>Adam Aziz — Data &amp; Analytics Leadership</span>
-    <span>Capability brief, 27-Jul-2026 · self-check added 29-Jul-2026</span>
-  </footer>
-</div>
+<section class="stats" aria-label="Track record summary">
+  <div class="wrap">
+    <div class="stat">
+      <div class="num">$11M+</div>
+      <div class="label">Investment decisions supported</div>
+    </div>
+    <div class="stat">
+      <div class="num">326%</div>
+      <div class="label">Self-service analytics adoption growth</div>
+    </div>
+    <div class="stat">
+      <div class="num">42%</div>
+      <div class="label">Data warehouse volume reduction</div>
+    </div>
+    <div class="stat">
+      <div class="num">62%→100%</div>
+      <div class="label">Enterprise KPI consistency, 27 KPIs</div>
+    </div>
+  </div>
+</section>
 
+<section id="capabilities">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Capabilities</div>
+      <h2>Six areas where I've delivered, not just advised</h2>
+      <p>Click any capability for the situation, task, action and result behind it.</p>
+    </div>
+
+    <div class="pillars">
+
+      <div class="pillar">
+        <div class="pillar-head" data-toggle>
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Building trusted executive KPI metrics</div>
+          <div class="pillar-toggle">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-body-inner">
+            <div class="star-grid">
+              <div class="star-label">Situation</div>
+              <div class="star-text">27 high-level service KPIs were only <strong>62% consistent</strong>, spread across <strong>70+ duplicate Power BI dashboards</strong>, generating 3-5 leadership escalations a month.</div>
+              <div class="star-label">Task</div>
+              <div class="star-text">Rebuild a single source of truth leadership could act on without re-checking the numbers.</div>
+              <div class="star-label">Action</div>
+              <div class="star-text">Consolidated fragmented source tables, duplicate dashboard content and semantic-layer definitions into verified single-source-of-truth datasets, executive KPI dashboards and data catalogue standards.</div>
+              <div class="star-label">Result</div>
+              <div class="star-text">KPI consistency <strong>62% → 100%</strong>, duplicate dashboards <strong>70+ → 46</strong>, escalations <strong>cut to zero</strong>, Power BI workspace health <strong>60% → 93%</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-head" data-toggle>
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">AI-enabled decisioning</div>
+          <div class="pillar-toggle">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-body-inner">
+            <div class="star-grid">
+              <div class="star-label">Situation</div>
+              <div class="star-text">Support and engineering teams were reactive — case spikes took up to <strong>half a day</strong> to analyse manually before anyone could act.</div>
+              <div class="star-label">Task</div>
+              <div class="star-text">Put practical, working AI in front of the teams who needed faster insight, not another AI strategy deck.</div>
+              <div class="star-label">Action</div>
+              <div class="star-text">Introduced practical AI-enabled analytics including AI Assistants for support case summarisation and Q&amp;A, service KPI AI-highlights and AI-assisted dashboard creation. Separately, led an AI-based laptop performance methodology using device telemetry to classify usage and guide refresh decisions.</div>
+              <div class="star-label">Result</div>
+              <div class="star-text">Case-spike analysis cut from <strong>half a day to near-instant</strong>; shifted teams from reactive escalation to proactive issue management; AI-based refresh methodology supported <strong>millions of dollars</strong> in potential annual asset savings.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-head" data-toggle>
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Commercial insights that turn into action</div>
+          <div class="pillar-toggle">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-body-inner">
+            <div class="star-grid">
+              <div class="star-label">Situation</div>
+              <div class="star-text">IT investment decisions and vendor contracts lacked a clear, defensible value case for senior leaders to act on.</div>
+              <div class="star-label">Task</div>
+              <div class="star-text">Turn analysis into commercial cases leadership could approve with confidence.</div>
+              <div class="star-label">Action</div>
+              <div class="star-text">Developed business value cases for IT programs; built the commercial case for a ThoughtSpot capacity uplift, comparing a $70K/250M-row option against a $40K/50M-row option on cost-per-row and capacity.</div>
+              <div class="star-label">Result</div>
+              <div class="star-text"><strong>$11M+</strong> in investment decisions supported; the recommended ThoughtSpot option delivered <strong>2.86x better value</strong> at <strong>65% lower cost per million rows</strong>; plus <strong>$4.3M</strong> in productivity savings and <strong>$1M</strong> in avoided asset charges elsewhere.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-head" data-toggle>
+          <div class="pillar-num">04</div>
+          <div class="pillar-title">Resilient data foundations</div>
+          <div class="pillar-toggle">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-body-inner">
+            <div class="star-grid">
+              <div class="star-label">Situation</div>
+              <div class="star-text">A bloated warehouse — 355 tables/views, 517.2M stagnant rows — with external Snowflake access causing 1-2 disruptions a quarter.</div>
+              <div class="star-label">Task</div>
+              <div class="star-text">Modernise the platform without interrupting the 200+ stakeholders who relied on it.</div>
+              <div class="star-label">Action</div>
+              <div class="star-text">Cut unused and end-of-life datasets, replaced external Snowflake access with secure AWS S3 data sharing, and strengthened Snowflake ingestion, DBT migration, data quality and lineage practices.</div>
+              <div class="star-label">Result</div>
+              <div class="star-text">Warehouse volume down <strong>42%</strong> (355 → 205 tables/views), <strong>517.2M</strong> stagnant rows removed, disruptions <strong>1-2/quarter → zero</strong>, reliability protected for <strong>200+ stakeholders</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-head" data-toggle>
+          <div class="pillar-num">05</div>
+          <div class="pillar-title">Building, developing and leading powerful data teams</div>
+          <div class="pillar-toggle">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-body-inner">
+            <div class="star-grid">
+              <div class="star-label">Situation</div>
+              <div class="star-text">Analytics effort was fragmented across IT with no shared capability, community or delivery standard.</div>
+              <div class="star-label">Task</div>
+              <div class="star-text">Build a data and analytics capability — and the people in it — from the ground up.</div>
+              <div class="star-label">Action</div>
+              <div class="star-text">Built the foundations for the Data Solutions &amp; Insights capability; led a multi-disciplinary team of analysts, data scientists and engineers; built an analyst community across IT through quarterly show-and-share sessions.</div>
+              <div class="star-label">Result</div>
+              <div class="star-text">Grew a fragmented reporting function into a multi-year, AI-enabled analytics capability. Recognised as <strong>2x IT Leadership Program Host</strong> at Cisco Live (2024-25) and <strong>ANZ Mentor of the Quarter</strong> (Apr 2023).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-head" data-toggle>
+          <div class="pillar-num">06</div>
+          <div class="pillar-title">Enterprise analytics modernisation</div>
+          <div class="pillar-toggle">+</div>
+        </div>
+        <div class="pillar-body">
+          <div class="pillar-body-inner">
+            <div class="star-grid">
+              <div class="star-label">Situation</div>
+              <div class="star-text">A legacy, reporting-only function with low self-service adoption — 46 users running 8.1K queries a month.</div>
+              <div class="star-label">Task</div>
+              <div class="star-text">Transform reporting delivery into scalable self-service and AI-driven decision-making, without losing data trust along the way.</div>
+              <div class="star-label">Action</div>
+              <div class="star-text">Introduced ThoughtSpot as a self-service analytics capability, expanded reporting and BI platforms, and modernised the underlying Snowflake/DBT stack, cataloguing, lineage and governance.</div>
+              <div class="star-label">Result</div>
+              <div class="star-text">Adoption up <strong>326%</strong> (46 → 196 users), query volume up <strong>137%</strong> (8.1K → 19.2K/month), data request workload down <strong>33%</strong> — an estimated <strong>738 hours and $68.9K a year</strong> freed up for higher-value work.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="track-record">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Track record</div>
+      <h2>12+ years, Cisco (Jul 2012 – Jul 2026)</h2>
+      <p>Data Solutions &amp; Insights Lead / Product Owner (2019–2026) → Lead Analyst (2017–2019) → Senior Business/Data Analyst (2012–2017). Earlier: Data &amp; Reporting Analyst, Dept. of Innovation, Science &amp; Research, Canberra — analysed research data from 42 universities supporting allocation of $1.64B in government research block grants.</p>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Timeline <span class="timeline-badge">WIP</span></div>
+      <h2>DSI Achievements Timeline</h2>
+      <p>Three years turning a reporting function into an AI-enabled decisioning capability — foundations, then AI-assisted analytics, then predictive and persona-based decisioning.</p>
+    </div>
+
+    <div class="tl-legend">
+      <div class="tl-legend-item"><span class="tl-dot tl-dot--foundations"></span>Analytics &amp; data foundations</div>
+      <div class="tl-legend-item"><span class="tl-dot tl-dot--ai"></span>AI-enabled analytics</div>
+      <div class="tl-legend-item"><span class="tl-dot tl-dot--pbr"></span>Performance-based refresh &amp; decisioning</div>
+    </div>
+
+    <div class="tl-track">
+      <div class="tl-line"></div>
+
+      <div class="tl-card tl-card--foundations">
+        <div class="tl-quarter">FY23 Q2–Q4</div>
+        <h4>Foundation, KPI Reporting &amp; Early Self-Service</h4>
+        <p>ThoughtSpot, KPI metrics, data integration, security, asset reporting and operational analytics. Established DSI as a central analytics capability with trusted reporting and early self-service.</p>
+      </div>
+
+      <div class="tl-card tl-card--foundations">
+        <div class="tl-quarter">FY24 Q1–Q2</div>
+        <h4>Trusted Data Foundations &amp; Governance</h4>
+        <p>Snowflake ingestion, governance, Data Diet, DBT migration and Business Objects replacement. Shifted DSI beyond reporting into a stronger data product and operations capability.</p>
+      </div>
+
+      <div class="tl-card tl-card--foundations">
+        <div class="tl-quarter">FY24 Q3–Q4</div>
+        <h4>Operational Excellence &amp; Scale</h4>
+        <p>Power BI workspace audit, tripwires, DBT ops integration, ThoughtSpot expansion and Snowflake resiliency. Improved reliability, scalability and adoption while reducing operational risk.</p>
+      </div>
+
+      <div class="tl-card tl-card--foundations">
+        <div class="tl-quarter">FY25 Q1–Q2</div>
+        <h4>KPI Maturity &amp; Platform Simplification</h4>
+        <p>KPI development, OS compliance, Mac data collection, dashboard improvements and GCP disconnect. Strengthened DSI as a trusted decision-support function with simpler data environments.</p>
+      </div>
+
+      <div class="tl-card tl-card--ai">
+        <div class="tl-quarter">FY25 Q4</div>
+        <h4>Automation &amp; AI-Assisted Analytics</h4>
+        <p>Aisera integration, Insights Center automation, AI case summaries and data quality analysis. Started the transition from traditional BI toward AI-assisted analytics and automated insight generation.</p>
+      </div>
+
+      <div class="tl-card tl-card--ai">
+        <div class="tl-quarter">FY26 Q1</div>
+        <h4>AI Decision Support &amp; Device Intelligence</h4>
+        <p>DSI Assistant, Support Case Q&amp;A, monthly summarisation, Device Performance Score and PBR reasoning. Created the foundation for AI-enabled decision support and proactive device insights.</p>
+      </div>
+
+      <div class="tl-card tl-card--pbr">
+        <div class="tl-quarter">FY26 Q2</div>
+        <h4>Predictive &amp; Prescriptive Analytics</h4>
+        <p>PBR recommendations, forecasting, app utilisation, Click2Chat analytics and Snowflake Stage. Expanded into predictive and prescriptive analytics supporting refresh and stock decisions.</p>
+      </div>
+
+      <div class="tl-card tl-card--pbr">
+        <div class="tl-quarter">FY26 Q3</div>
+        <h4>AI Scale, Resiliency &amp; PBR Expansion</h4>
+        <p>KPI AI summaries, PBR app utilisation, DBT Docs discovery, Fleet migration and AI dashboard creation. Matured AI and PBR while improving lineage, resiliency, observability and speed to insight.</p>
+      </div>
+
+      <div class="tl-card tl-card--pbr">
+        <div class="tl-quarter">FY26 Q4</div>
+        <h4>Persona-Based Decisioning &amp; AI-Enabled BI</h4>
+        <p>PBR Personas, Splunk observability, forecasting, app utilisation expansion and AI-enabled BI. Moved toward richer persona-based decisioning combining performance, usage, forecasting and AI.</p>
+      </div>
+
+    </div>
+
+    <p class="tl-source">Originally published as a standalone page ↗ <a href="https://adamaziz1979.github.io/DSI_Achievements_Timeline/" target="_blank" rel="noopener">adamaziz1979.github.io/DSI_Achievements_Timeline</a></p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Skills</div>
+      <h2>What I bring day to day</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skills-group">
+        <h4>Leadership &amp; strategy</h4>
+        <ul>
+          <li>Data &amp; analytics strategy</li>
+          <li>People leadership</li>
+          <li>Roadmap prioritisation</li>
+          <li>Stakeholder engagement</li>
+          <li>Executive storytelling</li>
+        </ul>
+      </div>
+      <div class="skills-group">
+        <h4>Insights &amp; decisioning</h4>
+        <ul>
+          <li>Insights-led decisioning</li>
+          <li>KPI frameworks</li>
+          <li>Forecasting &amp; trend analysis</li>
+          <li>Predictive / prescriptive decisioning</li>
+        </ul>
+      </div>
+      <div class="skills-group">
+        <h4>Data product &amp; enablement</h4>
+        <ul>
+          <li>Data product ownership</li>
+          <li>Agile backlog management</li>
+          <li>Self-service analytics</li>
+          <li>Jira Cloud / Align</li>
+        </ul>
+      </div>
+      <div class="skills-group">
+        <h4>AI, governance &amp; platforms</h4>
+        <ul>
+          <li>Prompt engineering &amp; tokenisation</li>
+          <li>AI-enhanced analytics &amp; AI assistants</li>
+          <li>Data quality, privacy &amp; governance</li>
+          <li>Snowflake / DBT — SQL / Python</li>
+          <li>Power BI / ThoughtSpot / Tableau</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="certs">
+      <h4>Certifications</h4>
+      <div class="cert-list">
+        <span class="cert-chip">Generative AI with Snowflake — Snowflake, 2025</span>
+        <span class="cert-chip">Agentic AI and AI Agents for Leaders — Vanderbilt, 2025</span>
+        <span class="cert-chip">Enterprise Design Thinking Practitioner — IBM, 2025</span>
+        <span class="cert-chip">Certified SAFe® 6 Product Owner/Product Manager — 2024</span>
+        <span class="cert-chip">Python for Data Science and AI — IBM, 2021</span>
+        <span class="cert-chip">Data Science for Leaders — NC State, 2021</span>
+        <span class="cert-chip">BA, Visual Arts — ANU, 2001</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="section-tag">Contact</div>
+    <h2>Open to Head of Data / Head of Data &amp; Insights / Director of Data &amp; Analytics roles — including contract.</h2>
+    <p class="lede">Based in Sydney. Prefer commercially driven, operational businesses with a clear mandate to turn fragmented data and reporting into a trusted enterprise capability.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="mailto:adamaziz1979@gmail.com">adamaziz1979@gmail.com</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/adamaziz1979/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="assets/Adam-Aziz-Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+    </div>
+    <div class="footer-meta">
+      <span>Adam Aziz — Data &amp; Analytics Professional</span>
+      <span>Sydney, NSW, Australia</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
