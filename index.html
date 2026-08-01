@@ -7,13 +7,488 @@
 <meta name="description" content="Adam Aziz — data and analytics leader. Trusted executive KPI metrics, AI-enabled decisioning, commercial insights, resilient data foundations, team leadership, enterprise analytics modernisation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --bg: #0b0e14;
+    --bg-alt: #10141c;
+    --panel: #151a24;
+    --border: #232a38;
+    --text: #e8ebf2;
+    --text-dim: #9aa4b8;
+    --accent: #d4a24e;
+    --accent-dim: #8a6c33;
+    --white-bg: #f7f6f3;
+    --white-text: #14161c;
+    --white-dim: #55596b;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --radius: 4px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* NAV */
+  header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 14, 20, 0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-name {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-size: 15px;
+  }
+
+  .nav-name span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .nav-links a { text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-links li:last-child a {
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: var(--radius);
+  }
+  .nav-links li:last-child a:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.12;
+    max-width: 780px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero p.lede {
+    margin-top: 22px;
+    max-width: 640px;
+    font-size: 17px;
+    color: var(--text-dim);
+  }
+
+  .hero-ctas {
+    margin-top: 36px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-primary { background: var(--accent); color: #14161c; }
+  .btn-primary:hover { opacity: 0.92; }
+
+  .btn-ghost { border-color: var(--border); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* STAT STRIP */
+  .stats {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+
+  .stats .wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .stat .num {
+    font-family: var(--mono);
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat .label {
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 720px) {
+    .stats .wrap { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* SECTION HEADS */
+  section { padding: 88px 0; border-bottom: 1px solid var(--border); }
+
+  .section-head { max-width: 620px; margin-bottom: 48px; }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .section-head p { margin-top: 14px; color: var(--text-dim); font-size: 15.5px; }
+
+  /* PILLARS */
+  .pillars { display: flex; flex-direction: column; gap: 12px; }
+
+  .pillar {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+    overflow: hidden;
+  }
+
+  .pillar-head {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .pillar-num {
+    font-family: var(--mono);
+    color: var(--accent-dim);
+    font-size: 13px;
+    width: 26px;
+    flex-shrink: 0;
+  }
+
+  .pillar-title { font-weight: 600; font-size: 16.5px; flex: 1; }
+
+  .pillar-toggle {
+    font-family: var(--mono);
+    color: var(--text-dim);
+    font-size: 18px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .pillar.open .pillar-toggle { transform: rotate(45deg); color: var(--accent); }
+
+  .pillar-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border-top: 1px solid transparent;
+  }
+
+  .pillar-body-inner { padding: 26px 24px 30px 70px; }
+
+  .star-grid {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    row-gap: 14px;
+    column-gap: 18px;
+    font-size: 14.5px;
+  }
+
+  .star-label {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+
+  .star-text { color: var(--text-dim); }
+  .star-text strong { color: var(--text); font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .pillar-body-inner { padding: 22px 20px 26px 20px; }
+    .star-grid { grid-template-columns: 1fr; row-gap: 4px; }
+    .star-label { margin-top: 10px; }
+  }
+
+  /* TIMELINE */
+  .timeline-badge {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  :root {
+    --tl-foundations: #6ea8ff;
+    --tl-ai: #d4a24e;
+    --tl-pbr: #7fd9c4;
+  }
+
+  .tl-legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+
+  .tl-legend-item { display: flex; align-items: center; gap: 8px; }
+
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .tl-dot--foundations { background: var(--tl-foundations); }
+  .tl-dot--ai { background: var(--tl-ai); }
+  .tl-dot--pbr { background: var(--tl-pbr); }
+
+  .tl-track {
+    position: relative;
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding: 28px 4px 20px;
+    scroll-snap-type: x proximity;
+  }
+
+  .tl-track::-webkit-scrollbar { height: 6px; }
+  .tl-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .tl-line {
+    position: absolute;
+    top: 0;
+    left: 4px;
+    right: 4px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .tl-card {
+    scroll-snap-align: start;
+    flex: 0 0 260px;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--tl-foundations);
+    border-radius: var(--radius);
+    background: var(--panel);
+    padding: 20px;
+  }
+
+  .tl-card--ai { border-top-color: var(--tl-ai); }
+  .tl-card--pbr { border-top-color: var(--tl-pbr); }
+
+  .tl-quarter {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .tl-card h4 { font-size: 14.5px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+  .tl-card p { font-size: 13px; color: var(--text-dim); }
+
+  .tl-source {
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+  .tl-source a { color: var(--accent); text-decoration: none; }
+  .tl-source a:hover { text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    .tl-track { padding-top: 20px; }
+    .tl-card { flex-basis: 240px; }
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+  }
+
+  .skills-group h4 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .skills-group ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .skills-group li { font-size: 14px; color: var(--text-dim); padding-left: 16px; position: relative; }
+  .skills-group li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-dim); }
+
+  .certs {
+    margin-top: 44px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .certs h4 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .cert-list { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cert-chip {
+    font-size: 12.5px;
+    border: 1px solid var(--border);
+    padding: 7px 12px;
+    border-radius: 100px;
+    color: var(--text-dim);
+  }
+
+  /* CONTACT / FOOTER */
+  footer {
+    padding: 72px 0 56px;
+    background: var(--white-bg);
+    color: var(--white-text);
+  }
+
+  footer .section-tag { color: var(--accent-dim); }
+
+  footer h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 700; letter-spacing: -0.01em; max-width: 520px; }
+
+  footer p.lede { margin-top: 14px; color: var(--white-dim); font-size: 15.5px; max-width: 480px; }
+
+  footer .btn-primary { background: var(--white-text); color: var(--white-bg); }
+  footer .btn-ghost { border-color: #d8d5cd; color: var(--white-text); }
+  footer .btn-ghost:hover { border-color: var(--white-text); color: var(--white-text); }
+
+  .footer-meta {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid #d8d5cd;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--white-dim);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ===== Content-update additions below — story paragraphs replace the STAR label grid ===== */
+  .story { display: flex; flex-direction: column; gap: 14px; }
+  .story p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text-dim); }
+  .story p strong { color: var(--text); font-weight: 600; }
+
+  .story-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .story-tag {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-dim); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+
+  /* Longer content needs more room to expand than the original 900px cap allowed */
+  .pillar.open .pillar-body { max-height: 2200px; border-top: 1px solid var(--border); }
+
+  /* Six headline stats, three across */
+  .stats .wrap { grid-template-columns: repeat(3, 1fr); }
+
+  /* Career track — vertical progression, newest role first */
+  .career-track { position: relative; margin-top: 20px; padding-left: 30px; }
+  .career-track::before {
+    content: ""; position: absolute; left: 4px; top: 6px; bottom: 6px; width: 1px; background: var(--border);
+  }
+  .career-step { position: relative; padding-bottom: 32px; }
+  .career-step:last-child { padding-bottom: 0; }
+  .career-dot {
+    position: absolute; left: -30px; top: 4px; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent-dim);
+  }
+  .career-step.current .career-dot { background: var(--accent); border-color: var(--accent); }
+  .career-period {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--text-dim); margin-bottom: 5px;
+  }
+  .career-role { font-weight: 700; font-size: 17px; color: var(--text); }
+  .career-org { font-size: 13px; color: var(--accent); margin-top: 2px; }
+  .career-desc { margin-top: 9px; font-size: 13.5px; color: var(--text-dim); max-width: 620px; }
+
+  @media (max-width: 720px) {
+    .story-pair { grid-template-columns: 1fr; gap: 26px; }
+  }
+</style>
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap">
-    <div class="nav-name">ADAM AZIZ <span>/</span> DATA &amp; ANALYTICS</div>
+    <div class="nav-name">ADAM AZIZ <span>/</span> DATA ANALYTICS &amp; AI LEADER</div>
     <ul class="nav-links">
       <li><a href="#capabilities">Capabilities</a></li>
       <li><a href="#track-record">Track Record</a></li>
@@ -30,7 +505,7 @@
     <h1>Turning fragmented data into trusted, AI-enabled decisions — at enterprise scale.</h1>
     <p class="lede">12+ years building and leading data and analytics capability at Cisco. Evidence-led, not adjective-led: every claim below is backed by a number, a delivered outcome, or both.</p>
     <div class="hero-ctas">
-      <a class="btn btn-primary" href="assets/Adam-Aziz-Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      <a class="btn btn-primary" href="AdamAzizMasterResume.pdf" target="_blank" rel="noopener">Download résumé</a>
       <a class="btn btn-ghost" href="https://www.linkedin.com/in/adamaziz1979/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn btn-ghost" href="#capabilities">See the work ↓</a>
     </div>
@@ -40,20 +515,28 @@
 <section class="stats" aria-label="Track record summary">
   <div class="wrap">
     <div class="stat">
+      <div class="num">62%→100%</div>
+      <div class="label">Enterprise KPI consistency, 27 KPIs</div>
+    </div>
+    <div class="stat">
+      <div class="num">200+</div>
+      <div class="label">Stakeholders protected from platform disruption</div>
+    </div>
+    <div class="stat">
+      <div class="num">5x</div>
+      <div class="label">Self-service analytics data capacity for 1.75x the cost</div>
+    </div>
+    <div class="stat">
       <div class="num">$11M+</div>
       <div class="label">Investment decisions supported</div>
     </div>
     <div class="stat">
-      <div class="num">326%</div>
-      <div class="label">Self-service analytics adoption growth</div>
+      <div class="num">$4.3M</div>
+      <div class="label">Productivity savings across 34.4K employees</div>
     </div>
     <div class="stat">
-      <div class="num">42%</div>
-      <div class="label">Data warehouse volume reduction</div>
-    </div>
-    <div class="stat">
-      <div class="num">62%→100%</div>
-      <div class="label">Enterprise KPI consistency, 27 KPIs</div>
+      <div class="num">40%</div>
+      <div class="label">Reduction in wasted AI token usage</div>
     </div>
   </div>
 </section>
@@ -63,7 +546,7 @@
     <div class="section-head">
       <div class="section-tag">Capabilities</div>
       <h2>Six areas where I've delivered, not just advised</h2>
-      <p>Click any capability for the situation, task, action and result behind it.</p>
+      <p>Click any capability for the story behind it.</p>
     </div>
 
     <div class="pillars">
@@ -76,15 +559,10 @@
         </div>
         <div class="pillar-body">
           <div class="pillar-body-inner">
-            <div class="star-grid">
-              <div class="star-label">Situation</div>
-              <div class="star-text">27 high-level service KPIs were only <strong>62% consistent</strong>, spread across <strong>70+ duplicate Power BI dashboards</strong>, generating 3-5 leadership escalations a month.</div>
-              <div class="star-label">Task</div>
-              <div class="star-text">Rebuild a single source of truth leadership could act on without re-checking the numbers.</div>
-              <div class="star-label">Action</div>
-              <div class="star-text">Consolidated fragmented source tables, duplicate dashboard content and semantic-layer definitions into verified single-source-of-truth datasets, executive KPI dashboards and data catalogue standards.</div>
-              <div class="star-label">Result</div>
-              <div class="star-text">KPI consistency <strong>62% → 100%</strong>, duplicate dashboards <strong>70+ → 46</strong>, escalations <strong>cut to zero</strong>, Power BI workspace health <strong>60% → 93%</strong>.</div>
+            <div class="story">
+              <p>In 2024, 27 high-level service KPIs were telling different stories depending on who you asked. Numbers spread across <strong>70+ Power BI dashboards</strong> had drifted apart, generating 3-5 leadership escalations a month, and stakeholders had quietly stopped trusting any of them enough to act without double-checking first.</p>
+              <p>Rebuilding that trust meant more than patching dashboards, so I split the team's effort in two: long-term strategic reporting on one side, self-service for ad-hoc requests on the other, backed by <strong>single-source-of-truth views</strong>, refresh schedules aligned to the warehouse, and tripwires to catch drift before it reached anyone's desk.</p>
+              <p>Within a short time, KPI consistency climbed <strong>62% → 100%</strong>, duplicate and end-of life dashboards fell <strong>70+ → 46</strong>, escalations dropped <strong>to zero</strong>, and workspace health rose <strong>60% → 93%</strong>, a result that's held ever since through the same tripwire alerts still watching for variance above 2%.</p>
             </div>
           </div>
         </div>
@@ -98,15 +576,17 @@
         </div>
         <div class="pillar-body">
           <div class="pillar-body-inner">
-            <div class="star-grid">
-              <div class="star-label">Situation</div>
-              <div class="star-text">Support and engineering teams were reactive — case spikes took up to <strong>half a day</strong> to analyse manually before anyone could act.</div>
-              <div class="star-label">Task</div>
-              <div class="star-text">Put practical, working AI in front of the teams who needed faster insight, not another AI strategy deck.</div>
-              <div class="star-label">Action</div>
-              <div class="star-text">Introduced practical AI-enabled analytics including AI Assistants for support case summarisation and Q&amp;A, service KPI AI-highlights and AI-assisted dashboard creation. Separately, led an AI-based laptop performance methodology using device telemetry to classify usage and guide refresh decisions.</div>
-              <div class="star-label">Result</div>
-              <div class="star-text">Case-spike analysis cut from <strong>half a day to near-instant</strong>; shifted teams from reactive escalation to proactive issue management; AI-based refresh methodology supported <strong>millions of dollars</strong> in potential annual asset savings.</div>
+            <div class="story-pair">
+              <div class="story">
+                <div class="story-tag">AI Assistant</div>
+                <p>In early 2025, Help@Cisco was running lean, fewer support agents after company layoffs, mid-reskill toward an AI-enabled support model, and it showed: case spikes were handled reactively, and executive leadership was often the last to know, hearing about problems only once they'd already escalated.</p>
+                <p>This led me to develop a two-tier tripwire system instead, standard deviations over six months of case trends, tuned tighter for executives and looser for operations, then led development of a <strong>GPT-based AI Assistant</strong> using question refinement, cognitive verifier and few-shot examples, surfaced on demand in Webex chat and answering questions straight from a verified SQL knowledge base. Case-spike analysis went <strong>from half a day to near-instant</strong>, and the surprises between operations and executive leadership simply stopped.</p>
+              </div>
+              <div class="story">
+                <div class="story-tag">Performance-Based Refresh</div>
+                <p>Cisco's laptop refresh programme had always run on age, not evidence: three years and you're up, regardless of whether a device was struggling or still going strong. That left asset management fragmented, budget handling inefficient, and refresh timing badly out of step with what users actually needed.</p>
+                <p>Rather than reach for the obvious generative AI answer, I ran a genuine build-versus-buy evaluation, supervised learning, GenAI, pure statistical thresholds, before landing on <strong>unsupervised anomaly detection</strong>: no training data to maintain, none of GenAI's hallucination risk, and a model that scaled naturally as the device landscape changed. Ranking real performance from CPU, RAM, memory pressure and disk telemetry, combined with usage-based personas, it became the foundation for AI performance scoring, an intelligent refresh decision engine and predictive stock forecasting, turning refresh decisions evidence-based and unlocking <strong>millions of dollars a year</strong> in potential savings.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -120,15 +600,17 @@
         </div>
         <div class="pillar-body">
           <div class="pillar-body-inner">
-            <div class="star-grid">
-              <div class="star-label">Situation</div>
-              <div class="star-text">IT investment decisions and vendor contracts lacked a clear, defensible value case for senior leaders to act on.</div>
-              <div class="star-label">Task</div>
-              <div class="star-text">Turn analysis into commercial cases leadership could approve with confidence.</div>
-              <div class="star-label">Action</div>
-              <div class="star-text">Developed business value cases for IT programs; built the commercial case for a ThoughtSpot capacity uplift, comparing a $70K/250M-row option against a $40K/50M-row option on cost-per-row and capacity.</div>
-              <div class="star-label">Result</div>
-              <div class="star-text"><strong>$11M+</strong> in investment decisions supported; the recommended ThoughtSpot option delivered <strong>2.86x better value</strong> at <strong>65% lower cost per million rows</strong>; plus <strong>$4.3M</strong> in productivity savings and <strong>$1M</strong> in avoided asset charges elsewhere.</div>
+            <div class="story-pair">
+              <div class="story">
+                <div class="story-tag">MacBook Air M5 Standardisation</div>
+                <p>When RAM costs rose and new supply tariffs pushed Apple's M5 MacBook Pro pricing up, every future Mac refresh using those models was set to get materially more expensive, a cost increase nobody had budgeted for and nobody had proven was actually necessary.</p>
+                <p>So I had the team quantify CPU and RAM performance across the entire Mac and Windows fleet, benchmarked it against the new M5 MacBook Air, and forecast the cost avoidance of standardising on the Air instead of the Pro. The evidence made the decision straightforward: <strong>1.5x the performance</strong> of the M4 generation, double the M3, at <strong>23% less</strong> than the M5 14 inch and under half the cost of the 16 inch, comfortably meeting the needs of <strong>over 87%</strong> of Mac users globally, enough to make the Air Cisco's new standard on the spot.</p>
+              </div>
+              <div class="story">
+                <div class="story-tag">Finance Budget Proposal</div>
+                <p>As AI tools became part of daily work, the same signal kept showing up in performance and app-usage data: a growing group of engineers and AI developers whose devices simply couldn't keep pace with what their jobs now demanded.</p>
+                <p>I used Python to analyse historical device performance, isolated the users with anomalous CPU and RAM growth, and cross-checked those spikes against the applications actually driving them, developer tools and IDEs with AI add-ons among them, before building the case for Finance with Power BI visualisations. I didn't expect it to be approved on the spot, and it wasn't; the goal was to put verified evidence on Finance's radar early and <strong>keep advocating with that same evidence into the next financial year</strong>, rather than wait for the problem to force a rushed decision.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -142,15 +624,9 @@
         </div>
         <div class="pillar-body">
           <div class="pillar-body-inner">
-            <div class="star-grid">
-              <div class="star-label">Situation</div>
-              <div class="star-text">A bloated warehouse — 355 tables/views, 517.2M stagnant rows — with external Snowflake access causing 1-2 disruptions a quarter.</div>
-              <div class="star-label">Task</div>
-              <div class="star-text">Modernise the platform without interrupting the 200+ stakeholders who relied on it.</div>
-              <div class="star-label">Action</div>
-              <div class="star-text">Cut unused and end-of-life datasets, replaced external Snowflake access with secure AWS S3 data sharing, and strengthened Snowflake ingestion, DBT migration, data quality and lineage practices.</div>
-              <div class="star-label">Result</div>
-              <div class="star-text">Warehouse volume down <strong>42%</strong> (355 → 205 tables/views), <strong>517.2M</strong> stagnant rows removed, disruptions <strong>1-2/quarter → zero</strong>, reliability protected for <strong>200+ stakeholders</strong>.</div>
+            <div class="story">
+              <p>After the team migrated to Snowflake, we were constantly on the back foot. Inconsistent changes to data tables triggered rework and re-deployments, and when errors surfaced in the KPIs stakeholders depended on every week, tracing them back through BI tools, transformations and source ingestion took far too long, made worse by external teams wanting direct warehouse access, which put over <strong>200 stakeholders</strong> at risk every time credentials rotated.</p>
+              <p>I tasked the data engineers to rebuild around a <strong>DBT transformation and governance layer</strong> instead: data lineage for faster root-cause tracing, cataloguing moved from Alation to DBT Docs, and every table change run through an iterative release cycle, development, peer review, automated quality tests, then production, with full version history for troubleshooting. External access was replaced with secure AWS S3 data sharing, removing the disruption risk entirely, and warehouse volume dropped <strong>42%</strong> (355 to 205 tables/views), with <strong>517.2M</strong> stagnant rows removed and disruptions down from 1-2 a quarter to <strong>zero</strong>.</p>
             </div>
           </div>
         </div>
@@ -181,20 +657,14 @@
       <div class="pillar">
         <div class="pillar-head" data-toggle>
           <div class="pillar-num">06</div>
-          <div class="pillar-title">Enterprise analytics modernisation</div>
+          <div class="pillar-title">Empower everyone to get data to the decision</div>
           <div class="pillar-toggle">+</div>
         </div>
         <div class="pillar-body">
           <div class="pillar-body-inner">
-            <div class="star-grid">
-              <div class="star-label">Situation</div>
-              <div class="star-text">A legacy, reporting-only function with low self-service adoption — 46 users running 8.1K queries a month.</div>
-              <div class="star-label">Task</div>
-              <div class="star-text">Transform reporting delivery into scalable self-service and AI-driven decision-making, without losing data trust along the way.</div>
-              <div class="star-label">Action</div>
-              <div class="star-text">Introduced ThoughtSpot as a self-service analytics capability, expanded reporting and BI platforms, and modernised the underlying Snowflake/DBT stack, cataloguing, lineage and governance.</div>
-              <div class="star-label">Result</div>
-              <div class="star-text">Adoption up <strong>326%</strong> (46 → 196 users), query volume up <strong>137%</strong> (8.1K → 19.2K/month), data request workload down <strong>33%</strong> — an estimated <strong>738 hours and $68.9K a year</strong> freed up for higher-value work.</div>
+            <div class="story">
+              <p>Analysts were spending significant time fulfilling one-off data requests, a constant context-switch away from the complex projects that actually needed their full attention, and it was wearing the team down.</p>
+              <p>I introduced <strong>ThoughtSpot</strong> as a self-service layer instead, built entirely on the same verified, governed datasets used for executive KPI dashboards, so speed never came at the cost of trust, then added <strong>Spotter</strong> as a natural-language GPT layer on top for forecasting and correlation analysis, with new users automatically enrolled in onboarding material from day one. Adoption grew from <strong>46 to 196 users</strong> (+326%), monthly queries from 8.1K to 19.2K (+137%), while the data team's own request workload fell <strong>33%</strong>, freeing an estimated 738 hours and $68.9K a year for higher-value work.</p>
             </div>
           </div>
         </div>
@@ -208,8 +678,84 @@
   <div class="wrap">
     <div class="section-head">
       <div class="section-tag">Track record</div>
-      <h2>12+ years, Cisco (Jul 2012 – Jul 2026)</h2>
-      <p>Data Solutions &amp; Insights Lead / Product Owner (2019–2026) → Lead Analyst (2017–2019) → Senior Business/Data Analyst (2012–2017). Earlier: Data &amp; Reporting Analyst, Dept. of Innovation, Science &amp; Research, Canberra — analysed research data from 42 universities supporting allocation of $1.64B in government research block grants.</p>
+      <h2>From Visual Arts to enterprise AI at Cisco</h2>
+      <p>One constant thread, from a Visual Arts degree to enterprise data leadership: turning complex things into something other people can understand and act on.</p>
+    </div>
+
+    <div class="career-track">
+
+      <div class="career-step current">
+        <span class="career-dot"></span>
+        <div class="career-period">Jun 2019 – Jul 2026 · 7 yrs</div>
+        <div class="career-role">Data Solutions &amp; Insights Lead / Product Owner</div>
+        <div class="career-org">Cisco, Sydney</div>
+        <p class="career-desc">Led a global, multidisciplinary team of analysts, data scientists and engineers, building Cisco's enterprise data and analytics capability into a trusted, AI-enabled decision-making function.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">Jun 2017 – Jun 2019 · 2 yrs</div>
+        <div class="career-role">Lead Analyst</div>
+        <div class="career-org">Cisco, Sydney</div>
+        <p class="career-desc">Took on Cisco's first dedicated data leadership remit, laying the groundwork for the Data Solutions &amp; Insights function that followed.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">Jul 2012 – Jun 2017 · 5 yrs</div>
+        <div class="career-role">Senior Business/Data Analyst</div>
+        <div class="career-org">Cisco, Sydney</div>
+        <p class="career-desc">Built the hands-on reporting, analysis and stakeholder relationships that the Data Solutions &amp; Insights capability would later be built on.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">Sep 2011 – Jul 2012</div>
+        <div class="career-role">Data &amp; Reporting Analyst</div>
+        <div class="career-org">Dept. of Innovation, Science &amp; Research, Canberra</div>
+        <p class="career-desc">Analysed research data from 42 universities to support the accurate allocation of $1.64B in government research grants.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">Mar 2009 – Feb 2010 · 1 yr</div>
+        <div class="career-role">Project Officer</div>
+        <div class="career-org">Australian Competition and Consumer Commission, Brisbane</div>
+        <p class="career-desc">First step into data and reporting itself, redesigning processes across the Product Safety Group to cut duplication and improve transparency.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">Apr 2007 – Mar 2009 · 2 yrs</div>
+        <div class="career-role">Chief Corporate Trainer</div>
+        <div class="career-org">Procter &amp; Gamble, Osaka</div>
+        <p class="career-desc">Designed and delivered communication skills programs across P&amp;G Japan and South Korea, including assessments used in employee promotion decisions.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">Feb 2006 – Apr 2007 · 1 yr</div>
+        <div class="career-role">English Instructor / Course Developer</div>
+        <div class="career-org">Lado International College, Osaka</div>
+        <p class="career-desc">Designed courses and coached students one-to-one, translating advanced material into something a mixed-ability class could actually use.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">Aug 2002 – Feb 2006 · 3.5 yrs</div>
+        <div class="career-role">Assistant Trainer / Branch Manager</div>
+        <div class="career-org">Nova Group Japan, Osaka</div>
+        <p class="career-desc">Spent three and a half years teaching, coaching and eventually managing a branch, learning to make complex material land with people who didn't yet understand it.</p>
+      </div>
+
+      <div class="career-step">
+        <span class="career-dot"></span>
+        <div class="career-period">2001</div>
+        <div class="career-role">Bachelor of Arts, Visual Arts</div>
+        <div class="career-org">Australian National University, Canberra</div>
+        <p class="career-desc">Where it started: learning to observe, interpret and communicate meaning, years before any of that met data.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -356,20 +902,31 @@
 <footer id="contact">
   <div class="wrap">
     <div class="section-tag">Contact</div>
-    <h2>Open to Head of Data / Head of Data &amp; Insights / Director of Data &amp; Analytics roles — including contract.</h2>
+    <h2>Open to Head of / Director / Senior Manager / Lead roles - including contract.</h2>
     <p class="lede">Based in Sydney. Prefer commercially driven, operational businesses with a clear mandate to turn fragmented data and reporting into a trusted enterprise capability.</p>
     <div class="hero-ctas">
       <a class="btn btn-primary" href="mailto:adamaziz1979@gmail.com">adamaziz1979@gmail.com</a>
       <a class="btn btn-ghost" href="https://www.linkedin.com/in/adamaziz1979/" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a class="btn btn-ghost" href="assets/Adam-Aziz-Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+      <a class="btn btn-ghost" href="AdamAzizMasterResume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
     </div>
     <div class="footer-meta">
-      <span>Adam Aziz — Data &amp; Analytics Professional</span>
+      <span>Adam Aziz — Data Analytics &amp; AI Leader</span>
       <span>Sydney, NSW, Australia</span>
     </div>
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script>
+document.querySelectorAll('[data-toggle]').forEach(function (head) {
+  head.addEventListener('click', function () {
+    var pillar = head.closest('.pillar');
+    var wasOpen = pillar.classList.contains('open');
+    document.querySelectorAll('.pillar.open').forEach(function (p) {
+      if (p !== pillar) p.classList.remove('open');
+    });
+    pillar.classList.toggle('open', !wasOpen);
+  });
+});
+</script>
 </body>
 </html>
