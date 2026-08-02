@@ -412,7 +412,11 @@
     padding: 7px 12px;
     border-radius: 100px;
     color: var(--text-dim);
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.15s, color 0.15s;
   }
+  a.cert-chip:hover { border-color: var(--accent); color: var(--accent); }
 
   /* CONTACT / FOOTER */
   footer {
@@ -492,7 +496,6 @@
     <ul class="nav-links">
       <li><a href="#capabilities">Capabilities</a></li>
       <li><a href="#track-record">Track Record</a></li>
-      <li><a href="#timeline">Timeline</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -586,7 +589,7 @@
               <div class="story">
                 <div class="story-tag">Performance-Based Refresh</div>
                 <p>Cisco's laptop refresh programme had always run on age, not evidence: three years and you're up, regardless of whether a device was struggling or still going strong. That left asset management fragmented, budget handling inefficient, and refresh timing badly out of step with what users actually needed.</p>
-                <p>Rather than reach for the obvious generative AI answer, I ran a genuine build-versus-buy evaluation, supervised learning, GenAI, pure statistical thresholds, before landing on <strong>unsupervised anomaly detection</strong>: no training data to maintain, none of GenAI's hallucination risk, and a model that scaled naturally as the device landscape changed. Ranking real performance from CPU, RAM, memory pressure and disk telemetry, combined with usage-based personas, it became the foundation for AI performance scoring, an intelligent refresh decision engine and predictive stock forecasting, turning refresh decisions evidence-based and unlocking <strong>millions of dollars a year</strong> in potential savings.</p>
+                <p>Rather than reach for the obvious generative AI answer, I ran a genuine build-versus-buy evaluation, supervised learning, GenAI, pure statistical thresholds, before landing on <strong>unsupervised anomaly detection</strong>: no training data to maintain, none of GenAI's hallucination risk, and a model that scaled naturally as the device landscape changed. Ranking real performance from CPU, RAM, memory pressure and disk telemetry, combined with usage-based personas, it became the foundation for AI performance scoring, an intelligent refresh decision engine and predictive stock forecasting, turning refresh decisions evidence-based and unlocking <strong>millions of dollars</strong> in potential savings.</p>
               </div>
             </div>
           </div>
@@ -758,83 +761,6 @@
   </div>
 </section>
 
-<section id="timeline">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="section-tag">Timeline <span class="timeline-badge">WIP</span></div>
-      <h2>DSI Achievements Timeline</h2>
-      <p>Three years turning a reporting function into an AI-enabled decisioning capability — foundations, then AI-assisted analytics, then predictive and persona-based decisioning.</p>
-    </div>
-
-    <div class="tl-legend">
-      <div class="tl-legend-item"><span class="tl-dot tl-dot--foundations"></span>Analytics &amp; data foundations</div>
-      <div class="tl-legend-item"><span class="tl-dot tl-dot--ai"></span>AI-enabled analytics</div>
-      <div class="tl-legend-item"><span class="tl-dot tl-dot--pbr"></span>Performance-based refresh &amp; decisioning</div>
-    </div>
-
-    <div class="tl-track">
-      <div class="tl-line"></div>
-
-      <div class="tl-card tl-card--foundations">
-        <div class="tl-quarter">FY23 Q2–Q4</div>
-        <h4>Foundation, KPI Reporting &amp; Early Self-Service</h4>
-        <p>ThoughtSpot, KPI metrics, data integration, security, asset reporting and operational analytics. Established DSI as a central analytics capability with trusted reporting and early self-service.</p>
-      </div>
-
-      <div class="tl-card tl-card--foundations">
-        <div class="tl-quarter">FY24 Q1–Q2</div>
-        <h4>Trusted Data Foundations &amp; Governance</h4>
-        <p>Snowflake ingestion, governance, Data Diet, DBT migration and Business Objects replacement. Shifted DSI beyond reporting into a stronger data product and operations capability.</p>
-      </div>
-
-      <div class="tl-card tl-card--foundations">
-        <div class="tl-quarter">FY24 Q3–Q4</div>
-        <h4>Operational Excellence &amp; Scale</h4>
-        <p>Power BI workspace audit, tripwires, DBT ops integration, ThoughtSpot expansion and Snowflake resiliency. Improved reliability, scalability and adoption while reducing operational risk.</p>
-      </div>
-
-      <div class="tl-card tl-card--foundations">
-        <div class="tl-quarter">FY25 Q1–Q2</div>
-        <h4>KPI Maturity &amp; Platform Simplification</h4>
-        <p>KPI development, OS compliance, Mac data collection, dashboard improvements and GCP disconnect. Strengthened DSI as a trusted decision-support function with simpler data environments.</p>
-      </div>
-
-      <div class="tl-card tl-card--ai">
-        <div class="tl-quarter">FY25 Q4</div>
-        <h4>Automation &amp; AI-Assisted Analytics</h4>
-        <p>Aisera integration, Insights Center automation, AI case summaries and data quality analysis. Started the transition from traditional BI toward AI-assisted analytics and automated insight generation.</p>
-      </div>
-
-      <div class="tl-card tl-card--ai">
-        <div class="tl-quarter">FY26 Q1</div>
-        <h4>AI Decision Support &amp; Device Intelligence</h4>
-        <p>DSI Assistant, Support Case Q&amp;A, monthly summarisation, Device Performance Score and PBR reasoning. Created the foundation for AI-enabled decision support and proactive device insights.</p>
-      </div>
-
-      <div class="tl-card tl-card--pbr">
-        <div class="tl-quarter">FY26 Q2</div>
-        <h4>Predictive &amp; Prescriptive Analytics</h4>
-        <p>PBR recommendations, forecasting, app utilisation, Click2Chat analytics and Snowflake Stage. Expanded into predictive and prescriptive analytics supporting refresh and stock decisions.</p>
-      </div>
-
-      <div class="tl-card tl-card--pbr">
-        <div class="tl-quarter">FY26 Q3</div>
-        <h4>AI Scale, Resiliency &amp; PBR Expansion</h4>
-        <p>KPI AI summaries, PBR app utilisation, DBT Docs discovery, Fleet migration and AI dashboard creation. Matured AI and PBR while improving lineage, resiliency, observability and speed to insight.</p>
-      </div>
-
-      <div class="tl-card tl-card--pbr">
-        <div class="tl-quarter">FY26 Q4</div>
-        <h4>Persona-Based Decisioning &amp; AI-Enabled BI</h4>
-        <p>PBR Personas, Splunk observability, forecasting, app utilisation expansion and AI-enabled BI. Moved toward richer persona-based decisioning combining performance, usage, forecasting and AI.</p>
-      </div>
-
-    </div>
-
-    <p class="tl-source">Originally published as a standalone page ↗ <a href="https://adamaziz1979.github.io/DSI_Achievements_Timeline/" target="_blank" rel="noopener">adamaziz1979.github.io/DSI_Achievements_Timeline</a></p>
-  </div>
-</section>
-
 <section id="skills">
   <div class="wrap">
     <div class="section-head">
@@ -885,12 +811,12 @@
     <div class="certs">
       <h4>Certifications</h4>
       <div class="cert-list">
-        <span class="cert-chip">Generative AI with Snowflake — Snowflake, 2025</span>
-        <span class="cert-chip">Agentic AI and AI Agents for Leaders — Vanderbilt, 2025</span>
-        <span class="cert-chip">Enterprise Design Thinking Practitioner — IBM, 2025</span>
-        <span class="cert-chip">Certified SAFe® 6 Product Owner/Product Manager — 2024</span>
-        <span class="cert-chip">Python for Data Science and AI — IBM, 2021</span>
-        <span class="cert-chip">Data Science for Leaders — NC State, 2021</span>
+        <a class="cert-chip" href="https://www.coursera.org/account/accomplishments/verify/C5MP5PRHQHJ6" target="_blank" rel="noopener">Generative AI with Snowflake — Snowflake, 2025</a>
+        <a class="cert-chip" href="https://www.coursera.org/account/accomplishments/specialization/certificate/U4WWVFKUPVVA" target="_blank" rel="noopener">Agentic AI and AI Agents for Leaders — Vanderbilt University, 2025</a>
+        <a class="cert-chip" href="https://www.credly.com/badges/e4ea4748-af43-45d0-a74d-d0a2c53838bd/linked_in_profile" target="_blank" rel="noopener">Enterprise Design Thinking Practitioner — IBM, 2025</a>
+        <a class="cert-chip" href="https://www.credly.com/badges/7d39a82f-324d-4706-9792-38f84856bf44/linked_in_profile" target="_blank" rel="noopener">Certified SAFe® 6 Product Owner/Product Manager — Scaled Agile, Inc., 2024</a>
+        <a class="cert-chip" href="https://www.credly.com/badges/21d9892d-fd62-4692-ae8f-2fb8492a457e?source=linked_in_profile" target="_blank" rel="noopener">Python for Data Science and AI — IBM, 2021</a>
+        <a class="cert-chip" href="https://www.credly.com/earner/earned/badge/c9f934a4-9ee3-4bc3-a75c-785e37d213a2" target="_blank" rel="noopener">Data Science for Leaders — North Carolina State Executive Education, 2021</a>
         <span class="cert-chip">BA, Visual Arts — ANU, 2001</span>
       </div>
     </div>
