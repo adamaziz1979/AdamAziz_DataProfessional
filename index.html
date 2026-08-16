@@ -451,6 +451,10 @@
   .story { display: flex; flex-direction: column; gap: 14px; }
   .story p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text-dim); }
   .story p strong { color: var(--text); font-weight: 600; }
+  .story ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 2px 0; }
+  .story li { font-size: 14.5px; line-height: 1.55; color: var(--text-dim); padding-left: 18px; position: relative; }
+  .story li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-dim); }
+  .story li strong { color: var(--text); font-weight: 600; }
 
   .story-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
   .story-tag {
@@ -567,10 +571,23 @@
         <div class="pillar-body">
           <div class="pillar-body-inner">
             <div class="story">
-              <p>A number of high-level service KPIs were telling different stories depending on who you asked. Numbers spread across <strong>70+ Power BI dashboards</strong> had drifted apart, generating 3-5 leadership escalations a month, and stakeholders had quietly stopped trusting any of them enough to act without double-checking first.</p>
-              <p>Rebuilding that trust meant more than patching dashboards, so I split the team's effort in two: long-term strategic reporting on one side, self-service for ad-hoc requests on the other, backed by <strong>single-source-of-truth views</strong>, refresh schedules aligned to the warehouse, and tripwires to catch drift before it reached anyone's desk.</p>
-              <p>Closing the trust gap itself took just as much work as the platform did: accessible data catalogues with plain-English explanations in a consistent template, dashboards built around a clear narrative rather than a wall of numbers, upfront agreement with stakeholders on how each key measure should be calculated, and data literacy sessions that empowered people to challenge the numbers instead of just accepting them.</p>
-              <p>Within a short time, KPI consistency climbed <strong>62% → 100%</strong>, duplicate and end-of life dashboards fell <strong>70+ → 46</strong>, escalations dropped <strong>to zero</strong>, and workspace health rose <strong>60% → 93%</strong>, a result that's held ever since through the same tripwire alerts still watching for variance above 2%.</p>
+              <p>A number of high-level service KPIs were telling different stories depending on who you asked.</p>
+              <p>Numbers spread across 70+ Power BI dashboards had drifted apart, generating 3-5 leadership escalations a month, and <strong>stakeholders had quietly stopped trusting any of them</strong>, double-checking every number before acting on it.</p>
+              <p>Rebuilding that trust meant more than patching dashboards, so I split the team's effort in two: long-term strategic reporting on one side, self-service for ad-hoc requests on the other.</p>
+              <ul>
+                <li>Backed by <strong>single-source-of-truth views</strong></li>
+                <li>Refresh schedules aligned to the warehouse</li>
+                <li>Tripwires to catch drift before it reached anyone's desk</li>
+              </ul>
+              <p>Closing the trust gap itself took just as much work as the platform did:</p>
+              <ul>
+                <li>Accessible data catalogues with plain-English explanations in a consistent template</li>
+                <li>Dashboards built around a clear narrative rather than a wall of numbers</li>
+                <li>Upfront agreement with stakeholders on how each key measure should be calculated</li>
+                <li>Data literacy sessions that empowered people to challenge the numbers instead of just accepting them</li>
+              </ul>
+              <p>Within a short time, KPI consistency climbed <strong>62% → 100%</strong>, duplicate and end-of life dashboards fell 70+ → 46, escalations dropped to zero, and workspace health rose 60% → 93%.</p>
+              <p>A result that's held ever since through the same tripwire alerts still watching for variance above 2%.</p>
             </div>
           </div>
         </div>
@@ -587,13 +604,26 @@
             <div class="story-pair">
               <div class="story">
                 <div class="story-tag">AI Assistant</div>
-                <p>In early 2025, Help@Cisco was running lean, fewer support agents after company layoffs, while reskilling toward an AI-enabled support model, and it showed: case spikes were handled reactively, and executive leadership was often the last to know, hearing about problems only once they'd already escalated.</p>
-                <p>This led me to develop a two-tier tripwire system based on standard deviations over six months of case trends, tuned tighter for operations and looser for executives, then led the development of an <strong>AI Assistant</strong> to summarise the essential pieces of information using prompt engineering techniques such as question refinement, cognitive verifier and few-shot examples. We then surfaced these tripwire notifications up in IM chat – meeting where the user already is - and have it answer questions straight from a verified, business-ready SQL views. Case-spike analysis went <strong>from half a day to near-instant</strong>, and the surprises between operations and executive leadership simply stopped.</p>
+                <p>In early 2025, the IT support function was running lean, fewer support agents after company layoffs, while reskilling toward an AI-enabled support model, and it showed:</p>
+                <ul>
+                  <li>Case spikes were handled reactively</li>
+                  <li><strong>Executive leadership was often the last to know</strong>, hearing about problems only once they'd already escalated</li>
+                </ul>
+                <p>This led me to develop a two-tier tripwire system based on standard deviations over six months of case trends, tuned tighter for operations and looser for executives, then led the development of an <strong>AI Assistant</strong> to summarise the essential pieces of information using prompt engineering techniques such as question refinement, cognitive verifier and few-shot examples.</p>
+                <p>We then surfaced these tripwire notifications up in IM chat – meeting where the user already is - and have it answer questions straight from a verified, business-ready SQL views.</p>
+                <p>Case-spike analysis went <strong>from half a day to near-instant</strong>, and the surprises between operations and executive leadership simply stopped.</p>
               </div>
               <div class="story">
                 <div class="story-tag">Performance-Based Refresh</div>
-                <p>Cisco's laptop refresh programme had always run on age, not evidence: three years and you're up for refresh, regardless of whether a device was struggling or still going strong. That left asset management fragmented, budget handling inefficient, and refresh timing badly out of step with what users actually needed.</p>
-                <p>Rather than reach for the obvious generative AI answer, I ran a genuine build-versus-buy evaluation, supervised learning, GenAI, pure statistical thresholds, before landing on <strong>unsupervised anomaly detection</strong>: no training data to maintain, none of GenAI's hallucination risk, and a model that scaled naturally as the device landscape changed. Ranking real performance from CPU, RAM, memory pressure and disk telemetry, combined with app usage-based personas, it became the foundation for AI-enabled laptop performance scoring, an intelligent refresh decision engine and predictive stock forecasting, turning refresh decisions evidence-based and unlocking <strong>millions of dollars</strong> in potential savings.</p>
+                <p>Cisco's laptop refresh programme had always <strong>run on age, not evidence</strong>: three years and you're up for refresh, regardless of whether a device was struggling or still going strong.</p>
+                <p>That left asset management fragmented, budget handling inefficient, and refresh timing badly out of step with what users actually needed.</p>
+                <p>Rather than reach for the obvious generative AI answer, I ran a genuine build-versus-buy evaluation, supervised learning, GenAI, pure statistical thresholds, before landing on <strong>unsupervised anomaly detection</strong>:</p>
+                <ul>
+                  <li>No training data to maintain</li>
+                  <li>None of GenAI's hallucination risk</li>
+                  <li>A model that scaled naturally as the device landscape changed</li>
+                </ul>
+                <p>Ranking real performance from CPU, RAM, memory pressure and disk telemetry, combined with app usage-based personas, it became the foundation for AI-enabled laptop performance scoring, an intelligent refresh decision engine and predictive stock forecasting, turning refresh decisions evidence-based and unlocking <strong>millions of dollars</strong> in potential savings.</p>
               </div>
             </div>
           </div>
@@ -611,13 +641,21 @@
             <div class="story-pair">
               <div class="story">
                 <div class="story-tag">MacBook Air M5 Standardisation</div>
-                <p>When RAM costs rose and new supply tariffs pushed Apple's M5 MacBook Pro pricing up, every future Mac refresh using those models was set to get materially more expensive, a cost increase nobody had budgeted for and nobody had proven was actually necessary.</p>
-                <p>So I had the team quantify CPU and RAM performance across the entire Mac and Windows fleet, benchmarked it against the new M5 MacBook Air, and forecast the cost avoidance of standardising on the Air instead of the Pro. The evidence made the decision straightforward: <strong>1.5x the performance</strong> of the M4 generation, double the M3, at <strong>23% less</strong> than the M5 14 inch and under half the cost of the 16 inch, comfortably meeting the needs of <strong>over 87%</strong> of Mac users globally, enough to make the Air Cisco's new standard on the spot.</p>
+                <p>When RAM costs rose and new supply tariffs pushed Apple's M5 MacBook Pro pricing up, every future Mac refresh using those models was set to get materially more expensive, <strong>a cost increase nobody had budgeted for</strong> and nobody had proven was actually necessary.</p>
+                <p>So I had the team quantify CPU and RAM performance across the entire Mac and Windows fleet, benchmarked it against the new M5 MacBook Air, and forecast the cost avoidance of <strong>standardising on the Air instead of the Pro</strong>.</p>
+                <p>The evidence made the decision straightforward:</p>
+                <ul>
+                  <li>1.5x the performance of the M4 generation, double the M3</li>
+                  <li><strong>23% less</strong> than the M5 14 inch and under half the cost of the 16 inch</li>
+                  <li>Comfortably meeting the needs of over 87% of Mac users globally</li>
+                </ul>
+                <p>Enough to make the Air Cisco's new standard on the spot.</p>
               </div>
               <div class="story">
                 <div class="story-tag">Finance Budget Proposal</div>
-                <p>As AI tools became part of daily work, the same signal kept showing up in laptop performance and app-usage data: a growing group of engineers and AI developers whose devices simply couldn't keep pace with what their jobs now demanded.</p>
-                <p>I used Python to analyse historical device performance, isolated the users with anomalous CPU and RAM growth, and cross-checked those spikes against the applications actually driving them, developer tools and IDEs with AI add-ons among them, before building the case for Finance with Power BI visualisations. I didn't expect it to be approved on the spot, and it wasn't; the goal was to put verified evidence on Finance's radar early and <strong>keep advocating with that same evidence into the next financial year</strong>, rather than wait for the problem to force a rushed decision.</p>
+                <p>As AI tools became part of daily work, the same signal kept showing up in laptop performance and app-usage data: a growing group of engineers and AI developers whose <strong>devices simply couldn't keep pace with what their jobs now demanded</strong>.</p>
+                <p>I used Python to analyse historical device performance, isolated the users with anomalous CPU and RAM growth, and cross-checked those spikes against the applications actually driving them, developer tools and IDEs with AI add-ons among them, before <strong>building the case for Finance with Power BI visualisations</strong>.</p>
+                <p>I didn't expect it to be approved on the spot, and it wasn't; the goal was to put verified evidence on Finance's radar early and <strong>keep advocating with that same evidence into the next financial year</strong>, rather than wait for the problem to force a rushed decision.</p>
               </div>
             </div>
           </div>
@@ -633,8 +671,17 @@
         <div class="pillar-body">
           <div class="pillar-body-inner">
             <div class="story">
-              <p>After the team migrated to Snowflake, we were constantly on the back foot. Inconsistent changes to data tables triggered rework and re-deployments, and when errors surfaced in the KPIs stakeholders depended on every week, tracing them back through BI tools, transformations and source ingestion took far too long, made worse by external teams wanting direct warehouse access, which put over <strong>200 stakeholders</strong> at risk every time credentials rotated.</p>
-              <p>I tasked the data engineers to rebuild around a <strong>DBT transformation and governance layer</strong> instead: data lineage for faster root-cause tracing, cataloguing moved from Alation to DBT Docs, and every table change run through an iterative release cycle - development, peer review, automated quality tests - through to production release with full version history for troubleshooting. External access was replaced with secure AWS S3 data sharing, removing the disruption risk entirely, and warehouse volume dropped <strong>42%</strong> (355 to 205 tables/views), with <strong>517.2M</strong> stagnant rows removed and disruptions down from 1-2 a quarter to <strong>zero</strong>.</p>
+              <p>After the team migrated to Snowflake, <strong>we were constantly on the back foot</strong>.</p>
+              <p>Inconsistent changes to data tables triggered rework and re-deployments, and when errors surfaced in the KPIs stakeholders depended on every week, tracing them back through BI tools, transformations and source ingestion took far too long.</p>
+              <p>Made worse by external teams wanting direct warehouse access, which put over 200 stakeholders at risk every time credentials rotated.</p>
+              <p>I tasked the data engineers to rebuild around a <strong>DBT transformation and governance layer</strong> instead:</p>
+              <ul>
+                <li>Data lineage for faster root-cause tracing</li>
+                <li>Cataloguing moved from Alation to DBT Docs</li>
+                <li>Every table change run through an iterative release cycle - development, peer review, automated quality tests - through to production release with full version history for troubleshooting</li>
+              </ul>
+              <p>External access was replaced with secure AWS S3 data sharing, removing the disruption risk entirely.</p>
+              <p>Warehouse volume dropped <strong>42%</strong> (355 to 205 tables/views), with 517.2M stagnant rows removed and disruptions down from 1-2 a quarter to zero.</p>
             </div>
           </div>
         </div>
@@ -650,10 +697,22 @@
           <div class="pillar-body-inner">
             <div class="story">
               <p>The team's skill profile had grown around the old data ops model when powerful data warehouses and AI-infused tools didn't exist.</p>
-              <p>Analysts were valued for how fast they could turn around an ad-hoc request, spent too much time dashboard-building, and rewarded for describing a situation in numbers rather than building a case for what to do about it. Speed was the metric. Actional insights wasn't.</p>
-              <p>So I rebuilt the model around a different question: not how fast can we answer this, but how well-placed are we to answer the next ten questions like it. That meant focusing less on building and defining calculations inside the dashboards themselves and more on developing robust, custom <strong>SQL queries and ETL processes</strong> underneath them for dashboards and reports to simply consume, deepening the team's advanced SQL and Python skills and data visualisation fundamentals along the way, and building for self-service so people could serve themselves instead of queuing behind an analyst.</p>
-              <p>A stronger SQL layer changes what a team can build. It doesn't change how they work, so alongside it I coached analysts to build narratives that connect the dots and compel decision-makers to act, not just describe a situation in numbers, took the time to understand what genuinely motivated each person so the business got their best work and they felt real ownership of their craft, and built and evolved a mission statement together with the team and stakeholders rather than handing one down.</p>
-              <p>What grew out of it was exactly what the old model couldn't produce: a fragmented reporting function turned into a multi-year, AI-enabled analytics capability, focused on setting up self-service analytics for success and establishing long-term data ops excellence.</p>
+              <p>Analysts were valued for how fast they could turn around an ad-hoc request, spent too much time dashboard-building, and rewarded for describing a situation in numbers rather than building a case for what to do about it.</p>
+              <p><strong>Speed was the metric. Actionable insights wasn't.</strong></p>
+              <p>So I rebuilt the model around a different question: not how fast can we answer this, but how well-placed are we to answer the next ten questions like it.</p>
+              <p>That meant focusing less on building and defining calculations inside the dashboards themselves and more on:</p>
+              <ul>
+                <li>Developing robust, custom <strong>SQL queries and ETL processes</strong> underneath them for dashboards and reports to simply consume</li>
+                <li>Deepening the team's advanced SQL and Python skills and data visualisation fundamentals along the way</li>
+                <li>Building for self-service so people could serve themselves instead of queuing behind an analyst</li>
+              </ul>
+              <p>A stronger SQL layer changes what a team can build. It doesn't change how they work, so alongside it, I:</p>
+              <ul>
+                <li>Coached analysts to build narratives that connect the dots and compel decision-makers to act, not just describe a situation in numbers</li>
+                <li>Took the time to understand what genuinely motivated each person so the business got their best work and they felt real ownership of their craft</li>
+                <li>Built and evolved a mission statement together with the team and stakeholders rather than handing one down</li>
+              </ul>
+              <p>What grew out of it was exactly what the old model couldn't produce: a fragmented reporting function turned into <strong>a multi-year, AI-enabled analytics capability</strong>, focused on setting up self-service analytics for success and future-proofing our data operations.</p>
             </div>
           </div>
         </div>
@@ -670,14 +729,26 @@
             <div class="story-pair">
               <div class="story">
                 <div class="story-tag">Self-Service Rollout</div>
-                <p>A third of all data requests were simple enough that no one should have needed an analyst, yet they cost <strong>512 hours</strong> of stakeholder wait time and <strong>$58K</strong> in lost productivity a year, pulling analysts away from the work that actually needed them.</p>
-                <p>I introduced <strong><a href="https://www.thoughtspot.com/" target="_blank" rel="noopener">ThoughtSpot</a></strong> as a self-service layer instead, built entirely on the same verified, governed datasets used for executive KPI dashboards, so speed never came at the cost of trust, then added <strong><a href="https://www.thoughtspot.com/product/agents" target="_blank" rel="noopener">Spotter</a></strong> as a natural-language GPT layer on top for forecasting and correlation analysis, with new users automatically enrolled in onboarding material from day one. Adoption grew from <strong>46 to 196 users</strong> (+326%), monthly queries from 8.1K to 19.2K (+137%), while the data team's own request workload fell <strong>33%</strong>, freeing an estimated 738 hours and $68.9K a year for higher-value work.</p>
+                <p>A third of all data requests were simple enough that no one should have needed an analyst, yet they cost 512 hours of stakeholder wait time and <strong>$58K in lost productivity</strong> a year, pulling analysts away from the work that actually needed them.</p>
+                <p>I introduced <strong><a href="https://www.thoughtspot.com/" target="_blank" rel="noopener">ThoughtSpot</a></strong> as a self-service layer instead, built entirely on the same verified, governed datasets used for executive KPI dashboards, so speed never came at the cost of trust, then added <strong><a href="https://www.thoughtspot.com/product/agents" target="_blank" rel="noopener">Spotter</a></strong> as a natural-language GPT layer on top for forecasting and correlation analysis, with new users automatically enrolled in onboarding material from day one.</p>
+                <p>Adoption grew from <strong>46 to 196 users</strong> (+326%), monthly queries from 8.1K to 19.2K (+137%), while the data team's own request workload fell 33%, freeing an estimated 738 hours and $68.9K a year for higher-value work.</p>
               </div>
               <div class="story">
                 <div class="story-tag">Direct Vendor Partnership</div>
-                <p>ThoughtSpot ran as an internal shared service through Cisco's Data &amp; Analytics Office, and as our user base grew across three other departments, that arrangement stopped making sense: we were being cross-charged at a higher rate than dealing with the vendor directly, administration depended on an internal support team with limited capacity that was slow to respond, and the DnA Office wasn't upgrading to the latest ThoughtSpot version, so the newest technical and AI capabilities never reached us.</p>
-                <p>Rather than keep absorbing that cost and lag, I partnered with other organisational data leads and went direct to ThoughtSpot's account management team to stand up our own instance, negotiating the contract terms and cost ourselves and agreeing to share that cost across the departments now using it, trading a shared service for one we owned and controlled outright.</p>
-                <p>That direct relationship put full administration and the latest capabilities in our own hands, and gave us the leverage to build the commercial case for a capacity uplift: switching to a <strong>$70K/250M-row</strong> option delivered <strong>2.86x better value</strong> than the $40K/50M-row option, with <strong>65% lower cost per million rows</strong> and <strong>5x the capacity</strong> for only <strong>1.75x the cost</strong>.</p>
+                <p>ThoughtSpot ran as an internal shared service through Cisco's Data &amp; Analytics Office, and as our user base grew across three other departments, that arrangement stopped making sense:</p>
+                <ul>
+                  <li>We were being <strong>cross-charged at a higher rate</strong> than dealing with the vendor directly</li>
+                  <li>Administration depended on an internal support team with limited capacity that was slow to respond</li>
+                  <li>The DnA Office wasn't upgrading to the latest ThoughtSpot version, so the newest technical and AI capabilities never reached us</li>
+                </ul>
+                <p>Rather than keep absorbing that cost and lag, I partnered with other organisational data leads and went direct to ThoughtSpot's account management team to <strong>stand up our own instance</strong>.</p>
+                <p>Negotiating the contract terms and cost ourselves and agreeing to share that cost across the departments now using it, trading a shared service for one we owned and controlled outright.</p>
+                <p>That direct relationship put full administration and the latest capabilities in our own hands, and gave us the leverage to build the commercial case for a capacity uplift:</p>
+                <ul>
+                  <li>Switching to a $70K/250M-row option delivered <strong>2.86x better value</strong> than the $40K/50M-row option</li>
+                  <li>65% lower cost per million rows</li>
+                  <li>5x the capacity for only 1.75x the cost</li>
+                </ul>
               </div>
             </div>
           </div>
