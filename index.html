@@ -495,6 +495,55 @@
     .story-pair { grid-template-columns: 1fr; gap: 26px; }
   }
 
+  /* AI BUILDS */
+  .builds-head { max-width: 760px; margin-bottom: 36px; }
+
+  .builds-stats {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .builds-stat { background: var(--panel); padding: 32px 26px 30px; }
+  .builds-stat:nth-child(-n+3) { grid-column: span 2; }
+  .builds-stat:nth-child(n+4) { grid-column: span 3; }
+
+  .builds-stat .num {
+    font-size: clamp(28px, 3.4vw, 36px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+  }
+
+  .builds-stat .label { margin-top: 10px; font-size: 13.5px; color: var(--text-dim); }
+
+  .builds-more { margin-top: 28px; }
+
+  /* Count-up: the script adds .is-anim, then .in when the panel scrolls into view. Without the script, or with reduced motion, the figures show as written. */
+  .builds-stats.is-anim .builds-stat .num,
+  .builds-stats.is-anim .builds-stat .label {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition-delay: var(--d, 0ms);
+  }
+  .builds-stats.is-anim.in .builds-stat .num,
+  .builds-stats.is-anim.in .builds-stat .label { opacity: 1; transform: none; }
+
+  @media (max-width: 700px) {
+    .builds-stats { grid-template-columns: repeat(2, 1fr); }
+    .builds-stat { padding: 24px 16px 22px; }
+    .builds-stat:nth-child(n) { grid-column: auto; }
+    .builds-stat:last-child { grid-column: 1 / -1; }
+    .builds-stat .num { font-size: 24px; }
+  }
+
   /* Digital pollen background: add .has-anim-bg to the target section; the canvas is its first child.
      --anim-bleed-x / --anim-bleed-top / --anim-bleed-bottom let the pollen reach past the section's edges.
      Set width and height explicitly: an absolutely placed canvas with auto size grows itself on every resize. */
@@ -792,6 +841,43 @@
   </div>
 </section>
 
+<section id="ai-builds">
+  <div class="wrap">
+    <div class="section-head builds-head">
+      <div class="section-tag">Claude Code + ChatGPT · Custom build log · 19 Oct 2026</div>
+      <h2>17 builds across Claude Code and ChatGPT</h2>
+      <p>17 AI builds: 14 in Claude Code and 3 in ChatGPT, grouped into 6 categories. Each one shows when it was built, hands-on build time, how often it's used, and what it delivered and ran into, taken from session logs, run logs and output folders.</p>
+    </div>
+
+    <div class="builds-stats">
+      <div class="builds-stat">
+        <div class="num">17</div>
+        <div class="label">Builds: 14 Claude Code, 3 ChatGPT</div>
+      </div>
+      <div class="builds-stat">
+        <div class="num">~25h 10m</div>
+        <div class="label">Claude Code build time (ChatGPT not recorded)</div>
+      </div>
+      <div class="builds-stat">
+        <div class="num">~1h 48m</div>
+        <div class="label">Average per Claude Code build</div>
+      </div>
+      <div class="builds-stat">
+        <div class="num">12 vs 2</div>
+        <div class="label">Success vs failures: running vs issues being addressed (3 in development)</div>
+      </div>
+      <div class="builds-stat">
+        <div class="num">52 · ~5h 55m</div>
+        <div class="label">Claude Code uses and total run time</div>
+      </div>
+    </div>
+
+    <div class="builds-more">
+      <a class="btn btn-ghost" href="https://adamaziz1979.github.io/AI_Build_Log/" target="_blank" rel="noopener">See more ↗</a>
+    </div>
+  </div>
+</section>
+
 <section id="track-record">
   <div class="wrap">
     <div class="section-head">
@@ -1038,6 +1124,48 @@ document.querySelectorAll('[data-toggle]').forEach(function (head) {
   }
 
   Array.prototype.forEach.call(document.querySelectorAll('canvas.anim-bg'), Pollen);
+})();
+</script>
+<script>
+/* AI Builds stats: each figure counts up from zero and fades in, tile by tile, once, when the panel scrolls into view.
+   The figures are written in the HTML, so with no script or with reduced motion they show as written. */
+(function () {
+  var panel = document.querySelector('.builds-stats');
+  if (!panel || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var STEP = 140, DUR = 1500;
+  var items = Array.prototype.map.call(panel.querySelectorAll('.builds-stat'), function (cell, k) {
+    var el = cell.querySelector('.num'), txt = el.textContent;
+    cell.style.setProperty('--d', (k * STEP) + 'ms');
+    return { el: el, txt: txt, vals: (txt.match(/\d+/g) || []).map(Number), delay: k * STEP };
+  });
+
+  function render(item, p) {
+    var i = 0;
+    item.el.textContent = item.txt.replace(/\d+/g, function () { return Math.round(item.vals[i++] * p); });
+  }
+
+  items.forEach(function (item) { render(item, 0); });
+  panel.classList.add('is-anim');
+
+  function play() {
+    var start = performance.now();
+    panel.classList.add('in');
+    (function tick(now) {
+      var live = false;
+      items.forEach(function (item) {
+        var t = Math.max(0, Math.min(1, (now - start - item.delay) / DUR));
+        render(item, 1 - Math.pow(1 - t, 3));
+        if (t < 1) live = true;
+      });
+      if (live) requestAnimationFrame(tick);
+    })(start);
+  }
+
+  new IntersectionObserver(function (entries, obs) {
+    if (entries[0].isIntersecting) { obs.disconnect(); play(); }
+  }, { threshold: 0.35 }).observe(panel);
 })();
 </script>
 <script data-goatcounter="https://adamaziz.goatcounter.com/count"
