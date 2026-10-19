@@ -676,6 +676,35 @@
   .cap-transcript p { margin-top: 8px; font-size: 0.8125rem; color: var(--text-dim); max-width: 560px; }
   .cap-video video:focus-visible, .cap-transcript summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .pillar.open .pillar-body { max-height: 3400px; }
+  /* ===== Track record animation: the gold line draws as you scroll and each role lights up when it reaches it ===== */
+  .career-track::after {
+    content: ""; position: absolute; left: 4px; top: 6px; bottom: 6px; width: 1px; background: var(--accent);
+    transform: scaleY(0); transform-origin: top; opacity: 0;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .career-track.is-anim::after { transform: scaleY(var(--p, 0)); opacity: 1; }
+  .career-spark {
+    position: absolute; left: 4.5px; top: calc(6px + (100% - 12px) * var(--p, 0)); width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+    border-radius: 50%; background: var(--accent); pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 14px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+  .career-track.is-anim .career-spark { opacity: 1; }
+  /* Text fades in from top to bottom as the section first comes into view */
+  .fx-ready .fx { opacity: 0; transform: translateY(10px); transition: opacity 0.7s ease, transform 0.7s ease; transition-delay: var(--d, 0s); }
+  .fx-ready .fx.in { opacity: 1; transform: none; }
+  .career-track.is-anim .career-dot { transition: background 0.35s ease, border-color 0.35s ease; }
+  .career-track.is-anim .career-step.reached .career-dot { background: var(--accent); border-color: var(--accent); animation: careerPulse 0.9s ease-out; }
+  @keyframes careerPulse {
+    from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+    to { box-shadow: 0 0 0 12px transparent; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .career-track::after, .career-spark { display: none; }
+  }
+  @media print {
+    .fx-ready .fx { opacity: 1 !important; transform: none !important; }
+    .career-track::after, .career-spark { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -1369,6 +1398,71 @@
       if (entries[0].isIntersecting) { obs.disconnect(); play(); }
     }, { threshold: 0.35 }).observe(panel);
   });
+})();
+</script>
+<script>
+/* Track record: the gold line follows your scroll and each role's dot lights up as the line reaches it.
+   The text fades in from top to bottom as it first comes into view, one line after another.
+   With reduced motion, or without script, the section shows as written. Printing shows everything. */
+(function () {
+  var track = document.querySelector('.career-track');
+  if (!track) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var steps = Array.prototype.slice.call(track.querySelectorAll('.career-step'));
+  var spark = document.createElement('span');
+  spark.className = 'career-spark';
+  spark.setAttribute('aria-hidden', 'true');
+  track.appendChild(spark);
+  track.classList.add('is-anim');
+
+  var section = document.getElementById('track-record');
+  var fx = [];
+  if ('IntersectionObserver' in window) {
+    section.querySelectorAll('.section-head > *, .career-period, .career-role, .career-org, .career-desc').forEach(function (el) {
+      el.classList.add('fx');
+      fx.push(el);
+    });
+    section.classList.add('fx-ready');
+    var cursor = 0; /* the next free moment for a line to fade in, so later batches queue behind earlier lines */
+    var io = new IntersectionObserver(function (entries) {
+      var seen = entries.filter(function (e) { return e.isIntersecting; }).sort(function (a, b) {
+        return a.target.compareDocumentPosition(b.target) & 4 ? -1 : 1;
+      });
+      var now = performance.now() / 1000;
+      if (cursor < now) cursor = now;
+      seen.forEach(function (e) {
+        e.target.style.setProperty('--d', Math.min(cursor - now, 2).toFixed(2) + 's');
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        cursor += 0.1;
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    fx.forEach(function (el) { io.observe(el); });
+  }
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var line = window.innerHeight * 0.72;
+    var r = track.getBoundingClientRect();
+    var p = Math.max(0, Math.min(1, (line - r.top) / r.height));
+    track.style.setProperty('--p', p.toFixed(4));
+    steps.forEach(function (s) {
+      var hit = r.top + s.offsetTop + 8 <= line;
+      s.classList.toggle('reached', hit);
+    });
+  }
+  function request() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request);
+  window.addEventListener('beforeprint', function () {
+    steps.forEach(function (s) { s.classList.add('reached'); });
+    fx.forEach(function (el) { el.classList.add('in'); });
+    track.style.setProperty('--p', 1);
+  });
+  update();
 })();
 </script>
 <script data-goatcounter="https://adamaziz.goatcounter.com/count"
