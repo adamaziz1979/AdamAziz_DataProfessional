@@ -2,7 +2,8 @@
 <html lang="en-AU">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
 <title>Adam Aziz — Data & Analytics Leadership</title>
 <meta name="description" content="Adam Aziz — data and analytics leader. Trusted executive KPI metrics, AI-enabled decisioning, commercial insights, resilient data foundations, team leadership, enterprise analytics modernisation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -558,15 +559,75 @@
     -webkit-mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 70%,transparent);
     mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 70%,transparent)
   }
+  /* ===== UX review changes ===== */
+  :root { color-scheme: dark; }
+
+  header.nav { top: env(safe-area-inset-top, 0px); }
+  .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+
+  /* 4: keyboard focus, and collapsed content out of the tab order */
+  a:focus-visible, .pillar-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .pillar-head:focus-visible { outline-offset: -3px; }
+  .pillar-body { visibility: hidden; transition: max-height 0.3s ease, visibility 0s linear 0.3s; }
+  .pillar.open .pillar-body { visibility: visible; transition-delay: 0s; }
+
+  /* 5: touch targets of at least 44px */
+  .nav-links { gap: 12px; flex-shrink: 0; }
+  .nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; white-space: nowrap; }
+  .cert-chip { display: inline-flex; align-items: center; min-height: 44px; }
+  .tl-source a { display: inline-block; padding: 13px 4px; margin: -13px -4px; }
+
+  /* 6: readable line length */
+  .story { max-width: 560px; }
+
+  /* 10: secondary links stay lighter than buttons, and never rely on colour alone */
+  .story a, .tl-source a { font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+  /* 3: Back to top, desktop only */
+  .to-top { margin-top: 28px; text-align: right; font-size: 12.5px; }
+  .to-top a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; color: var(--text-dim); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .to-top a:hover { color: var(--accent); }
+
+  /* 1 and 2: section tabs. Bottom bar on phones upright, left rail on phones sideways. */
+  .tabbar { display: none; }
+  .tabbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 56px; font-size: 10.5px; line-height: 1.1; text-align: center; text-decoration: none; color: var(--text-dim); }
+  .tabbar svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .tabbar a.on { color: var(--accent); }
+
+  @media (max-width: 720px) and (min-height: 541px) {
+    .tabbar { position: fixed; z-index: 60; left: 0; right: 0; bottom: 0; display: flex; background: var(--panel); border-top: 1px solid var(--border); padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+    .tabbar a { flex: 1; min-width: 0; border-top: 2px solid transparent; }
+    .tabbar a.on { border-top-color: var(--accent); }
+    footer { padding-bottom: calc(56px + 64px + env(safe-area-inset-bottom, 0px)); }
+    .to-top { display: none; }
+  }
+
+  @media (max-height: 540px) and (pointer: coarse) {
+    body { padding-left: calc(76px + env(safe-area-inset-left, 0px)); }
+    header.nav { position: static; }
+    .nav-links { display: none; }
+    .tabbar { position: fixed; z-index: 60; top: 0; bottom: 0; left: 0; width: calc(76px + env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; justify-content: center; overflow-y: auto; background: var(--panel); border-right: 1px solid var(--border); padding-left: env(safe-area-inset-left, 0px); }
+    .tabbar a { flex: 0 0 auto; border-left: 2px solid transparent; }
+    .tabbar a.on { border-left-color: var(--accent); }
+    .to-top { display: none; }
+  }
+
+  /* 7: respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; }
+    .btn:hover { transform: none; }
+  }
 </style>
 </head>
 <body>
 
-<header class="nav">
+<header class="nav" id="top">
   <div class="wrap">
     <div class="nav-name">ADAM AZIZ <span>/</span> DATA ANALYTICS &amp; AI LEADER</div>
     <ul class="nav-links">
       <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#ai-builds">AI Builds</a></li>
       <li><a href="#track-record">Track Record</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -621,14 +682,14 @@
   <div class="wrap">
     <div class="section-head">
       <div class="section-tag">Capabilities</div>
-      <h2>Seven areas where I've delivered, not just advised</h2>
+      <h2>Seven capabilities where I've delivered, not just advised</h2>
       <p>Click any capability for the story behind it.</p>
     </div>
 
     <div class="pillars">
 
       <div class="pillar">
-        <div class="pillar-head" data-toggle>
+        <div class="pillar-head" data-toggle role="button" tabindex="0" aria-expanded="false">
           <div class="pillar-num">01</div>
           <div class="pillar-title">Trusted executive KPI metrics</div>
           <div class="pillar-toggle">+</div>
@@ -659,7 +720,7 @@
       </div>
 
       <div class="pillar">
-        <div class="pillar-head" data-toggle>
+        <div class="pillar-head" data-toggle role="button" tabindex="0" aria-expanded="false">
           <div class="pillar-num">02</div>
           <div class="pillar-title">AI-enabled decisioning</div>
           <div class="pillar-toggle">+</div>
@@ -696,7 +757,7 @@
       </div>
 
       <div class="pillar">
-        <div class="pillar-head" data-toggle>
+        <div class="pillar-head" data-toggle role="button" tabindex="0" aria-expanded="false">
           <div class="pillar-num">03</div>
           <div class="pillar-title">Data Strategy &amp; Evolution</div>
           <div class="pillar-toggle">+</div>
@@ -712,7 +773,7 @@
       </div>
 
       <div class="pillar">
-        <div class="pillar-head" data-toggle>
+        <div class="pillar-head" data-toggle role="button" tabindex="0" aria-expanded="false">
           <div class="pillar-num">04</div>
           <div class="pillar-title">Commercial insights that turn into action</div>
           <div class="pillar-toggle">+</div>
@@ -744,7 +805,7 @@
       </div>
 
       <div class="pillar">
-        <div class="pillar-head" data-toggle>
+        <div class="pillar-head" data-toggle role="button" tabindex="0" aria-expanded="false">
           <div class="pillar-num">05</div>
           <div class="pillar-title">Resilient data foundations</div>
           <div class="pillar-toggle">+</div>
@@ -758,9 +819,9 @@
               <p>I tasked the data engineers to rebuild around a <strong>DBT transformation and governance layer</strong> instead:</p>
               <ul>
                 <li>Data lineage for faster root-cause tracing</li>
-                <li>Data warehouse health KPIs monitoring and alerting the team to ETL failure rates, unexpected changes in data ingestion volume, and data loading duration</li>
+                <li>Data warehouse health KPIs alerting the team to ETL failure rates, unexpected ingestion volume changes and load duration</li>
                 <li>Cataloguing moved from Alation to DBT Docs</li>
-                <li>Every table change run through an iterative release cycle - development, peer review, automated quality tests - through to production release with full version history for troubleshooting</li>
+                <li>Every table change goes through development, peer review and automated tests to release, with full version history for troubleshooting</li>
               </ul>
               <p>External access was replaced with secure AWS S3 data sharing, removing the disruption risk entirely.</p>
               <p>Warehouse volume dropped <strong>42%</strong> (355 to 205 tables/views), with 517.2M stagnant rows removed and disruptions down from 1-2 a quarter to zero.</p>
@@ -770,7 +831,7 @@
       </div>
 
       <div class="pillar">
-        <div class="pillar-head" data-toggle>
+        <div class="pillar-head" data-toggle role="button" tabindex="0" aria-expanded="false">
           <div class="pillar-num">06</div>
           <div class="pillar-title">Powerful, well-led data teams</div>
           <div class="pillar-toggle">+</div>
@@ -791,7 +852,7 @@
               <p>A stronger SQL layer changes what a team can build. It doesn't change how they work, so alongside it, I:</p>
               <ul>
                 <li>Coached analysts to build narratives that connect the dots and compel decision-makers to act, not just describe a situation in numbers</li>
-                <li>Took the time to understand what genuinely motivated each person so the business got their best work and they felt real ownership of their craft</li>
+                <li>Understood what motivated each person, so the business got their best work and they owned their craft</li>
                 <li>Built and evolved a mission statement together with the team and stakeholders rather than handing one down</li>
               </ul>
               <p>What grew out of it was exactly what the old model couldn't produce: a fragmented reporting function turned into <strong>a multi-year, AI-enabled analytics capability</strong>, focused on setting up self-service analytics for success and future-proofing our data operations.</p>
@@ -801,7 +862,7 @@
       </div>
 
       <div class="pillar">
-        <div class="pillar-head" data-toggle>
+        <div class="pillar-head" data-toggle role="button" tabindex="0" aria-expanded="false">
           <div class="pillar-num">07</div>
           <div class="pillar-title">Self-service data for every decision</div>
           <div class="pillar-toggle">+</div>
@@ -838,6 +899,7 @@
       </div>
 
     </div>
+    <p class="to-top"><a href="#top">Back to top ↑</a></p>
   </div>
 </section>
 
@@ -875,6 +937,7 @@
     <div class="builds-more">
       <a class="btn btn-ghost" href="https://adamaziz1979.github.io/AI_Build_Log/" target="_blank" rel="noopener">See more ↗</a>
     </div>
+    <p class="to-top"><a href="#top">Back to top ↑</a></p>
   </div>
 </section>
 
@@ -961,6 +1024,7 @@
       </div>
 
     </div>
+    <p class="to-top"><a href="#top">Back to top ↑</a></p>
   </div>
 </section>
 
@@ -1024,6 +1088,7 @@
         <a class="cert-chip" href="https://www.credly.com/badges/21d9892d-fd62-4692-ae8f-2fb8492a457e?source=linked_in_profile" target="_blank" rel="noopener">Python for Data Science and AI — IBM, 2021</a>
         <a class="cert-chip" href="https://www.credly.com/earner/earned/badge/c9f934a4-9ee3-4bc3-a75c-785e37d213a2" target="_blank" rel="noopener">Data Science for Leaders — North Carolina State Executive Education, 2021</a>      </div>
     </div>
+    <p class="to-top"><a href="#top">Back to top ↑</a></p>
   </div>
 </section>
 
@@ -1044,17 +1109,51 @@
   </div>
 </footer>
 
+<nav class="tabbar" aria-label="Sections">
+  <a href="#capabilities"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Capabilities</span></a>
+  <a href="#ai-builds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><span>AI Builds</span></a>
+  <a href="#track-record"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 8-9"/><path d="M15 5h5v5"/></svg><span>Track record</span></a>
+  <a href="#skills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg><span>Skills</span></a>
+  <a href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Contact</span></a>
+</nav>
+
 <script>
-document.querySelectorAll('[data-toggle]').forEach(function (head) {
-  head.addEventListener('click', function () {
+(function () {
+  var heads = document.querySelectorAll('[data-toggle]');
+  function toggle(head) {
     var pillar = head.closest('.pillar');
-    var wasOpen = pillar.classList.contains('open');
+    var willOpen = !pillar.classList.contains('open');
     document.querySelectorAll('.pillar.open').forEach(function (p) {
       if (p !== pillar) p.classList.remove('open');
     });
-    pillar.classList.toggle('open', !wasOpen);
+    pillar.classList.toggle('open', willOpen);
+    heads.forEach(function (x) { x.setAttribute('aria-expanded', x.closest('.pillar').classList.contains('open') ? 'true' : 'false'); });
+  }
+  heads.forEach(function (head) {
+    head.addEventListener('click', function () { toggle(head); });
+    head.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(head); }
+    });
   });
-});
+})();
+</script>
+<script>
+/* Section tab bar (phones upright) and left rail (phones sideways): marks the section on screen. */
+(function () {
+  var links = document.querySelectorAll('.tabbar a');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove('on'); a.removeAttribute('aria-current'); });
+      var a = byId[e.target.id];
+      if (a) { a.classList.add('on'); a.setAttribute('aria-current', 'true'); }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(byId).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+})();
 </script>
 <script>
 /* Digital pollen background. Usage: <canvas class="anim-bg" aria-hidden="true" data-strength="subtle|medium|strong" data-accent="r,g,b"></canvas>
