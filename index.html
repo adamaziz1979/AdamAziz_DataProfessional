@@ -525,16 +525,16 @@
 
   .builds-more { margin-top: 28px; }
 
-  /* Count-up: the script adds .is-anim, then .in when the panel scrolls into view. Without the script, or with reduced motion, the figures show as written. */
-  .builds-stats.is-anim .builds-stat .num,
-  .builds-stats.is-anim .builds-stat .label {
+  /* Count-up (headline stats and AI Builds): the script adds .is-anim, then .in when the panel scrolls into view. Without the script, or with reduced motion, the figures show as written. */
+  .count-up.is-anim .num,
+  .count-up.is-anim .label {
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 0.7s ease, transform 0.7s ease;
     transition-delay: var(--d, 0ms);
   }
-  .builds-stats.is-anim.in .builds-stat .num,
-  .builds-stats.is-anim.in .builds-stat .label { opacity: 1; transform: none; }
+  .count-up.is-anim.in .num,
+  .count-up.is-anim.in .label { opacity: 1; transform: none; }
 
   @media (max-width: 700px) {
     .builds-stats { grid-template-columns: repeat(2, 1fr); }
@@ -589,7 +589,7 @@
 </section>
 
 <section class="stats" aria-label="Track record summary">
-  <div class="wrap">
+  <div class="wrap count-up">
     <div class="stat">
       <div class="num">62%→100%</div>
       <div class="label">Executive KPI consistency uplift</div>
@@ -849,7 +849,7 @@
       <p>17 AI builds: 14 in Claude Code and 3 in ChatGPT, grouped into 6 categories. Each one shows when it was built, hands-on build time, how often it's used, and what it delivered and ran into, taken from session logs, run logs and output folders.</p>
     </div>
 
-    <div class="builds-stats">
+    <div class="builds-stats count-up">
       <div class="builds-stat">
         <div class="num">17</div>
         <div class="label">Builds: 14 Claude Code, 3 ChatGPT</div>
@@ -1127,45 +1127,56 @@ document.querySelectorAll('[data-toggle]').forEach(function (head) {
 })();
 </script>
 <script>
-/* AI Builds stats: each figure counts up from zero and fades in, tile by tile, once, when the panel scrolls into view.
+/* Stats count-up (headline stats and AI Builds): each figure counts up from zero and fades in, tile by tile, once, when its panel scrolls into view.
    The figures are written in the HTML, so with no script or with reduced motion they show as written. */
 (function () {
-  var panel = document.querySelector('.builds-stats');
-  if (!panel || !('IntersectionObserver' in window)) return;
+  var panels = document.querySelectorAll('.count-up');
+  if (!panels.length || !('IntersectionObserver' in window)) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var STEP = 140, DUR = 1500;
-  var items = Array.prototype.map.call(panel.querySelectorAll('.builds-stat'), function (cell, k) {
-    var el = cell.querySelector('.num'), txt = el.textContent;
-    cell.style.setProperty('--d', (k * STEP) + 'ms');
-    return { el: el, txt: txt, vals: (txt.match(/\d+/g) || []).map(Number), delay: k * STEP };
-  });
+  var STEP = 140, DUR = 1500, NUM = /\d+(?:\.\d+)?/g;
 
-  function render(item, p) {
-    var i = 0;
-    item.el.textContent = item.txt.replace(/\d+/g, function () { return Math.round(item.vals[i++] * p); });
-  }
+  Array.prototype.forEach.call(panels, function (panel) {
+    var items = Array.prototype.map.call(panel.children, function (cell, k) {
+      var el = cell.querySelector('.num');
+      if (!el) return null;
+      var txt = el.textContent, found = txt.match(NUM) || [];
+      cell.style.setProperty('--d', (k * STEP) + 'ms');
+      return {
+        el: el, txt: txt, delay: k * STEP,
+        vals: found.map(Number),
+        dec: found.map(function (s) { return (s.split('.')[1] || '').length; })
+      };
+    }).filter(Boolean);
 
-  items.forEach(function (item) { render(item, 0); });
-  panel.classList.add('is-anim');
-
-  function play() {
-    var start = performance.now();
-    panel.classList.add('in');
-    (function tick(now) {
-      var live = false;
-      items.forEach(function (item) {
-        var t = Math.max(0, Math.min(1, (now - start - item.delay) / DUR));
-        render(item, 1 - Math.pow(1 - t, 3));
-        if (t < 1) live = true;
+    function render(item, p) {
+      var i = 0;
+      item.el.textContent = item.txt.replace(NUM, function () {
+        var v = item.vals[i] * p, d = item.dec[i++];
+        return d ? v.toFixed(d) : String(Math.round(v));
       });
-      if (live) requestAnimationFrame(tick);
-    })(start);
-  }
+    }
 
-  new IntersectionObserver(function (entries, obs) {
-    if (entries[0].isIntersecting) { obs.disconnect(); play(); }
-  }, { threshold: 0.35 }).observe(panel);
+    function play() {
+      var start = performance.now();
+      panel.classList.add('in');
+      (function tick(now) {
+        var live = false;
+        items.forEach(function (item) {
+          var t = Math.max(0, Math.min(1, (now - start - item.delay) / DUR));
+          render(item, 1 - Math.pow(1 - t, 3));
+          if (t < 1) live = true;
+        });
+        if (live) requestAnimationFrame(tick);
+      })(start);
+    }
+
+    items.forEach(function (item) { render(item, 0); });
+    panel.classList.add('is-anim');
+    new IntersectionObserver(function (entries, obs) {
+      if (entries[0].isIntersecting) { obs.disconnect(); play(); }
+    }, { threshold: 0.35 }).observe(panel);
+  });
 })();
 </script>
 <script data-goatcounter="https://adamaziz.goatcounter.com/count"
