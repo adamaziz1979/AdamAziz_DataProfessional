@@ -1,0 +1,93 @@
+WEBVTT
+
+1
+00:00:00.450 --> 00:00:01.892
+Nobody trusted the numbers.
+
+2
+00:00:02.737 --> 00:00:06.761
+70+ dashboards, 3-5 leadership escalations a month,
+
+3
+00:00:06.822 --> 00:00:09.273
+and stakeholders double-checking every figure.
+
+4
+00:00:09.701 --> 00:00:12.039
+Patching dashboards wasn't going to fix that.
+
+5
+00:00:12.779 --> 00:00:14.720
+So I split the team's effort in two:
+
+6
+00:00:14.921 --> 00:00:16.734
+long-term strategic reporting,
+
+7
+00:00:16.819 --> 00:00:18.922
+and self-service for ad-hoc requests.
+
+8
+00:00:19.444 --> 00:00:21.654
+Then we backed it with single-source-of-truth views,
+
+9
+00:00:21.761 --> 00:00:23.934
+refresh schedules aligned to the warehouse,
+
+10
+00:00:24.180 --> 00:00:26.191
+and tripwires to catch drift early.
+
+11
+00:00:26.647 --> 00:00:28.972
+Closing the trust gap took just as much work:
+
+12
+00:00:29.022 --> 00:00:30.697
+plain-English data catalogues,
+
+13
+00:00:30.781 --> 00:00:32.618
+dashboards with a clear narrative,
+
+14
+00:00:32.749 --> 00:00:34.204
+agreed measure definitions,
+
+15
+00:00:34.277 --> 00:00:35.975
+and data literacy sessions,
+
+16
+00:00:36.071 --> 00:00:38.012
+so people could challenge the numbers.
+
+17
+00:00:38.520 --> 00:00:43.692
+The result? KPI consistency went from 62% to 100%,
+
+18
+00:00:43.777 --> 00:00:47.813
+duplicate and end-of-life dashboards fell from 70+ to 46,
+
+19
+00:00:48.025 --> 00:00:49.653
+escalations dropped to zero,
+
+20
+00:00:49.738 --> 00:00:52.928
+and workspace health climbed from 60% to 93%.
+
+21
+00:00:53.359 --> 00:00:54.523
+It's held ever since,
+
+22
+00:00:54.619 --> 00:00:58.377
+with tripwire alerts still watching for variance above 2%.
+
+23
+00:00:58.834 --> 00:01:01.282
+That's trusted executive KPI metrics.

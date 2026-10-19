@@ -649,6 +649,25 @@
 
   /* 5: accordion heads are real buttons */
   button.pillar-head { width: 100%; background: none; border: 0; color: inherit; font: inherit; text-align: left; }
+  /* ===== Capability 01 video ===== */
+  /* Video sits top-right and the story wraps around it. Stacks above the text on narrow screens. */
+  .cap-video { float: right; width: 42%; max-width: 400px; margin: 4px 0 20px 32px; }
+  .pillar-body-inner::after { content: ""; display: block; clear: both; }
+  .story.story-wrap { display: block; }
+  .story-wrap > * { margin: 0; }
+  .story-wrap > * + * { margin-top: 14px; }
+  .story-wrap > ul { display: block; margin-top: 14px; }
+  .story-wrap li + li { margin-top: 8px; }
+  @media (max-width: 900px) {
+    .cap-video { float: none; width: 100%; max-width: 560px; margin: 0 0 24px; }
+  }
+  .cap-video video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--border); border-radius: var(--radius); }
+  .cap-video figcaption { margin-top: 10px; font-size: 0.8125rem; color: var(--text-dim); }
+  .cap-video figcaption strong { color: var(--text); font-weight: 600; }
+  .cap-transcript summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 0.8125rem; color: var(--text-dim); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .cap-transcript p { margin-top: 8px; font-size: 0.8125rem; color: var(--text-dim); max-width: 560px; }
+  .cap-video video:focus-visible, .cap-transcript summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .pillar.open .pillar-body { max-height: 3400px; }
 </style>
 </head>
 <body>
@@ -732,7 +751,25 @@
         </button>
         <div class="pillar-body" id="pillar-1">
           <div class="pillar-body-inner">
-            <div class="story">
+            <figure class="cap-video">
+      <video controls preload="metadata" playsinline poster="assets/capability-01-trusted-kpi-metrics-poster.jpg" aria-describedby="cap1-video-note">
+        <source src="assets/capability-01-trusted-kpi-metrics.mp4" type="video/mp4">
+        <track kind="captions" src="assets/capability-01-trusted-kpi-metrics.vtt" srclang="en-AU" label="English" default>
+        <p>Your browser can't play this video. <a href="assets/capability-01-trusted-kpi-metrics.mp4">Download it</a> instead.</p>
+      </video>
+      <figcaption id="cap1-video-note"><strong>Watch the 1-minute story.</strong> Voice-over by Natasha (AI voice), with captions.</figcaption>
+      <details class="cap-transcript">
+        <summary>Read the transcript</summary>
+      <p>Nobody trusted the numbers. 70+ dashboards, 3-5 leadership escalations a month, and stakeholders double-checking every figure.</p>
+      <p>Patching dashboards wasn't going to fix that. So I split the team's effort in two: long-term strategic reporting, and self-service for ad-hoc requests.</p>
+      <p>Then we backed it with single-source-of-truth views, refresh schedules aligned to the warehouse, and tripwires to catch drift early.</p>
+      <p>Closing the trust gap took just as much work: plain-English data catalogues, dashboards with a clear narrative, agreed measure definitions, and data literacy sessions, so people could challenge the numbers.</p>
+      <p>The result? KPI consistency went from 62% to 100%, duplicate and end-of-life dashboards fell from 70+ to 46, escalations dropped to zero, and workspace health climbed from 60% to 93%.</p>
+      <p>It's held ever since, with tripwire alerts still watching for variance above 2%.</p>
+      <p>That's trusted executive KPI metrics.</p>
+      </details>
+    </figure>
+            <div class="story story-wrap">
               <p>A number of high-level service KPIs were telling different stories depending on who you asked.</p>
               <p>Numbers spread across 70+ Power BI dashboards had drifted apart, generating 3-5 leadership escalations a month, and <strong>stakeholders had quietly stopped trusting any of them</strong>, double-checking every number before acting on it.</p>
               <p>Rebuilding that trust meant more than patching dashboards, so I split the team's effort in two: long-term strategic reporting on one side, self-service for ad-hoc requests on the other.</p>
