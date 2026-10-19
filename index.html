@@ -494,6 +494,21 @@
   @media (max-width: 720px) {
     .story-pair { grid-template-columns: 1fr; gap: 26px; }
   }
+
+  /* Digital pollen background: add .has-anim-bg to the target section; the canvas is its first child.
+     --anim-bleed-x / --anim-bleed-top / --anim-bleed-bottom let the pollen reach past the section's edges.
+     Set width and height explicitly: an absolutely placed canvas with auto size grows itself on every resize. */
+  .has-anim-bg{position:relative;isolation:isolate}
+  .has-anim-bg>*{position:relative;z-index:1}
+  .has-anim-bg>canvas.anim-bg{
+    position:absolute;z-index:0;display:block;pointer-events:none;
+    top:calc(-1 * var(--anim-bleed-top, 0px));
+    left:calc(-1 * var(--anim-bleed-x, 0px));
+    width:calc(100% + 2 * var(--anim-bleed-x, 0px));
+    height:calc(100% + var(--anim-bleed-top, 0px) + var(--anim-bleed-bottom, 0px));
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 70%,transparent);
+    mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 70%,transparent)
+  }
 </style>
 </head>
 <body>
@@ -510,7 +525,8 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="hero has-anim-bg">
+  <canvas class="anim-bg" aria-hidden="true" data-strength="strong" data-accent="245,181,68"></canvas>
   <div class="wrap">
     <div class="eyebrow">Sydney, NSW — Open to enterprise data &amp; AI leadership roles</div>
     <h1>Turning fragmented data into trusted, AI-enabled decisions — at enterprise scale.</h1>
@@ -953,6 +969,76 @@ document.querySelectorAll('[data-toggle]').forEach(function (head) {
     pillar.classList.toggle('open', !wasOpen);
   });
 });
+</script>
+<script>
+/* Digital pollen background. Usage: <canvas class="anim-bg" aria-hidden="true" data-strength="subtle|medium|strong" data-accent="r,g,b"></canvas>
+   as the first child of a .has-anim-bg section. One script handles every canvas on the page.
+   Pauses off screen and in hidden tabs; one still frame when reduced motion is on. */
+(function () {
+  var PRESETS = {
+    subtle: { area: 9000, min: 24, max: 90, r0: 0.6, r1: 2.2, a0: 0.12, a1: 0.38, glowR: 1.6, glowA: 0.12 },
+    medium: { area: 5200, min: 40, max: 150, r0: 0.8, r1: 2.4, a0: 0.24, a1: 0.46, glowR: 1.3, glowA: 0.18 },
+    strong: { area: 3400, min: 60, max: 230, r0: 1.0, r1: 2.7, a0: 0.34, a1: 0.5, glowR: 1.1, glowA: 0.24 }
+  };
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function readAccent() {
+    var c = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(), m;
+    if ((m = c.match(/^#([0-9a-f]{6})$/i))) { var n = parseInt(m[1], 16); return (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255); }
+    if ((m = c.match(/rgba?\(([^)]+)\)/))) return m[1].split(',').slice(0, 3).join(',');
+    return '79,157,255';
+  }
+
+  function Pollen(cv) {
+    var ctx = cv.getContext('2d'); if (!ctx) return;
+    var cfg = PRESETS[cv.getAttribute('data-strength')] || PRESETS.medium;
+    var SP = cv.getAttribute('data-accent'); /* optional off-palette grain */
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, P = [], col = readAccent(), running = false, last = 0, seen = true;
+
+    function seed(p, anywhere) {
+      p.x = Math.random() * W; p.y = anywhere ? Math.random() * H : H + 10;
+      p.r = cfg.r0 + Math.pow(Math.random(), 2.2) * cfg.r1;   /* mostly tiny, a few larger */
+      p.vy = -(4 + Math.random() * 9);                         /* px per second, upward */
+      p.sw = 6 + Math.random() * 16; p.sf = 0.05 + Math.random() * 0.12; p.ph = Math.random() * 6.28;
+      p.a = cfg.a0 + Math.random() * cfg.a1; p.tw = 0.3 + Math.random() * 0.9;
+      if (p.sp) { p.r = 2.6; p.a = 0.9; p.vy = -6; }
+      return p;
+    }
+    function size() {
+      var r = cv.getBoundingClientRect(); W = r.width; H = r.height;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var want = Math.round(Math.min(cfg.max, Math.max(cfg.min, W * H / cfg.area)));
+      while (P.length < want) P.push(seed({}, true)); P.length = want;
+      if (SP && P[0] && !P[0].sp) { P[0].sp = true; seed(P[0], true); }
+    }
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < P.length; i++) {
+        var p = P[i], x = p.x + Math.sin(t * p.sf + p.ph) * p.sw, a = p.a * (0.65 + 0.35 * Math.sin(t * p.tw + p.ph)), c = p.sp ? SP : col;
+        if (p.r > cfg.glowR) { ctx.beginPath(); ctx.arc(x, p.y, p.r * (p.sp ? 4 : 3.2), 0, 6.283); ctx.fillStyle = 'rgba(' + c + ',' + (a * (p.sp ? 0.22 : cfg.glowA)).toFixed(3) + ')'; ctx.fill(); }
+        ctx.beginPath(); ctx.arc(x, p.y, p.r, 0, 6.283); ctx.fillStyle = 'rgba(' + c + ',' + a.toFixed(3) + ')'; ctx.fill();
+      }
+    }
+    function frame(now) {
+      if (!running) return;
+      var dt = Math.min(0.05, (now - last) / 1000 || 0); last = now;
+      for (var i = 0; i < P.length; i++) { var p = P[i]; p.y += p.vy * dt; if (p.y < -12) seed(p, false); }
+      draw(now / 1000); requestAnimationFrame(frame);
+    }
+    function start() { if (running || still || !seen || document.hidden) return; running = true; last = performance.now(); requestAnimationFrame(frame); }
+    function stop() { running = false; }
+    function recolour() { col = readAccent(); if (!running) draw(0); }
+
+    size(); draw(0); start();
+    if (window.ResizeObserver) new ResizeObserver(function () { size(); if (!running) draw(0); }).observe(cv);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { seen = e[0].isIntersecting; seen ? start() : stop(); }).observe(cv);
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    var mq = window.matchMedia && matchMedia('(prefers-color-scheme: dark)'); if (mq && mq.addEventListener) mq.addEventListener('change', recolour);
+    new MutationObserver(recolour).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('canvas.anim-bg'), Pollen);
+})();
 </script>
 <script data-goatcounter="https://adamaziz.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
