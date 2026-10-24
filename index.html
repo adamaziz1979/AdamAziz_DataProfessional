@@ -767,6 +767,11 @@
   @media (prefers-reduced-motion: reduce) { .kpi-thumb iframe { display: none; } .kpi-play .pill { transition: none; } }
   @media print { .kpi-thumb iframe { display: none; } }
   @media (max-width: 560px) { .kpi-play .pill { min-height: 48px; padding: 0 18px; font-size: 0.9375rem; } }
+  /* ===== Cascade on first view: agents left to right, capabilities top to bottom, skills by column ===== */
+  .cx-ready .cx { opacity: 0; transform: translate(var(--cx-x, 0), var(--cx-y, 12px)); transition: opacity 0.6s ease, transform 0.6s ease; transition-delay: var(--d, 0s); }
+  .cx-ready .cx.in { opacity: 1; transform: none; }
+  .kpi-agents.cx-ready .cx { --cx-x: -22px; --cx-y: 0px; }
+  @media print { .cx-ready .cx { opacity: 1 !important; transform: none !important; } }
 </style>
 </head>
 <body>
@@ -1629,6 +1634,71 @@
   fit();
   window.addEventListener('resize', fit);
   if (window.ResizeObserver) new ResizeObserver(fit).observe(thumb);
+})();
+</script>
+<script>
+/* Cascade on first view. Each group of items fades in as it scrolls into view, one after another:
+   the KPI Creator agents from left to right, the Capabilities sections from top to bottom, and the Skills categories in column order
+   1, 4, 2, 3 (each one top to bottom). Where the Skills columns stack, they show in reading order instead.
+   With reduced motion, or without script, everything shows as written. Printing shows everything. */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* targets: [{ watch: element to observe, items: elements to fade in }]. step: seconds between targets, inner: seconds between items in a target. */
+  function cascade(box, targets, step, inner, orderOf) {
+    if (!box || !targets.length) return;
+    var items = new Map();
+    targets.forEach(function (t) {
+      t.items.forEach(function (el) { el.classList.add('cx'); });
+      items.set(t.watch, t.items);
+    });
+    box.classList.add('cx-ready');
+    var cursor = 0; /* the next free moment, so later batches queue behind earlier ones */
+    var io = new IntersectionObserver(function (entries) {
+      var seen = entries.filter(function (e) { return e.isIntersecting; }).map(function (e) { return e.target; });
+      var order = orderOf ? orderOf() : null;
+      seen.sort(function (a, b) {
+        if (order) return order.indexOf(a) - order.indexOf(b);
+        return a.compareDocumentPosition(b) & 4 ? -1 : 1;
+      });
+      var now = performance.now() / 1000;
+      if (cursor < now) cursor = now;
+      seen.forEach(function (el) {
+        var base = cursor - now;
+        items.get(el).forEach(function (it, i) {
+          it.style.setProperty('--d', Math.min(base + i * inner, 2.5).toFixed(2) + 's');
+          it.classList.add('in');
+        });
+        io.unobserve(el);
+        cursor += step;
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    targets.forEach(function (t) { io.observe(t.watch); });
+    window.addEventListener('beforeprint', function () {
+      targets.forEach(function (t) { t.items.forEach(function (el) { el.classList.add('in'); }); });
+    });
+  }
+
+  function each(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+  function unit(el) { return { watch: el, items: [el] }; }
+
+  /* KPI Creator: the five agents, left to right */
+  cascade(document.querySelector('.kpi-agents'), each('.kpi-agents > li').map(unit), 0.15, 0);
+
+  /* Capabilities: the collapsed sections, top to bottom */
+  cascade(document.querySelector('#capabilities .pillars'), each('#capabilities .pillars > .pillar').map(unit), 0.12, 0);
+
+  /* Skills: each category top to bottom (heading, then each line), categories in column order 1, 4, 2, 3 */
+  var grid = document.querySelector('#skills .skills-grid');
+  var groups = each('#skills .skills-group');
+  cascade(grid, groups.map(function (g) {
+    return { watch: g, items: Array.prototype.slice.call(g.querySelectorAll('h3, li')) };
+  }), 0.3, 0.07, function () {
+    var top = Math.round(groups[0].getBoundingClientRect().top);
+    var across = groups.filter(function (g) { return Math.round(g.getBoundingClientRect().top) === top; }).length;
+    return across === 4 ? [groups[0], groups[3], groups[1], groups[2]] : groups;
+  });
 })();
 </script>
 <script data-goatcounter="https://adamaziz.goatcounter.com/count"
