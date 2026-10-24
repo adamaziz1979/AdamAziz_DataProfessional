@@ -705,6 +705,68 @@
     .fx-ready .fx { opacity: 1 !important; transform: none !important; }
     .career-track::after, .career-spark { display: none; }
   }
+  /* KPI Creator team: five agent cards, each opening that agent's page. 3 + 2 on tablets, 2 + 2 + 1 on phones. */
+  .team-note { font-size: 0.8125rem; color: var(--text-dim); margin: 0 0 14px; }
+  .kpi-agents { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 0 0 28px; }
+  .kpi-agents li { display: flex; }
+  .kpi-agent {
+    flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px 14px 18px; text-align: center; text-decoration: none; color: var(--text);
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color 0.15s;
+  }
+  .kpi-agent:hover { border-color: var(--accent); }
+  .kpi-agent img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-strong); margin-bottom: 12px; transition: border-color 0.15s; }
+  .kpi-agent:hover img { border-color: var(--accent); }
+  .kpi-agent .name { font-size: 1.0625rem; font-weight: 700; }
+  .kpi-agent .role { margin-top: 4px; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+  .kpi-agent em { margin-top: 10px; font-size: 0.8125rem; line-height: 1.5; color: var(--text-dim); }
+  @media (max-width: 1000px) {
+    .kpi-agents { grid-template-columns: repeat(6, 1fr); }
+    .kpi-agents li:nth-child(-n+3) { grid-column: span 2; }
+    .kpi-agents li:nth-child(n+4) { grid-column: span 3; }
+  }
+  @media (max-width: 560px) {
+    .kpi-agents { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .kpi-agents li:nth-child(n) { grid-column: auto; }
+    .kpi-agents li:last-child { grid-column: 1 / -1; }
+    .kpi-agent { padding: 16px 10px 14px; }
+    .kpi-agent img { width: 72px; height: 72px; }
+  }
+  /* Six top links: between 721px and 860px, tighten the menu and the name so the name never spills out of the header */
+  @media (min-width: 721px) and (max-width: 860px) {
+    .nav-links { gap: 2px; }
+    .nav-links a { padding-left: 6px; padding-right: 6px; min-width: 44px; justify-content: center; }
+    .nav-links li:last-child a { padding-left: 12px; padding-right: 12px; }
+    .nav-name { font-size: 0.8125rem; }
+  }
+  /* KPI Creator: Agent Simulation with a project selector. A faded live preview with one play link over it. */
+  .kpi-sim { margin: 8px 0 32px; padding-top: 32px; border-top: 1px solid var(--border); }
+  .kpi-sim-title { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .kpi-sim-lead { font-size: 0.8125rem; color: var(--text-dim); max-width: 620px; margin-bottom: 16px; }
+  .kpi-projects { border: 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .kpi-projects legend { float: left; margin-right: 14px; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); line-height: 44px; }
+  .kpi-project { position: relative; display: inline-flex; cursor: pointer; }
+  .kpi-project input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .kpi-project span {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; font-size: 0.8125rem; color: var(--text-dim);
+    border: 1px solid var(--border-strong); border-radius: 100px; transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .kpi-project:hover span { border-color: var(--accent); color: var(--accent); }
+  .kpi-project input:checked + span { border-color: var(--accent); color: var(--accent); font-weight: 600; background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+  .kpi-project input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .kpi-thumb { position: relative; aspect-ratio: 16 / 9; max-height: 440px; width: 100%; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
+  .kpi-thumb iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 810px; border: 0; transform-origin: 0 0; pointer-events: none; opacity: 0.38; filter: saturate(0.7); }
+  .kpi-play {
+    position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; text-decoration: none; color: var(--text);
+    background: radial-gradient(ellipse at center, color-mix(in srgb, var(--bg) 55%, transparent), color-mix(in srgb, var(--bg) 20%, transparent) 70%);
+  }
+  .kpi-play .pill { display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 26px; border-radius: 999px; background: var(--accent); color: var(--white-text); font-weight: 600; font-size: 1.0625rem; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35); transition: transform 0.15s; }
+  .kpi-play .tri { width: 0; height: 0; border-left: 14px solid currentColor; border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
+  .kpi-play .note { font-size: 0.8125rem; color: var(--text); text-shadow: 0 1px 6px var(--bg); }
+  .kpi-play:hover .pill, .kpi-play:focus-visible .pill { transform: scale(1.04); }
+  .kpi-play:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; border-radius: var(--radius); }
+  @media (prefers-reduced-motion: reduce) { .kpi-thumb iframe { display: none; } .kpi-play .pill { transition: none; } }
+  @media print { .kpi-thumb iframe { display: none; } }
+  @media (max-width: 560px) { .kpi-play .pill { min-height: 48px; padding: 0 18px; font-size: 0.9375rem; } }
 </style>
 </head>
 <body>
@@ -718,6 +780,7 @@
     <ul class="nav-links">
       <li><a href="#capabilities">Capabilities</a></li>
       <li><a href="#ai-builds">AI Builds</a></li>
+      <li><a href="#kpi-creator">KPI Creator</a></li>
       <li><a href="#track-record">Track Record</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -1046,6 +1109,82 @@
 
     <div class="builds-more">
       <a class="btn btn-ghost" href="https://adamaziz1979.github.io/AI_Build_Log/" target="_blank" rel="noopener">See more ↗</a>
+    </div>
+    <p class="to-top"><a href="#top">Back to top ↑</a></p>
+  </div>
+</section>
+
+<section id="kpi-creator">
+  <div class="wrap">
+    <div class="section-head builds-head">
+      <div class="section-tag">KPI Creator · AI agent team</div>
+      <h2>From a business problem to a KPI dashboard</h2>
+      <p>Five AI agents at work with a human in the loop carrying the end-to-end KPI development process on generated test cases.</p>
+    </div>
+
+    <p class="team-note">Each agent has one job, a persona and a clear handover. Select an agent to jump to their focus page. Headshots are AI-generated.</p>
+    <ul class="kpi-agents">
+        <li>
+          <a class="kpi-agent" href="https://adamaziz1979.github.io/kpi-creator/end-to-end.html#ovy" target="_blank" rel="noopener">
+            <img src="assets/kpi-creator-ovy.jpg" width="88" height="88" alt="" loading="lazy" decoding="async">
+            <span class="name">Ovy</span>
+            <span class="role">Stage 0 · Orchestrator</span>
+            <em>“Nothing moves until you’ve seen it and said yes.”</em>
+          </a>
+        </li>
+        <li>
+          <a class="kpi-agent" href="https://adamaziz1979.github.io/kpi-creator/end-to-end.html#gary" target="_blank" rel="noopener">
+            <img src="assets/kpi-creator-gary.jpg" width="88" height="88" alt="" loading="lazy" decoding="async">
+            <span class="name">Gary</span>
+            <span class="role">Stage 1 · Business Requirements</span>
+            <em>“What decision changes if this number moves?”</em>
+          </a>
+        </li>
+        <li>
+          <a class="kpi-agent" href="https://adamaziz1979.github.io/kpi-creator/end-to-end.html#kewpie" target="_blank" rel="noopener">
+            <img src="assets/kpi-creator-kewpie.jpg" width="88" height="88" alt="" loading="lazy" decoding="async">
+            <span class="name">Kewpie</span>
+            <span class="role">Stage 2 · KPI Development</span>
+            <em>“Show me the baseline.”</em>
+          </a>
+        </li>
+        <li>
+          <a class="kpi-agent" href="https://adamaziz1979.github.io/kpi-creator/end-to-end.html#visalli" target="_blank" rel="noopener">
+            <img src="assets/kpi-creator-visalli.jpg" width="88" height="88" alt="" loading="lazy" decoding="async">
+            <span class="name">Visalli</span>
+            <span class="role">Stage 3 · Data Visualisation</span>
+            <em>“Headline first. Then the chart that proves it.”</em>
+          </a>
+        </li>
+        <li>
+          <a class="kpi-agent" href="https://adamaziz1979.github.io/kpi-creator/end-to-end.html#jennifer" target="_blank" rel="noopener">
+            <img src="assets/kpi-creator-jennifer.jpg" width="88" height="88" alt="" loading="lazy" decoding="async">
+            <span class="name">Jennifer</span>
+            <span class="role">Stage 4 · Dashboard Creator</span>
+            <em>“If it fails on a phone, it fails.”</em>
+          </a>
+        </li>
+    </ul>
+
+    <div class="kpi-sim">
+      <h3 class="kpi-sim-title">Agent Simulation</h3>
+      <p class="kpi-sim-lead">A replay of each test run, timed from the recorded save and commit times. Pick a project, then watch each agent work, hand over and pass its gate.</p>
+      <fieldset class="kpi-projects">
+        <legend>Project</legend>
+        <label class="kpi-project"><input type="radio" name="kpi-project" value="clearcompare" checked><span>ClearCompare</span></label>
+        <label class="kpi-project"><input type="radio" name="kpi-project" value="kestrel-medical"><span>Kestrel Medical</span></label>
+      </fieldset>
+      <div class="kpi-thumb" id="kpi-thumb">
+        <iframe id="kpi-thumb-frame" src="simulations/clearcompare.html" title="Preview of the ClearCompare Agent Simulation" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+        <a class="kpi-play" id="kpi-play" href="simulations/clearcompare.html" target="_blank" rel="noopener">
+          <span class="pill"><span class="tri" aria-hidden="true"></span>Play agent simulation</span>
+          <span class="note" id="kpi-play-note">ClearCompare · opens in a new tab</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="builds-more">
+      <a class="btn btn-ghost" href="https://adamaziz1979.github.io/kpi-creator/end-to-end.html" target="_blank" rel="noopener">See more ↗</a>
     </div>
     <p class="to-top"><a href="#top">Back to top ↑</a></p>
   </div>
@@ -1463,6 +1602,33 @@
     track.style.setProperty('--p', 1);
   });
   update();
+})();
+</script>
+<script>
+/* KPI Creator: the project selector switches the faded preview and the play link. The preview is the real simulation, scaled to fit. */
+(function () {
+  var thumb = document.getElementById('kpi-thumb');
+  if (!thumb) return;
+  var frame = document.getElementById('kpi-thumb-frame'), play = document.getElementById('kpi-play'), note = document.getElementById('kpi-play-note');
+  var projects = {
+    'clearcompare': { name: 'ClearCompare', url: 'simulations/clearcompare.html' },
+    'kestrel-medical': { name: 'Kestrel Medical', url: 'simulations/kestrel-medical.html' }
+  };
+  function fit() { frame.style.transform = 'scale(' + (thumb.clientWidth / 1440) + ')'; }
+  function choose(key) {
+    var p = projects[key];
+    if (!p) return;
+    frame.src = p.url;
+    frame.title = 'Preview of the ' + p.name + ' Agent Simulation';
+    play.href = p.url;
+    note.textContent = p.name + ' \u00b7 opens in a new tab';
+  }
+  document.querySelectorAll('input[name="kpi-project"]').forEach(function (r) {
+    r.addEventListener('change', function () { if (r.checked) choose(r.value); });
+  });
+  fit();
+  window.addEventListener('resize', fit);
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(thumb);
 })();
 </script>
 <script data-goatcounter="https://adamaziz.goatcounter.com/count"
