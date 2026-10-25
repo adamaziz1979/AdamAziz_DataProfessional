@@ -772,6 +772,40 @@
   .cx-ready .cx.in { opacity: 1; transform: none; }
   .kpi-agents.cx-ready .cx { --cx-x: -22px; --cx-y: 0px; }
   @media print { .cx-ready .cx { opacity: 1 !important; transform: none !important; } }
+  /* Token Optimisation: thumbnail of the "By agent" dot chart from the token page. One link covers the card. */
+  .tok-thumb {
+    --tc1: #20a89b; --tc2: #db684c; --tc3: #538ae6; --tc4: #c35890; --tc5: #b8892d; --tc6: #9468c2; --tc7: #8a9396;
+    position: relative; padding: 26px 24px 22px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color 0.15s;
+  }
+  .tok-thumb:hover { border-color: var(--accent); }
+  .tok-title { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .tok-swarms { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .tok-sw { margin: 0; display: flex; flex-direction: column; align-items: center; }
+  .tok-sw svg { width: 100%; max-width: 340px; height: auto; }
+  .tok-sw svg g { fill: none; stroke-width: 0.84; stroke-linecap: round; }
+  .tok-sw svg .c1 { stroke: var(--tc1); } .tok-sw svg .c2 { stroke: var(--tc2); } .tok-sw svg .c3 { stroke: var(--tc3); } .tok-sw svg .c4 { stroke: var(--tc4); }
+  .tok-sw svg .c5 { stroke: var(--tc5); } .tok-sw svg .c6 { stroke: var(--tc6); } .tok-sw svg .c7 { stroke: var(--tc7); }
+  .tok-sw svg rect { fill: var(--panel); fill-opacity: 0.88; }
+  .tok-sw svg text { font-family: inherit; font-weight: 700; font-size: 2.1px; fill: var(--text); }
+  .tok-sw figcaption { margin: 6px 0 4px; font-size: 0.9rem; font-weight: 700; }
+  .tok-sw ul { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 260px; font-size: 0.8125rem; color: var(--text-dim); }
+  .tok-sw li { display: flex; align-items: center; gap: 6px; padding: 2px 0; border-bottom: 1px solid var(--border); }
+  .tok-sw li b { margin-left: auto; color: var(--text); font-weight: 600; }
+  .tok-sw li i { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--tc1); }
+  .tok-sw li i.r1 { background: var(--tc2); } .tok-sw li i.r2 { background: var(--tc3); } .tok-sw li i.r3 { background: var(--tc4); }
+  .tok-sw li i.r4 { background: var(--tc5); } .tok-sw li i.r5 { background: var(--tc6); } .tok-sw li i.r6 { background: var(--tc7); }
+  .tok-note { margin: 16px 0 0; font-size: 0.8125rem; color: var(--text-dim); }
+  .tok-open { position: absolute; inset: 0; border-radius: var(--radius); }
+  .tok-open:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  @media (max-width: 560px) { .tok-thumb { padding: 22px 16px 18px; } .tok-sw svg { max-width: 240px; } }
+  /* Seven top links: keep the name and the menu apart at every width. The role text drops out of the name from 721px to 1120px. */
+  .nav-name .nav-role { color: inherit; }
+  @media (min-width: 861px) { .nav-links { gap: 4px; } }
+  @media (min-width: 721px) and (max-width: 1120px) {
+    .nav-name { white-space: nowrap; }
+    .nav-name .nav-role { display: none; }
+  }
+  @media (min-width: 721px) and (max-width: 860px) { .nav-links { font-size: 0.75rem; } }
 </style>
 </head>
 <body>
@@ -780,12 +814,13 @@
 
 <header class="nav" id="top">
   <div class="wrap">
-    <div class="nav-name">ADAM AZIZ <span>/</span> DATA ANALYTICS &amp; AI LEADER</div>
+    <div class="nav-name">ADAM AZIZ<span class="nav-role"> <span>/</span> DATA ANALYTICS &amp; AI LEADER</span></div>
     <nav aria-label="Main">
     <ul class="nav-links">
       <li><a href="#capabilities">Capabilities</a></li>
       <li><a href="#ai-builds">AI Builds</a></li>
       <li><a href="#kpi-creator">KPI Creator</a></li>
+      <li><a href="#token-optimisation">Token Optimisation</a></li>
       <li><a href="#track-record">Track Record</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -1190,6 +1225,39 @@
 
     <div class="builds-more">
       <a class="btn btn-ghost" href="https://adamaziz1979.github.io/kpi-creator/end-to-end.html" target="_blank" rel="noopener">See more ↗</a>
+    </div>
+    <p class="to-top"><a href="#top">Back to top ↑</a></p>
+  </div>
+</section>
+
+<section id="token-optimisation">
+  <div class="wrap">
+    <div class="section-head builds-head">
+      <div class="section-tag">Token Optimisation · KPI Creator runs</div>
+      <h2>Token Reduction Journey</h2>
+      <p>Reducing token usage while meeting business objectives and output for each test case the KPI Creator is run on.</p>
+    </div>
+
+    <div class="tok-thumb">
+      <h3 class="tok-title">By agent (millions)</h3>
+      <div class="tok-swarms">
+        <figure class="tok-sw">
+          <svg viewBox="-12.13 -12.13 24.26 24.26" role="img" aria-label="ClearCompare: 488 dots, 487.8M tokens"><g class="c1"><title>Ovy: 487.8M</title><path d="M0.00 0.00h0M-0.50 -0.87h0M0.50 -0.87h0M0.50 0.87h0M-0.50 0.87h0M1.00 0.00h0M-1.00 0.00h0M0.00 -1.73h0M0.00 1.73h0M-1.50 -0.87h0M1.50 -0.87h0M1.50 0.87h0M-1.50 0.87h0M-1.00 -1.73h0M1.00 -1.73h0M1.00 1.73h0M-1.00 1.73h0M2.00 0.00h0M-2.00 0.00h0M-0.50 -2.60h0M0.50 -2.60h0M0.50 2.60h0M-0.50 2.60h0M-2.00 -1.73h0M2.00 -1.73h0M2.00 1.73h0M-2.00 1.73h0M-2.50 -0.87h0M2.50 -0.87h0M2.50 0.87h0M-2.50 0.87h0M-1.50 -2.60h0M1.50 -2.60h0M1.50 2.60h0M-1.50 2.60h0M3.00 0.00h0M-3.00 0.00h0M0.00 -3.46h0M0.00 3.46h0M-3.00 -1.73h0M3.00 -1.73h0M3.00 1.73h0M-3.00 1.73h0M-1.00 -3.46h0M1.00 -3.46h0M1.00 3.46h0M-1.00 3.46h0M-2.50 -2.60h0M2.50 -2.60h0M2.50 2.60h0M-2.50 2.60h0M-3.50 -0.87h0M3.50 -0.87h0M3.50 0.87h0M-3.50 0.87h0M-2.00 -3.46h0M2.00 -3.46h0M2.00 3.46h0M-2.00 3.46h0M4.00 0.00h0M-4.00 0.00h0M-0.50 -4.33h0M0.50 -4.33h0M0.50 4.33h0M-0.50 4.33h0M-3.50 -2.60h0M3.50 -2.60h0M3.50 2.60h0M-3.50 2.60h0M-4.00 -1.73h0M4.00 -1.73h0M4.00 1.73h0M-4.00 1.73h0M-1.50 -4.33h0M1.50 -4.33h0M1.50 4.33h0M-1.50 4.33h0M-3.00 -3.46h0M3.00 -3.46h0M3.00 3.46h0M-3.00 3.46h0M-4.50 -0.87h0M4.50 -0.87h0M4.50 0.87h0M-4.50 0.87h0M-2.50 -4.33h0M2.50 -4.33h0M2.50 4.33h0M-2.50 4.33h0M5.00 0.00h0M-5.00 0.00h0M0.00 -5.20h0M0.00 5.20h0M-4.50 -2.60h0M4.50 -2.60h0M4.50 2.60h0M-4.50 2.60h0M-1.00 -5.20h0M1.00 -5.20h0M1.00 5.20h0M-1.00 5.20h0M-4.00 -3.46h0M4.00 -3.46h0M4.00 3.46h0M-4.00 3.46h0M-5.00 -1.73h0M5.00 -1.73h0M5.00 1.73h0M-5.00 1.73h0M-2.00 -5.20h0M2.00 -5.20h0M2.00 5.20h0M-2.00 5.20h0M-3.50 -4.33h0M3.50 -4.33h0M3.50 4.33h0M-3.50 4.33h0M-5.50 -0.87h0M5.50 -0.87h0M5.50 0.87h0M-5.50 0.87h0M-3.00 -5.20h0M3.00 -5.20h0M3.00 5.20h0M-3.00 5.20h0M6.00 0.00h0M-6.00 0.00h0M-0.50 -6.06h0M0.50 -6.06h0M0.50 6.06h0M-0.50 6.06h0M-5.00 -3.46h0M5.00 -3.46h0M5.00 3.46h0M-5.00 3.46h0M-5.50 -2.60h0M5.50 -2.60h0M5.50 2.60h0M-5.50 2.60h0M-1.50 -6.06h0M1.50 -6.06h0M1.50 6.06h0M-1.50 6.06h0M-4.50 -4.33h0M4.50 -4.33h0M4.50 4.33h0M-4.50 4.33h0M-6.00 -1.73h0M6.00 -1.73h0M6.00 1.73h0M-6.00 1.73h0M-2.50 -6.06h0M2.50 -6.06h0M2.50 6.06h0M-2.50 6.06h0M-4.00 -5.20h0M4.00 -5.20h0M4.00 5.20h0M-4.00 5.20h0M-6.50 -0.87h0M6.50 -0.87h0M6.50 0.87h0M-6.50 0.87h0M0.00 -6.93h0M0.00 6.93h0M-6.00 -3.46h0M6.00 -3.46h0M6.00 3.46h0M-6.00 3.46h0M-1.00 -6.93h0M1.00 -6.93h0M1.00 6.93h0M-1.00 6.93h0M-3.50 -6.06h0M3.50 -6.06h0M3.50 6.06h0M-3.50 6.06h0M-5.50 -4.33h0M5.50 -4.33h0M5.50 4.33h0M-5.50 4.33h0M-6.50 -2.60h0M6.50 -2.60h0M6.50 2.60h0M-6.50 2.60h0M7.00 0.00h0M-7.00 0.00h0M-2.00 -6.93h0M2.00 -6.93h0M2.00 6.93h0M-2.00 6.93h0M-5.00 -5.20h0M5.00 -5.20h0M5.00 5.20h0M-5.00 5.20h0M-7.00 -1.73h0M7.00 -1.73h0M7.00 1.73h0M-7.00 1.73h0M-3.00 -6.93h0M3.00 -6.93h0M3.00 6.93h0M-3.00 6.93h0M-4.50 -6.06h0M4.50 -6.06h0M4.50 6.06h0M-4.50 6.06h0M-7.50 -0.87h0M7.50 -0.87h0M7.50 0.87h0M-7.50 0.87h0M-0.50 -7.79h0M0.50 -7.79h0M0.50 7.79h0M-0.50 7.79h0M-6.50 -4.33h0M6.50 -4.33h0M6.50 4.33h0M-6.50 4.33h0M-7.00 -3.46h0M7.00 -3.46h0M7.00 3.46h0M-7.00 3.46h0M-1.50 -7.79h0M1.50 -7.79h0M1.50 7.79h0M-1.50 7.79h0M-6.00 -5.20h0M6.00 -5.20h0M6.00 5.20h0M-6.00 5.20h0M-7.50 -2.60h0M7.50 -2.60h0M7.50 2.60h0M-7.50 2.60h0M-4.00 -6.93h0M4.00 -6.93h0M4.00 6.93h0M-4.00 6.93h0M8.00 0.00h0M-8.00 0.00h0M-2.50 -7.79h0M2.50 -7.79h0M2.50 7.79h0M-2.50 7.79h0M-5.50 -6.06h0M5.50 -6.06h0M5.50 6.06h0M-5.50 6.06h0M-8.00 -1.73h0M8.00 -1.73h0M8.00 1.73h0M-8.00 1.73h0M-3.50 -7.79h0M3.50 -7.79h0M3.50 7.79h0M-3.50 7.79h0M-5.00 -6.93h0M5.00 -6.93h0M5.00 6.93h0M-5.00 6.93h0M-8.50 -0.87h0M8.50 -0.87h0M8.50 0.87h0M-8.50 0.87h0M0.00 -8.66h0M0.00 8.66h0M-7.50 -4.33h0M7.50 -4.33h0M7.50 4.33h0M-7.50 4.33h0M-1.00 -8.66h0M1.00 -8.66h0M1.00 8.66h0M-1.00 8.66h0M-7.00 -5.20h0M7.00 -5.20h0M7.00 5.20h0M-7.00 5.20h0M-8.00 -3.46h0M8.00 -3.46h0M8.00 3.46h0M-8.00 3.46h0M-2.00 -8.66h0M2.00 -8.66h0M2.00 8.66h0M-2.00 8.66h0M-6.50 -6.06h0M6.50 -6.06h0M6.50 6.06h0M-6.50 6.06h0M-8.50 -2.60h0M8.50 -2.60h0M8.50 2.60h0M-8.50 2.60h0M-4.50 -7.79h0M4.50 -7.79h0M4.50 7.79h0M-4.50 7.79h0M9.00 0.00h0M-9.00 0.00h0M-3.00 -8.66h0M3.00 -8.66h0M3.00 8.66h0M-3.00 8.66h0M-6.00 -6.93h0M6.00 -6.93h0M6.00 6.93h0M-6.00 6.93h0M-9.00 -1.73h0M9.00 -1.73h0M9.00 1.73h0M-9.00 1.73h0M-0.50 -9.53h0M0.50 -9.53h0M0.50 9.53h0M-0.50 9.53h0M-4.00 -8.66h0M4.00 -8.66h0M4.00 8.66h0M-4.00 8.66h0M-5.50 -7.79h0M5.50 -7.79h0M5.50 7.79h0M-5.50 7.79h0M-8.00 -5.20h0M8.00 -5.20h0M8.00 5.20h0M-8.00 5.20h0M-8.50 -4.33h0M8.50 -4.33h0M8.50 4.33h0M-8.50 4.33h0M-9.50 -0.87h0M9.50 -0.87h0M9.50 0.87h0M-9.50 0.87h0M-1.50 -9.53h0M1.50 -9.53h0M1.50 9.53h0M-1.50 9.53h0M-7.50 -6.06h0M7.50 -6.06h0M7.50 6.06h0M-7.50 6.06h0M-9.00 -3.46h0M9.00 -3.46h0M9.00 3.46h0M-9.00 3.46h0M-2.50 -9.53h0M2.50 -9.53h0M2.50 9.53h0M-2.50 9.53h0M-7.00 -6.93h0M7.00 -6.93h0M7.00 6.93h0M-7.00 6.93h0M-9.50 -2.60h0M9.50 -2.60h0M9.50 2.60h0M-9.50 2.60h0M-5.00 -8.66h0M5.00 -8.66h0M5.00 8.66h0M-5.00 8.66h0M10.00 0.00h0M-10.00 0.00h0M-3.50 -9.53h0M3.50 -9.53h0M3.50 9.53h0M-3.50 9.53h0M-6.50 -7.79h0M6.50 -7.79h0M6.50 7.79h0M-6.50 7.79h0M-10.00 -1.73h0M10.00 -1.73h0M10.00 1.73h0M-10.00 1.73h0M0.00 -10.39h0M0.00 10.39h0M-9.00 -5.20h0M9.00 -5.20h0M9.00 5.20h0M-9.00 5.20h0M-1.00 -10.39h0M1.00 -10.39h0M1.00 10.39h0M-1.00 10.39h0M-8.50 -6.06h0M8.50 -6.06h0M8.50 6.06h0M-8.50 6.06h0M-9.50 -4.33h0M9.50 -4.33h0M9.50 4.33h0M-9.50 4.33h0M-4.50 -9.53h0M4.50 -9.53h0M4.50 9.53h0M-4.50 9.53h0M-6.00 -8.66h0M6.00 -8.66h0M6.00 8.66h0M-6.00 8.66h0M-10.50 -0.87h0M10.50 -0.87h0M10.50 0.87h0M-10.50 0.87h0M-2.00 -10.39h0M2.00 -10.39h0M2.00 10.39h0M-2.00 10.39h0M-8.00 -6.93h0M8.00 -6.93h0M8.00 6.93h0M-8.00 6.93h0M-10.00 -3.46h0M10.00 -3.46h0M10.00 3.46h0M-10.00 3.46h0M-3.00 -10.39h0M3.00 -10.39h0M3.00 10.39h0M-3.00 10.39h0M-7.50 -7.79h0M7.50 -7.79h0M7.50 7.79h0M-7.50 7.79h0M-10.50 -2.60h0M10.50 -2.60h0M10.50 2.60h0M-10.50 2.60h0M-5.50 -9.53h0M5.50 -9.53h0M5.50 9.53h0M-5.50 9.53h0M11.00 0.00h0M-11.00 0.00h0M-4.00 -10.39h0M4.00 -10.39h0M4.00 10.39h0M-4.00 10.39h0M-7.00 -8.66h0M7.00 -8.66h0M7.00 8.66h0M-7.00 8.66h0M-11.00 -1.73h0M11.00 -1.73h0M11.00 1.73h0M-11.00 1.73h0M-0.50 -11.26h0M0.50 -11.26h0M0.50 11.26h0M-0.50 11.26h0M-9.50 -6.06h0M9.50 -6.06h0M9.50 6.06h0M-9.50 6.06h0M-10.00 -5.20h0M10.00 -5.20h0M10.00 5.20h0M-10.00 5.20h0M-1.50 -11.26h0M1.50 -11.26h0M1.50 11.26h0M-1.50 11.26h0M-9.00 -6.93h0M9.00 -6.93h0M9.00 6.93h0M-9.00 6.93h0M-10.50 -4.33h0M10.50 -4.33h0M10.50 4.33h0M-10.50 4.33h0M-2.50 -11.26h0M2.50 -11.26h0M2.50 11.26h0M-2.50 11.26h0M-5.00 -10.39h0M5.00 -10.39h0M5.00 10.39h0M-5.00 10.39h0M-6.50 -9.53h0M6.50 -9.53h0M6.50 9.53h0M-6.50 9.53h0M-8.50 -7.79h0"/></g><rect x="-4.48" y="-1.58" width="8.96" height="3.15" rx="1.58"/><text x="0" y="0.76" text-anchor="middle">487.8M</text></svg>
+          <figcaption>ClearCompare</figcaption>
+          <ul><li><i class="r0"></i>Ovy<b>487.8</b></li></ul>
+        </figure>
+        <figure class="tok-sw">
+          <svg viewBox="-12.13 -12.13 24.26 24.26" role="img" aria-label="Kestrel Medical: 124 dots, 124.4M tokens"><g class="c1"><title>Ovy: 78.6M</title><path d="M0.00 0.00h0M-0.50 -0.87h0M0.50 -0.87h0M0.50 0.87h0M-0.50 0.87h0M1.00 0.00h0M-1.00 0.00h0M0.00 -1.73h0M0.00 1.73h0M-1.50 -0.87h0M1.50 -0.87h0M1.50 0.87h0M-1.50 0.87h0M-1.00 -1.73h0M1.00 -1.73h0M1.00 1.73h0M-1.00 1.73h0M2.00 0.00h0M-2.00 0.00h0M-0.50 -2.60h0M0.50 -2.60h0M0.50 2.60h0M-0.50 2.60h0M-2.00 -1.73h0M2.00 -1.73h0M2.00 1.73h0M-2.00 1.73h0M-2.50 -0.87h0M2.50 -0.87h0M2.50 0.87h0M-2.50 0.87h0M-1.50 -2.60h0M1.50 -2.60h0M1.50 2.60h0M-1.50 2.60h0M3.00 0.00h0M-3.00 0.00h0M0.00 -3.46h0M0.00 3.46h0M-3.00 -1.73h0M3.00 -1.73h0M3.00 1.73h0M-3.00 1.73h0M-1.00 -3.46h0M1.00 -3.46h0M1.00 3.46h0M-1.00 3.46h0M-2.50 -2.60h0M2.50 -2.60h0M2.50 2.60h0M-2.50 2.60h0M-3.50 -0.87h0M3.50 -0.87h0M3.50 0.87h0M-3.50 0.87h0M-2.00 -3.46h0M2.00 -3.46h0M2.00 3.46h0M-2.00 3.46h0M4.00 0.00h0M-4.00 0.00h0M-0.50 -4.33h0M0.50 -4.33h0M0.50 4.33h0M-0.50 4.33h0M-3.50 -2.60h0M3.50 -2.60h0M3.50 2.60h0M-3.50 2.60h0M-4.00 -1.73h0M4.00 -1.73h0M4.00 1.73h0M-4.00 1.73h0M-1.50 -4.33h0M1.50 -4.33h0M1.50 4.33h0M-1.50 4.33h0M-3.00 -3.46h0M3.00 -3.46h0"/></g><g class="c2"><title>Gary: 11.5M</title><path d="M0.00 -5.20h0M1.00 -5.20h0M2.00 -5.20h0M2.50 -4.33h0M3.00 -5.20h0M3.50 -4.33h0M4.00 -3.46h0M4.50 -2.60h0M5.00 -1.73h0M4.50 -0.87h0M5.50 -0.87h0"/></g><g class="c3"><title>Kewpie: 9.5M</title><path d="M5.00 0.00h0M5.50 0.87h0M4.50 0.87h0M5.00 1.73h0M4.50 2.60h0M4.00 3.46h0M3.00 3.46h0M3.50 4.33h0M2.50 4.33h0"/></g><g class="c4"><title>Visalli: 9.5M</title><path d="M3.00 5.20h0M2.00 5.20h0M1.00 5.20h0M0.00 5.20h0M-1.00 5.20h0M-2.00 5.20h0M-2.50 4.33h0M-3.50 4.33h0M-3.00 3.46h0"/></g><g class="c5"><title>Jennifer: 12.6M</title><path d="M-4.00 3.46h0M-4.50 2.60h0M-5.00 1.73h0M-4.50 0.87h0M-5.50 0.87h0M-5.00 0.00h0M-5.50 -0.87h0M-4.50 -0.87h0M-5.00 -1.73h0M-4.50 -2.60h0M-4.00 -3.46h0M-3.50 -4.33h0M-2.50 -4.33h0"/></g><g class="c6"><title>Stakeholder: 1.8M</title><path d="M-3.00 -5.20h0M-2.00 -5.20h0"/></g><g class="c7"><title>Other: 1.0M</title><path d="M-1.00 -5.20h0"/></g><rect x="-4.48" y="-1.58" width="8.96" height="3.15" rx="1.58"/><text x="0" y="0.76" text-anchor="middle">124.4M</text></svg>
+          <figcaption>Kestrel Medical</figcaption>
+          <ul><li><i class="r0"></i>Ovy<b>78.6</b></li><li><i class="r1"></i>Gary<b>11.5</b></li><li><i class="r2"></i>Kewpie<b>9.5</b></li><li><i class="r3"></i>Visalli<b>9.5</b></li><li><i class="r4"></i>Jennifer<b>12.6</b></li><li><i class="r5"></i>Stakeholder<b>1.8</b></li><li><i class="r6"></i>Other<b>1.0</b></li></ul>
+        </figure>
+      </div>
+      <p class="tok-note">One dot is 1M tokens. Dots are the same size in every run, so a bigger circle means a bigger run.</p>
+      <a class="tok-open" href="https://adamaziz1979.github.io/token-optimisation/" target="_blank" rel="noopener" aria-label="Open the Token Optimisation page, tokens per run by agent (opens in a new tab)"></a>
+    </div>
+
+    <div class="builds-more">
+      <a class="btn btn-ghost" href="https://adamaziz1979.github.io/token-optimisation/" target="_blank" rel="noopener">See more ↗</a>
     </div>
     <p class="to-top"><a href="#top">Back to top ↑</a></p>
   </div>
