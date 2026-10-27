@@ -779,7 +779,7 @@
   }
   .tok-thumb:hover { border-color: var(--accent); }
   .tok-title { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
-  .tok-swarms { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .tok-swarms { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
   .tok-sw { margin: 0; display: flex; flex-direction: column; align-items: center; }
   .tok-sw svg { width: 100%; max-width: 340px; height: auto; }
   .tok-sw svg g { fill: none; stroke-width: 0.84; stroke-linecap: round; }
@@ -797,7 +797,7 @@
   .tok-note { margin: 16px 0 0; font-size: 0.8125rem; color: var(--text-dim); }
   .tok-open { position: absolute; inset: 0; border-radius: var(--radius); }
   .tok-open:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
-  @media (max-width: 560px) { .tok-thumb { padding: 22px 16px 18px; } .tok-sw svg { max-width: 240px; } }
+  @media (max-width: 560px) { .tok-thumb { padding: 22px 16px 18px; } .tok-sw svg { max-width: 200px; } }
   /* Seven top links: keep the name and the menu apart at every width. The role text drops out of the name from 721px to 1120px. */
   .nav-name .nav-role { color: inherit; }
   @media (min-width: 861px) { .nav-links { gap: 4px; } }
@@ -1213,6 +1213,7 @@
         <legend>Project</legend>
         <label class="kpi-project"><input type="radio" name="kpi-project" value="clearcompare" checked><span>ClearCompare</span></label>
         <label class="kpi-project"><input type="radio" name="kpi-project" value="kestrel-medical"><span>Kestrel Medical</span></label>
+        <label class="kpi-project"><input type="radio" name="kpi-project" value="lumenwire-audio"><span>Lumenwire Audio</span></label>
       </fieldset>
       <div class="kpi-thumb" id="kpi-thumb">
         <iframe id="kpi-thumb-frame" src="simulations/clearcompare.html" title="Preview of the ClearCompare Agent Simulation" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
@@ -1250,6 +1251,11 @@
           <svg viewBox="-12.13 -12.13 24.26 24.26" role="img" aria-label="Kestrel Medical: 124 dots, 124.4M tokens"><g class="c1"><title>Ovy: 78.6M</title><path d="M0.00 0.00h0M-0.50 -0.87h0M0.50 -0.87h0M0.50 0.87h0M-0.50 0.87h0M1.00 0.00h0M-1.00 0.00h0M0.00 -1.73h0M0.00 1.73h0M-1.50 -0.87h0M1.50 -0.87h0M1.50 0.87h0M-1.50 0.87h0M-1.00 -1.73h0M1.00 -1.73h0M1.00 1.73h0M-1.00 1.73h0M2.00 0.00h0M-2.00 0.00h0M-0.50 -2.60h0M0.50 -2.60h0M0.50 2.60h0M-0.50 2.60h0M-2.00 -1.73h0M2.00 -1.73h0M2.00 1.73h0M-2.00 1.73h0M-2.50 -0.87h0M2.50 -0.87h0M2.50 0.87h0M-2.50 0.87h0M-1.50 -2.60h0M1.50 -2.60h0M1.50 2.60h0M-1.50 2.60h0M3.00 0.00h0M-3.00 0.00h0M0.00 -3.46h0M0.00 3.46h0M-3.00 -1.73h0M3.00 -1.73h0M3.00 1.73h0M-3.00 1.73h0M-1.00 -3.46h0M1.00 -3.46h0M1.00 3.46h0M-1.00 3.46h0M-2.50 -2.60h0M2.50 -2.60h0M2.50 2.60h0M-2.50 2.60h0M-3.50 -0.87h0M3.50 -0.87h0M3.50 0.87h0M-3.50 0.87h0M-2.00 -3.46h0M2.00 -3.46h0M2.00 3.46h0M-2.00 3.46h0M4.00 0.00h0M-4.00 0.00h0M-0.50 -4.33h0M0.50 -4.33h0M0.50 4.33h0M-0.50 4.33h0M-3.50 -2.60h0M3.50 -2.60h0M3.50 2.60h0M-3.50 2.60h0M-4.00 -1.73h0M4.00 -1.73h0M4.00 1.73h0M-4.00 1.73h0M-1.50 -4.33h0M1.50 -4.33h0M1.50 4.33h0M-1.50 4.33h0M-3.00 -3.46h0M3.00 -3.46h0"/></g><g class="c2"><title>Gary: 11.5M</title><path d="M0.00 -5.20h0M1.00 -5.20h0M2.00 -5.20h0M2.50 -4.33h0M3.00 -5.20h0M3.50 -4.33h0M4.00 -3.46h0M4.50 -2.60h0M5.00 -1.73h0M4.50 -0.87h0M5.50 -0.87h0"/></g><g class="c3"><title>Kewpie: 9.5M</title><path d="M5.00 0.00h0M5.50 0.87h0M4.50 0.87h0M5.00 1.73h0M4.50 2.60h0M4.00 3.46h0M3.00 3.46h0M3.50 4.33h0M2.50 4.33h0"/></g><g class="c4"><title>Visalli: 9.5M</title><path d="M3.00 5.20h0M2.00 5.20h0M1.00 5.20h0M0.00 5.20h0M-1.00 5.20h0M-2.00 5.20h0M-2.50 4.33h0M-3.50 4.33h0M-3.00 3.46h0"/></g><g class="c5"><title>Jennifer: 12.6M</title><path d="M-4.00 3.46h0M-4.50 2.60h0M-5.00 1.73h0M-4.50 0.87h0M-5.50 0.87h0M-5.00 0.00h0M-5.50 -0.87h0M-4.50 -0.87h0M-5.00 -1.73h0M-4.50 -2.60h0M-4.00 -3.46h0M-3.50 -4.33h0M-2.50 -4.33h0"/></g><g class="c6"><title>Stakeholder: 1.8M</title><path d="M-3.00 -5.20h0M-2.00 -5.20h0"/></g><g class="c7"><title>Other: 1.0M</title><path d="M-1.00 -5.20h0"/></g><rect x="-4.48" y="-1.58" width="8.96" height="3.15" rx="1.58"/><text x="0" y="0.76" text-anchor="middle">124.4M</text></svg>
           <figcaption>Kestrel Medical</figcaption>
           <ul><li><i class="r0"></i>Ovy<b>78.6</b></li><li><i class="r1"></i>Gary<b>11.5</b></li><li><i class="r2"></i>Kewpie<b>9.5</b></li><li><i class="r3"></i>Visalli<b>9.5</b></li><li><i class="r4"></i>Jennifer<b>12.6</b></li><li><i class="r5"></i>Stakeholder<b>1.8</b></li><li><i class="r6"></i>Other<b>1.0</b></li></ul>
+        </figure>
+        <figure class="tok-sw">
+          <svg viewBox="-12.13 -12.13 24.26 24.26" role="img" aria-label="Lumenwire Audio: 119 dots, 118.6M tokens"><g class="c1"><title>Ovy: 44.5M</title><path d="M0.00 0.00h0M-0.50 -0.87h0M0.50 -0.87h0M0.50 0.87h0M-0.50 0.87h0M1.00 0.00h0M-1.00 0.00h0M0.00 -1.73h0M0.00 1.73h0M-1.50 -0.87h0M1.50 -0.87h0M1.50 0.87h0M-1.50 0.87h0M-1.00 -1.73h0M1.00 -1.73h0M1.00 1.73h0M-1.00 1.73h0M2.00 0.00h0M-2.00 0.00h0M-0.50 -2.60h0M0.50 -2.60h0M0.50 2.60h0M-0.50 2.60h0M-2.00 -1.73h0M2.00 -1.73h0M2.00 1.73h0M-2.00 1.73h0M-2.50 -0.87h0M2.50 -0.87h0M2.50 0.87h0M-2.50 0.87h0M-1.50 -2.60h0M1.50 -2.60h0M1.50 2.60h0M-1.50 2.60h0M3.00 0.00h0M-3.00 0.00h0M0.00 -3.46h0M0.00 3.46h0M-3.00 -1.73h0M3.00 -1.73h0M3.00 1.73h0M-3.00 1.73h0M-1.00 -3.46h0"/></g><g class="c2"><title>Gary: 5.5M</title><path d="M0.00 -5.20h0M0.50 -4.33h0M1.00 -5.20h0M1.00 -3.46h0M1.50 -4.33h0M2.00 -5.20h0"/></g><g class="c3"><title>Kewpie: 12.2M</title><path d="M2.00 -3.46h0M2.50 -4.33h0M3.50 -4.33h0M3.00 -3.46h0M2.50 -2.60h0M4.00 -3.46h0M3.50 -2.60h0M4.50 -2.60h0M4.00 -1.73h0M5.00 -1.73h0M3.50 -0.87h0M4.50 -0.87h0"/></g><g class="c4"><title>Visalli: 34.7M</title><path d="M5.50 -0.87h0M4.00 0.00h0M5.00 0.00h0M4.50 0.87h0M3.50 0.87h0M5.00 1.73h0M4.00 1.73h0M4.50 2.60h0M3.50 2.60h0M4.00 3.46h0M2.50 2.60h0M3.00 3.46h0M3.50 4.33h0M2.00 3.46h0M2.50 4.33h0M2.00 5.20h0M1.50 4.33h0M1.00 3.46h0M1.00 5.20h0M0.50 4.33h0M0.00 5.20h0M-0.50 4.33h0M-1.00 5.20h0M-1.00 3.46h0M-1.50 4.33h0M-2.00 5.20h0M-2.00 3.46h0M-2.50 4.33h0M-3.50 4.33h0M-3.00 3.46h0M-2.50 2.60h0M-4.00 3.46h0M-3.50 2.60h0M-4.50 2.60h0M-4.00 1.73h0"/></g><g class="c5"><title>Jennifer: 20.2M</title><path d="M-5.00 1.73h0M-3.50 0.87h0M-4.50 0.87h0M-4.00 0.00h0M-5.00 0.00h0M-5.50 -0.87h0M-4.50 -0.87h0M-3.50 -0.87h0M-5.00 -1.73h0M-4.00 -1.73h0M-4.50 -2.60h0M-3.50 -2.60h0M-4.00 -3.46h0M-2.50 -2.60h0M-3.00 -3.46h0M-3.50 -4.33h0M-2.00 -3.46h0M-2.50 -4.33h0M-2.00 -5.20h0M-1.50 -4.33h0"/></g><g class="c6"><title>Stakeholder: 0.6M</title><path d="M-1.00 -5.20h0"/></g><g class="c7"><title>Other: 1.0M</title><path d="M-0.50 -4.33h0"/></g><rect x="-4.48" y="-1.58" width="8.96" height="3.15" rx="1.58"/><text x="0" y="0.76" text-anchor="middle">118.6M</text></svg>
+          <figcaption>Lumenwire Audio</figcaption>
+          <ul><li><i class="r0"></i>Ovy<b>44.5</b></li><li><i class="r1"></i>Gary<b>5.5</b></li><li><i class="r2"></i>Kewpie<b>12.2</b></li><li><i class="r3"></i>Visalli<b>34.7</b></li><li><i class="r4"></i>Jennifer<b>20.2</b></li><li><i class="r5"></i>Stakeholder<b>0.6</b></li><li><i class="r6"></i>Other<b>1.0</b></li></ul>
         </figure>
       </div>
       <p class="tok-note">One dot is 1M tokens. Dots are the same size in every run, so a bigger circle means a bigger run.</p>
@@ -1685,7 +1691,8 @@
   var frame = document.getElementById('kpi-thumb-frame'), play = document.getElementById('kpi-play'), note = document.getElementById('kpi-play-note');
   var projects = {
     'clearcompare': { name: 'ClearCompare', url: 'simulations/clearcompare.html' },
-    'kestrel-medical': { name: 'Kestrel Medical', url: 'simulations/kestrel-medical.html' }
+    'kestrel-medical': { name: 'Kestrel Medical', url: 'simulations/kestrel-medical.html' },
+    'lumenwire-audio': { name: 'Lumenwire Audio', url: 'simulations/lumenwire-audio.html' }
   };
   function fit() { frame.style.transform = 'scale(' + (thumb.clientWidth / 1440) + ')'; }
   function choose(key) {
