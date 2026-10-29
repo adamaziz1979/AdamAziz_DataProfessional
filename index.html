@@ -1208,12 +1208,13 @@
 
     <div class="kpi-sim">
       <h3 class="kpi-sim-title">Agent Simulation</h3>
-      <p class="kpi-sim-lead">A replay of each test run, timed from the recorded save and commit times. Pick a project, then watch each agent work, hand over and pass its gate.</p>
+      <p class="kpi-sim-lead">A replay of each run, timed from the recorded save and commit times. Pick a project, then watch each agent work, hand over and pass its gate.</p>
       <fieldset class="kpi-projects">
         <legend>Project</legend>
         <label class="kpi-project"><input type="radio" name="kpi-project" value="clearcompare" checked><span>ClearCompare</span></label>
         <label class="kpi-project"><input type="radio" name="kpi-project" value="kestrel-medical"><span>Kestrel Medical</span></label>
         <label class="kpi-project"><input type="radio" name="kpi-project" value="lumenwire-audio"><span>Lumenwire Audio</span></label>
+        <label class="kpi-project"><input type="radio" name="kpi-project" value="base-to-build"><span>Base to Build (Live run)</span></label>
       </fieldset>
       <div class="kpi-thumb" id="kpi-thumb">
         <iframe id="kpi-thumb-frame" src="simulations/clearcompare.html" title="Preview of the ClearCompare Agent Simulation" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
@@ -1236,7 +1237,7 @@
     <div class="section-head builds-head">
       <div class="section-tag">Token Optimisation · KPI Creator runs</div>
       <h2>Token Reduction Journey</h2>
-      <p>Reducing token usage while meeting business objectives and output for each test case the KPI Creator is run on.</p>
+      <p>Reducing token usage while meeting business objectives and output for each run of the KPI Creator.</p>
     </div>
 
     <div class="tok-thumb">
@@ -1256,6 +1257,11 @@
           <svg viewBox="-12.13 -12.13 24.26 24.26" role="img" aria-label="Lumenwire Audio: 119 dots, 118.6M tokens"><g class="c1"><title>Ovy: 44.5M</title><path d="M0.00 0.00h0M-0.50 -0.87h0M0.50 -0.87h0M0.50 0.87h0M-0.50 0.87h0M1.00 0.00h0M-1.00 0.00h0M0.00 -1.73h0M0.00 1.73h0M-1.50 -0.87h0M1.50 -0.87h0M1.50 0.87h0M-1.50 0.87h0M-1.00 -1.73h0M1.00 -1.73h0M1.00 1.73h0M-1.00 1.73h0M2.00 0.00h0M-2.00 0.00h0M-0.50 -2.60h0M0.50 -2.60h0M0.50 2.60h0M-0.50 2.60h0M-2.00 -1.73h0M2.00 -1.73h0M2.00 1.73h0M-2.00 1.73h0M-2.50 -0.87h0M2.50 -0.87h0M2.50 0.87h0M-2.50 0.87h0M-1.50 -2.60h0M1.50 -2.60h0M1.50 2.60h0M-1.50 2.60h0M3.00 0.00h0M-3.00 0.00h0M0.00 -3.46h0M0.00 3.46h0M-3.00 -1.73h0M3.00 -1.73h0M3.00 1.73h0M-3.00 1.73h0M-1.00 -3.46h0"/></g><g class="c2"><title>Gary: 5.5M</title><path d="M0.00 -5.20h0M0.50 -4.33h0M1.00 -5.20h0M1.00 -3.46h0M1.50 -4.33h0M2.00 -5.20h0"/></g><g class="c3"><title>Kewpie: 12.2M</title><path d="M2.00 -3.46h0M2.50 -4.33h0M3.50 -4.33h0M3.00 -3.46h0M2.50 -2.60h0M4.00 -3.46h0M3.50 -2.60h0M4.50 -2.60h0M4.00 -1.73h0M5.00 -1.73h0M3.50 -0.87h0M4.50 -0.87h0"/></g><g class="c4"><title>Viktor: 34.7M</title><path d="M5.50 -0.87h0M4.00 0.00h0M5.00 0.00h0M4.50 0.87h0M3.50 0.87h0M5.00 1.73h0M4.00 1.73h0M4.50 2.60h0M3.50 2.60h0M4.00 3.46h0M2.50 2.60h0M3.00 3.46h0M3.50 4.33h0M2.00 3.46h0M2.50 4.33h0M2.00 5.20h0M1.50 4.33h0M1.00 3.46h0M1.00 5.20h0M0.50 4.33h0M0.00 5.20h0M-0.50 4.33h0M-1.00 5.20h0M-1.00 3.46h0M-1.50 4.33h0M-2.00 5.20h0M-2.00 3.46h0M-2.50 4.33h0M-3.50 4.33h0M-3.00 3.46h0M-2.50 2.60h0M-4.00 3.46h0M-3.50 2.60h0M-4.50 2.60h0M-4.00 1.73h0"/></g><g class="c5"><title>Jennifer: 20.2M</title><path d="M-5.00 1.73h0M-3.50 0.87h0M-4.50 0.87h0M-4.00 0.00h0M-5.00 0.00h0M-5.50 -0.87h0M-4.50 -0.87h0M-3.50 -0.87h0M-5.00 -1.73h0M-4.00 -1.73h0M-4.50 -2.60h0M-3.50 -2.60h0M-4.00 -3.46h0M-2.50 -2.60h0M-3.00 -3.46h0M-3.50 -4.33h0M-2.00 -3.46h0M-2.50 -4.33h0M-2.00 -5.20h0M-1.50 -4.33h0"/></g><g class="c6"><title>Stakeholder: 0.6M</title><path d="M-1.00 -5.20h0"/></g><g class="c7"><title>Other: 1.0M</title><path d="M-0.50 -4.33h0"/></g><rect x="-4.48" y="-1.58" width="8.96" height="3.15" rx="1.58"/><text x="0" y="0.76" text-anchor="middle">118.6M</text></svg>
           <figcaption>Lumenwire Audio</figcaption>
           <ul><li><i class="r0"></i>Ovy<b>44.5</b></li><li><i class="r1"></i>Gary<b>5.5</b></li><li><i class="r2"></i>Kewpie<b>12.2</b></li><li><i class="r3"></i>Viktor<b>34.7</b></li><li><i class="r4"></i>Jennifer<b>20.2</b></li><li><i class="r5"></i>Stakeholder<b>0.6</b></li><li><i class="r6"></i>Other<b>1.0</b></li></ul>
+        </figure>
+        <figure class="tok-sw">
+          <svg viewBox="-12.13 -12.13 24.26 24.26" role="img" aria-label="Base to Build (Live run): 56 dots, 55.7M tokens"><g class="c1"><title>Ovy: 20.5M</title><path d="M0.00 0.00h0M-0.50 -0.87h0M0.50 -0.87h0M0.50 0.87h0M-0.50 0.87h0M1.00 0.00h0M-1.00 0.00h0M0.00 -1.73h0M0.00 1.73h0M-1.50 -0.87h0M1.50 -0.87h0M1.50 0.87h0M-1.50 0.87h0M-1.00 -1.73h0M1.00 -1.73h0M1.00 1.73h0M-1.00 1.73h0M2.00 0.00h0M-2.00 0.00h0M-0.50 -2.60h0"/></g><g class="c2"><title>Gary: 2.8M</title><path d="M0.00 -3.46h0M0.50 -2.60h0M1.00 -3.46h0"/></g><g class="c3"><title>Kewpie: 8.6M</title><path d="M1.50 -2.60h0M2.50 -2.60h0M2.00 -1.73h0M3.00 -1.73h0M2.50 -0.87h0M3.50 -0.87h0M3.00 0.00h0M3.50 0.87h0M2.50 0.87h0"/></g><g class="c4"><title>Viktor: 14.8M</title><path d="M3.00 1.73h0M2.00 1.73h0M2.50 2.60h0M1.50 2.60h0M1.00 3.46h0M0.50 2.60h0M0.00 3.46h0M-0.50 2.60h0M-1.00 3.46h0M-1.50 2.60h0M-2.50 2.60h0M-2.00 1.73h0M-3.00 1.73h0M-2.50 0.87h0M-3.50 0.87h0"/></g><g class="c5"><title>Jennifer: 8.2M</title><path d="M-3.00 0.00h0M-3.50 -0.87h0M-2.50 -0.87h0M-3.00 -1.73h0M-2.00 -1.73h0M-2.50 -2.60h0M-1.50 -2.60h0M-2.00 -3.46h0"/></g><g class="c7"><title>Other: 0.8M</title><path d="M-1.00 -3.46h0"/></g><rect x="-3.85" y="-1.58" width="7.70" height="3.15" rx="1.58"/><text x="0" y="0.76" text-anchor="middle">55.7M</text></svg>
+          <figcaption>Base to Build (Live run)</figcaption>
+          <ul><li><i class="r0"></i>Ovy<b>20.5</b></li><li><i class="r1"></i>Gary<b>2.8</b></li><li><i class="r2"></i>Kewpie<b>8.6</b></li><li><i class="r3"></i>Viktor<b>14.8</b></li><li><i class="r4"></i>Jennifer<b>8.2</b></li><li><i class="r6"></i>Other<b>0.8</b></li></ul>
         </figure>
       </div>
       <p class="tok-note">One dot is 1M tokens. Dots are the same size in every run, so a bigger circle means a bigger run.</p>
@@ -1692,7 +1698,8 @@
   var projects = {
     'clearcompare': { name: 'ClearCompare', url: 'simulations/clearcompare.html' },
     'kestrel-medical': { name: 'Kestrel Medical', url: 'simulations/kestrel-medical.html' },
-    'lumenwire-audio': { name: 'Lumenwire Audio', url: 'simulations/lumenwire-audio.html' }
+    'lumenwire-audio': { name: 'Lumenwire Audio', url: 'simulations/lumenwire-audio.html' },
+    'base-to-build': { name: 'Base to Build (Live run)', url: 'simulations/base-to-build.html' }
   };
   function fit() { frame.style.transform = 'scale(' + (thumb.clientWidth / 1440) + ')'; }
   function choose(key) {
