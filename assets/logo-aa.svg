@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs><linearGradient id="bga" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0c1235"/><stop offset="1" stop-color="#141e5c"/></linearGradient></defs>
+<rect width="1024" height="1024" rx="225" fill="url(#bga)"/>
+<defs><linearGradient id="ta" gradientUnits="userSpaceOnUse" x1="255" y1="0" x2="772" y2="0">
+<stop offset="0" stop-color="#8b5cf6"/><stop offset=".55" stop-color="#4f8dff"/><stop offset="1" stop-color="#22b4ff"/></linearGradient></defs>
+<path d="M183 677.0 L392 367.0 L602 677.0 M423 677.0 L632 367.0 L842 677.0" fill="none" stroke="#fff" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M255 637 L410 617 L512 527 L632 574 L772 447" fill="none" stroke="url(#ta)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="772" cy="447" r="40" fill="#ffa62b"/>
+</svg>
