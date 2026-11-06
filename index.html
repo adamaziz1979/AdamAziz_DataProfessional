@@ -141,6 +141,14 @@
     letter-spacing: -0.01em;
   }
 
+  .hero-head { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+  .hero-logo { flex-shrink: 0; width: 200px; height: 200px; border-radius: 45px; opacity: 0.7; }
+  @media (max-width: 860px) { .hero-logo { width: 136px; height: 136px; border-radius: 31px; } }
+  @media (max-width: 600px) {
+    .hero-head { align-items: flex-start; gap: 16px; }
+    .hero-logo { width: 64px; height: 64px; border-radius: 15px; margin-top: 6px; }
+  }
+
   .hero p.lede {
     margin-top: 22px;
     max-width: 640px;
@@ -840,7 +848,10 @@
   <canvas class="anim-bg" aria-hidden="true" data-strength="strong" data-accent="110,168,255"></canvas>
   <div class="wrap">
     <div class="eyebrow">Sydney, NSW — Open to enterprise data &amp; AI leadership roles</div>
-    <h1>Turning fragmented data into trusted, AI-enabled decisions — at enterprise scale.</h1>
+    <div class="hero-head">
+      <h1>Turning fragmented data into trusted, AI-enabled decisions — at enterprise scale.</h1>
+      <img class="hero-logo" src="assets/logo-aa-400.png" alt="Adam Aziz logo" width="200" height="200">
+    </div>
     <p class="lede">12+ years building and leading data and analytics capability at Cisco. Evidence-led, not adjective-led: every claim below is backed by a number, a delivered outcome, or both.</p>
     <div class="hero-ctas">
       <a class="btn btn-primary" href="AdamAzizMasterResume.pdf" target="_blank" rel="noopener">Download résumé</a>
