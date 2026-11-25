@@ -1759,9 +1759,9 @@
    Pauses off screen and in hidden tabs; one still frame when reduced motion is on. */
 (function () {
   var PRESETS = {
-    subtle: { area: 26000, min: 14, max: 40, a: 0.022, embers: 6 },
-    medium: { area: 19000, min: 18, max: 54, a: 0.030, embers: 9 },
-    strong: { area: 14000, min: 22, max: 70, a: 0.040, embers: 12 }
+    subtle: { area: 20000, min: 16, max: 50, a: 0.034, embers: 4 },
+    medium: { area: 14000, min: 22, max: 70, a: 0.048, embers: 6 },
+    strong: { area: 10000, min: 30, max: 96, a: 0.062, embers: 7 }
   };
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1774,7 +1774,7 @@
   function sprite(rgb) { /* one soft puff, drawn once and stamped many times */
     var c = document.createElement('canvas'), g, x; c.width = c.height = 128; x = c.getContext('2d');
     g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
-    g.addColorStop(0, 'rgba(' + rgb + ',1)'); g.addColorStop(0.35, 'rgba(' + rgb + ',0.55)'); g.addColorStop(0.7, 'rgba(' + rgb + ',0.14)'); g.addColorStop(1, 'rgba(' + rgb + ',0)');
+    g.addColorStop(0, 'rgba(' + rgb + ',1)'); g.addColorStop(0.4, 'rgba(' + rgb + ',0.72)'); g.addColorStop(0.75, 'rgba(' + rgb + ',0.22)'); g.addColorStop(1, 'rgba(' + rgb + ',0)');
     x.fillStyle = g; x.fillRect(0, 0, 128, 128); return c;
   }
 
@@ -1785,11 +1785,12 @@
     var W = 0, H = 0, P = [], E = [], col = readAccent(), spr = sprite(col), G = null, running = false, last = 0, seen = true, T = 0;
 
     function puff(p, anywhere) {
-      p.life = 14 + Math.random() * 16;                     /* seconds */
+      p.life = 18 + Math.random() * 20;                     /* seconds */
       p.age = anywhere ? Math.random() * p.life : 0;
       p.x = Math.random() * W; p.y = H * (0.55 + Math.random() * 0.55);
-      p.vy = -(5 + Math.random() * 7);                       /* px per second, upward */
-      p.r0 = 26 + Math.random() * 30; p.r1 = p.r0 * (2.4 + Math.random() * 1.6);
+      p.vy = -(3 + Math.random() * 5);                       /* px per second, upward: heavy smoke climbs slowly */
+      p.r0 = 34 + Math.random() * 36; p.r1 = p.r0 * (2.6 + Math.random() * 1.8);
+      p.bf = 0.15 + Math.random() * 0.25; p.rs = (Math.random() < 0.5 ? -1 : 1) * (0.04 + Math.random() * 0.08); /* billow rate, spin */
       p.sx = 1.3 + Math.random() * 0.9;                       /* wisps stretch sideways */
       p.ph = Math.random() * 6.28; p.k = 0.6 + Math.random() * 0.8;
       if (anywhere) { p.y += p.vy * p.age; if (p.y < -p.r1) p.y = H * Math.random(); }
@@ -1805,11 +1806,12 @@
       while (E.length < cfg.embers) E.push(ember({}));
     }
     function grain(g, anywhere) { g.x = Math.random() * W; g.y = anywhere ? Math.random() * H : H + 10; g.vy = -6; g.sw = 6 + Math.random() * 16; g.sf = 0.05 + Math.random() * 0.12; g.ph = Math.random() * 6.28; g.tw = 0.3 + Math.random() * 0.9; return g; }
-    function flowX(y, t, ph) { return Math.sin(y * 0.006 + t * 0.12 + ph) * 9 + Math.sin(y * 0.017 - t * 0.07 + ph * 2) * 4; }
+    function flowX(y, t, ph) { return Math.sin(y * 0.006 + t * 0.12 + ph) * 20 + Math.sin(y * 0.017 - t * 0.07 + ph * 2) * 9 + Math.sin(t * 0.045) * 10; }
+    function lift(x, t, ph) { return 1 + 0.45 * Math.sin(x * 0.005 + t * 0.2 + ph); } /* rises in surges, not at a steady crawl */
     function step(dt) {
       T += dt;
       for (var i = 0; i < P.length; i++) {
-        var p = P[i]; p.age += dt; p.y += p.vy * dt; p.x += flowX(p.y, T, p.ph) * p.k * dt;
+        var p = P[i]; p.age += dt; p.y += p.vy * lift(p.x, T, p.ph) * dt; p.x += flowX(p.y, T, p.ph) * p.k * dt;
         if (p.age > p.life || p.y < -p.r1) puff(p, false);
       }
       if (G) { G.y += G.vy * dt; if (G.y < -12) grain(G, false); }
@@ -1819,10 +1821,10 @@
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
       for (var i = 0; i < P.length; i++) {
-        var p = P[i], u = p.age / p.life, fade = Math.sin(Math.PI * u), r = p.r0 + (p.r1 - p.r0) * u,
-            a = cfg.a * fade * fade, rot = Math.sin(T * 0.05 + p.ph) * 0.5;
+        var p = P[i], u = p.age / p.life, fade = Math.sin(Math.PI * u), r = (p.r0 + (p.r1 - p.r0) * u) * (1 + 0.12 * Math.sin(T * p.bf + p.ph)),
+            a = cfg.a * fade * fade, rot = p.ph + T * p.rs;
         if (a < 0.002) continue;
-        ctx.save(); ctx.globalAlpha = a; ctx.translate(p.x, p.y); ctx.rotate(rot); ctx.scale(p.sx, 1);
+        ctx.save(); ctx.globalAlpha = a; ctx.translate(p.x, p.y); ctx.rotate(rot); ctx.scale(p.sx * (1 + 0.15 * Math.sin(T * p.bf * 1.3 + p.ph)), 1);
         ctx.drawImage(spr, -r, -r, r * 2, r * 2); ctx.restore();
       }
       for (var j = 0; j < E.length; j++) {
