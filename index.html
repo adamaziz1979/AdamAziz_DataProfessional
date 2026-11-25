@@ -490,6 +490,29 @@
   .story li strong { color: var(--text); font-weight: 600; }
 
   .story-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  /* ThoughtSpot proof: nested before and after rings, full width under the two stories */
+  .story-pair > .story:has(.tsr) { height: 100%; }
+  .tsr { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 9px; }
+  .tsr-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; }
+  .tsr-d { margin: 0; display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 12px; align-items: center; text-align: left; }
+  .tsr-d svg { display: block; width: 62px; height: 62px; }
+  .tsr-d circle { fill: none; stroke-width: 11; }
+  .tsr-d .t { stroke: var(--border); }
+  .tsr-d .b { stroke: var(--border-strong); }
+  .tsr-d .a { stroke: var(--accent); }
+  .tsr-d figcaption { font-size: 0.75rem; line-height: 1.4; color: var(--text-dim); }
+  .tsr-d figcaption b { display: block; font-size: 1.3rem; line-height: 1.1; font-weight: 600; color: var(--accent); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+  .tsr-leg { margin: 0; font-size: 0.8125rem; line-height: 1.3; color: var(--text-dim); }
+  .tsr-leg strong { color: var(--text); font-weight: 600; }
+  .tsr-leg i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin: 0 6px -1px 0; }
+  .tsr-leg i.a { margin-left: 12px; background: var(--accent); }
+  .tsr-leg i.b { background: var(--border-strong); }
+  @keyframes tsr-draw { from { stroke-dasharray: 0 100; } }
+  .pillar.open .tsr-d .b, .pillar.open .tsr-d .a { animation: tsr-draw 1.1s ease-out both; }
+  .pillar.open .tsr-d .a { animation-delay: .3s; }
+  @media (prefers-reduced-motion: reduce) { .pillar.open .tsr-d .b, .pillar.open .tsr-d .a { animation: none; } }
+  @media (max-width: 720px) { .story-pair > .story:has(.tsr) { height: auto; } .tsr { margin-top: 8px; } .tsr-row { gap: 16px 14px; } }
+
   .story-tag {
     font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--accent-dim); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
@@ -1105,6 +1128,11 @@
                 <p>A third of all data requests were simple enough that no one should have needed an analyst, yet they cost 512 hours of stakeholder wait time and <strong>$58K in lost productivity</strong> a year, pulling analysts away from the work that actually needed them.</p>
                 <p>I introduced <strong><a href="https://www.thoughtspot.com/" target="_blank" rel="noopener">ThoughtSpot</a></strong> as a self-service layer instead, built entirely on the same verified, governed datasets used for executive KPI dashboards, so speed never came at the cost of trust, then added <strong><a href="https://www.thoughtspot.com/product/agents" target="_blank" rel="noopener">Spotter</a></strong> as a natural-language GPT layer on top for forecasting and correlation analysis, with new users automatically enrolled in onboarding material from day one.</p>
                 <p>Adoption grew from <strong>46 to 196 users</strong> (+326%), monthly queries from 8.1K to 19.2K (+137%), while the data team's own request workload fell 33%, freeing an estimated 738 hours and $68.9K a year for higher-value work.</p>
+                                <div class="tsr">
+                  <div class="story-tag">ThoughtSpot proof at Cisco</div>
+                  <div class="tsr-row"><figure class="tsr-d"><svg viewBox="0 0 100 100" role="img" aria-label="Weekly users: 46 before, 196 after, out of 300"><circle class="t" cx="50" cy="50" r="40"/><circle class="b" cx="50" cy="50" r="40" pathLength="100" stroke-dasharray="15.3 100" style="--len:15.3" transform="rotate(-90 50 50)"/><circle class="t" cx="50" cy="50" r="28"/><circle class="a" cx="50" cy="50" r="28" pathLength="100" stroke-dasharray="65.3 100" style="--len:65.3" transform="rotate(-90 50 50)"/></svg><figcaption><b>196</b>weekly users, from 46 (+326%)</figcaption></figure><figure class="tsr-d"><svg viewBox="0 0 100 100" role="img" aria-label="Monthly queries: 8.1K before, 19.2K after, out of 30K"><circle class="t" cx="50" cy="50" r="40"/><circle class="b" cx="50" cy="50" r="40" pathLength="100" stroke-dasharray="27.0 100" style="--len:27.0" transform="rotate(-90 50 50)"/><circle class="t" cx="50" cy="50" r="28"/><circle class="a" cx="50" cy="50" r="28" pathLength="100" stroke-dasharray="64.0 100" style="--len:64.0" transform="rotate(-90 50 50)"/></svg><figcaption><b>19.2K</b>monthly queries, from 8.1K (+137%)</figcaption></figure><figure class="tsr-d"><svg viewBox="0 0 100 100" role="img" aria-label="Data request workload down 33%"><circle class="t" cx="50" cy="50" r="40"/><circle class="b" cx="50" cy="50" r="40" pathLength="100" stroke-dasharray="100.0 100" style="--len:100.0" transform="rotate(-90 50 50)"/><circle class="t" cx="50" cy="50" r="28"/><circle class="a" cx="50" cy="50" r="28" pathLength="100" stroke-dasharray="67.0 100" style="--len:67.0" transform="rotate(-90 50 50)"/></svg><figcaption><b>-33%</b>data request workload, about 738 hours a year</figcaption></figure><figure class="tsr-d"><svg viewBox="0 0 100 100" role="img" aria-label="Short-term dashboard projects down 67%"><circle class="t" cx="50" cy="50" r="40"/><circle class="b" cx="50" cy="50" r="40" pathLength="100" stroke-dasharray="100.0 100" style="--len:100.0" transform="rotate(-90 50 50)"/><circle class="t" cx="50" cy="50" r="28"/><circle class="a" cx="50" cy="50" r="28" pathLength="100" stroke-dasharray="33.0 100" style="--len:33.0" transform="rotate(-90 50 50)"/></svg><figcaption><b>-67%</b>short-term dashboard projects avoided</figcaption></figure></div>
+                  <p class="tsr-leg"><i class="b"></i>Outer ring: before <i class="a"></i>Inner ring: after. Saved about <strong>$68.9K</strong> a year.</p>
+                </div>
               </div>
               <div class="story">
                 <div class="story-tag">Direct Vendor Partnership</div>
