@@ -713,6 +713,45 @@
   .cap-transcript p { margin-top: 8px; font-size: 0.8125rem; color: var(--text-dim); max-width: 560px; }
   .cap-video video:focus-visible, .cap-transcript summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .pillar.open .pillar-body { max-height: 3400px; }
+  /* ===== Capability 04 visuals: sit at the foot of each story, like the 07 ThoughtSpot proof ===== */
+  .c4-bars { display: flex; flex-direction: column; gap: 7px; }
+  .c4-bars-head { margin: 0 0 2px; font-size: 0.75rem; color: var(--text-dim); }
+  .c4-bar { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: 10px; font-size: 0.75rem; color: var(--text-dim); }
+  .c4-bar i { display: block; height: 14px; width: var(--w); background: var(--border-strong); border-radius: 2px; }
+  .c4-bar.hot span { color: var(--text); font-weight: 600; }
+  .c4-bar.hot i { background: var(--accent); }
+  .c4-bars-note { margin: 4px 0 0 66px; font-size: 0.75rem; color: var(--text-dim); }
+  .c4-bars-note b { color: var(--accent); font-weight: 600; }
+  @keyframes c4-grow { from { width: 0; } }
+  .pillar.open .c4-bar i { animation: c4-grow .9s ease-out both; }
+  .pillar.open .c4-bar:nth-child(3) i { animation-delay: .12s; }
+  .pillar.open .c4-bar.hot i { animation-delay: .24s; }
+  .c4-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .c4-stats p, .c4-ring-fig figcaption { margin: 0; font-size: 0.75rem; line-height: 1.4; color: var(--text-dim); }
+  .c4-stats b { display: block; font-size: 1.3rem; line-height: 1.15; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; margin-bottom: 2px; }
+  .c4-ring-fig { margin: 0; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 8px; align-items: start; }
+  .c4-ring { width: 40px; height: 40px; }
+  .c4-ring circle { fill: none; stroke-width: 12; }
+  .c4-ring .t { stroke: var(--border); }
+  .c4-ring .a { stroke: var(--accent); }
+  .pillar.open .c4-ring .a { animation: tsr-draw 1.1s ease-out both; }
+  .story .c4-steps { list-style: none; display: flex; flex-direction: column; gap: 0; margin: 0; }
+  .story .c4-steps li { position: relative; padding: 0 0 14px 28px; font-size: 0.8125rem; line-height: 1.45; color: var(--text-dim); }
+  .story .c4-steps li:last-child { padding-bottom: 0; }
+  .story .c4-steps li b { display: block; color: var(--text); font-weight: 600; }
+  .story .c4-steps li::before { content: ""; position: absolute; left: 3px; top: 5px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border-strong); }
+  .story .c4-steps li::after { content: ""; position: absolute; left: 8px; top: 18px; bottom: 2px; width: 1px; background: var(--border); }
+  .story .c4-steps li:last-child::after { display: none; }
+  .story .c4-steps li.end::before { background: var(--accent); border-color: var(--accent); }
+  .story .c4-steps li.end b { color: var(--accent); }
+  @keyframes c4-in { from { opacity: 0; transform: translateX(-6px); } }
+  .pillar.open .c4-steps li { animation: c4-in .5s ease-out both; }
+  .pillar.open .c4-steps li:nth-child(2) { animation-delay: .12s; }
+  .pillar.open .c4-steps li:nth-child(3) { animation-delay: .24s; }
+  .pillar.open .c4-steps li:nth-child(4) { animation-delay: .36s; }
+  .pillar.open .c4-steps li:nth-child(5) { animation-delay: .48s; }
+  @media (prefers-reduced-motion: reduce) { .pillar.open .c4-bar i, .pillar.open .c4-ring .a, .pillar.open .c4-steps li { animation: none; } }
+  @media (max-width: 420px) { .c4-stats { gap: 10px; } .c4-stats b { font-size: 1.1rem; } .c4-ring-fig { grid-template-columns: 1fr; } }
   /* ===== Capability 02 story icons ===== */
   .story-tag.has-ico { display: flex; align-items: center; gap: 12px; }
   .cap-ico { flex: none; width: 34px; height: 34px; padding: 6px; border: 1px solid var(--accent-dim); border-radius: var(--radius); background: rgba(212, 162, 78, 0.10); fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -1087,12 +1126,37 @@
                   <li>Comfortably meeting the needs of over 87% of Mac users globally</li>
                 </ul>
                 <p>Enough to make the Air Cisco's new standard on the spot.</p>
+                <div class="tsr">
+                  <div class="story-tag">The evidence for the Air</div>
+                  <div class="c4-bars" role="img" aria-label="Relative performance: the M5 MacBook Air is double the M3 and 1.5 times the M4.">
+                    <p class="c4-bars-head">Relative performance</p>
+                    <div class="c4-bar"><span>M3</span><i style="--w:50%"></i></div>
+                    <div class="c4-bar"><span>M4</span><i style="--w:66.7%"></i></div>
+                    <div class="c4-bar hot"><span>M5 Air</span><i style="--w:100%"></i></div>
+                    <p class="c4-bars-note"><b>2x</b> the M3, <b>1.5x</b> the M4</p>
+                  </div>
+                  <div class="c4-stats">
+                    <figure class="c4-ring-fig"><svg class="c4-ring" viewBox="0 0 100 100" aria-hidden="true"><circle class="t" cx="50" cy="50" r="38"/><circle class="a" cx="50" cy="50" r="38" pathLength="100" stroke-dasharray="87 100" transform="rotate(-90 50 50)"/></svg><figcaption><b>87%+</b>of Mac users globally have their needs met</figcaption></figure>
+                    <p><b>&minus;23%</b>cost vs the M5 MacBook Pro 14 inch</p>
+                    <p><b>&lt;&frac12;</b>the cost of the 16 inch</p>
+                  </div>
+                </div>
               </div>
               <div class="story">
                 <div class="story-tag">Finance Budget Proposal</div>
                 <p>As AI tools became part of daily work, the same signal kept showing up in laptop performance and app-usage data: a growing group of engineers and AI developers whose <strong>devices simply couldn't keep pace with what their jobs now demanded</strong>.</p>
                 <p>I used Python to analyse historical device performance, isolated the users with anomalous CPU and RAM growth, and cross-checked those spikes against the applications actually driving them, developer tools and IDEs with AI add-ons among them, before <strong>building the case for Finance with Power BI visualisations</strong>.</p>
                 <p>I didn't expect it to be approved on the spot, and it wasn't; the goal was to put verified evidence on Finance's radar early and <strong>keep advocating with that same evidence into the next financial year</strong>, rather than wait for the problem to force a rushed decision.</p>
+                <div class="tsr">
+                  <div class="story-tag">How the case was built</div>
+                  <ol class="c4-steps">
+                    <li><b>Device history</b>Python analysis of historical laptop performance</li>
+                    <li><b>Anomalies isolated</b>users with unusual CPU and RAM growth</li>
+                    <li><b>Cause confirmed</b>spikes matched to developer tools, including IDEs with AI add-ons</li>
+                    <li><b>Case for Finance</b>built with Power BI visualisations</li>
+                    <li class="end"><b>Keep advocating</b>the same evidence, into the next financial year</li>
+                  </ol>
+                </div>
               </div>
             </div>
           </div>
